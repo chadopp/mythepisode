@@ -1,0 +1,7 @@
+#summary Updates for specific releases
+
+= Details =
+
+18 Aug 2010
+  * change the way previous recordings are viewed
+  * Update to grabshowsall.pl to allow multiple aoi's
