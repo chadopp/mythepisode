@@ -7,6 +7,9 @@ Thanks to the those who have helped out.
 
 = Details =
 
-Chris Kapp:
+Chris K.:
   * DB query update
   * Update to grabshowsall.pl for multiple aoi's
+
+Marc T.:
+  * php fix for previous recordings
