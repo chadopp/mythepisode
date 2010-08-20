@@ -2,6 +2,9 @@
 
 = Details =
 
+19 Aug 2010
+  * fix a few issues with previous recordings
+
 18 Aug 2010
   * change the way previous recordings are viewed
   * Update to grabshowsall.pl to allow multiple aoi's
