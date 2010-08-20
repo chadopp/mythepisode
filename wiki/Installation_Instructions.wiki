@@ -1,5 +1,5 @@
 #summary How to install mythepisode
-#labels Featured
+#labels Featured,Phase-Deploy
 
 = Details =
 
