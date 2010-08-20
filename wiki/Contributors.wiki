@@ -1,11 +1,10 @@
 #summary Code contributors
 
-= Introduction =
+Thanks to the those who have helped out by contributing code fixes or
+suggestions.
 
-Thanks to the those who have helped out.
 
-
-= Details =
+= Contributors =
 
 Chris K.:
   * DB query update
