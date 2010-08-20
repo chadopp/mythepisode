@@ -1,5 +1,4 @@
 #summary Overview of mythepisode
-#labels Featured
 
 = Introduction =
 
