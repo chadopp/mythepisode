@@ -3,23 +3,23 @@
 = Details =
 
 As installed on my system
-
+{{{
 1.
- * cd /usr/share/mythtv/mythweb/modules
- * gunzip //tmp/episode.tar.gz
- * tar xvf /tmp/episode.tar
+cd /usr/share/mythtv/mythweb/modules
+gunzip //tmp/episode.tar.gz
+tar xvf /tmp/episode.tar
 
 2. 
 cd /usr/share/mythtv/mythweb/modules/_shared/tmpl/default
 Add a line like the following to header.php
 
-{{{
-`EXISTING LINE: <a href="tv/recorded"><?php echo t('Recorded Programs') ?></a>`
-`EXISTING LINE: &nbsp; | &nbsp;`
-`NEW LINE: <a href="episode/show?state=current"><?php echo t('TV Episodes') ?></a>`
-`NEW LINE: &nbsp; | &nbsp;`
-`EXISTING LINE: <?php } ?>`
-}}}
+
+EXISTING LINE: <a href="tv/recorded"><?php echo t('Recorded Programs') ?></a>
+EXISTING LINE: &nbsp; | &nbsp;
+NEW LINE: <a href="episode/show?state=current"><?php echo t('TV Episodes') ?></a>
+NEW LINE: &nbsp; | &nbsp;
+EXISTING LINE: <?php } ?>
+
 
 3.
 mkdir /var/lib/mythtv/episode
@@ -42,3 +42,5 @@ cd /usr/share/mythtv/mythweb/modules/_shared/lang
 ./build_translation.pl
 
 Note:  If it takes a long time to load the main page try setting $getrecorded to 0 in handler.php.  If you do this I think the page will load faster but shows that you have recorded won't show up in green on the main page.
+
+}}}
