@@ -2,6 +2,12 @@
 
 = Details =
 
+21 Aug 2010
+  * Added Previous Recordings back in and don't default to All
+  * Fix for subtitles that are not exact matches
+  * Enhanced the previous recordings within the episode listing
+  * Fixed some php errors
+
 19 Aug 2010
   * fix a few issues with previous recordings
 
