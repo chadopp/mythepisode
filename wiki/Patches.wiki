@@ -1,4 +1,5 @@
 #summary Updates for specific releases
+#labels Featured
 
 = Details =
 
