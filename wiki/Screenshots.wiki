@@ -2,3 +2,9 @@
 #labels Featured
 
 <img width=1050 height=650 src="https://sites.google.com/site/mythepisode/home/images/mainpage.jpg"></img>
+
+<img width=1050 height=650 src="https://sites.google.com/site/mythepisode/home/images/whalewar1.jpg"></img>
+
+<img width=1050 height=650 src="https://sites.google.com/site/mythepisode/home/images/whalewar2.jpg"></img>
+
+<img width=1050 height=650 src="https://sites.google.com/site/mythepisode/home/images/whalewar3.jpg"></img>
