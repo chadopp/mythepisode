@@ -10,6 +10,9 @@ suggestions.
 Chris K.:
   * DB query update
   * Update to grabshowsall.pl for multiple aoi's
+  * Update to delete button for previous recordings
+  * Fixed sort problem on previous recordings
+  
 
 Marc T.:
   * php fix for previous recordings
