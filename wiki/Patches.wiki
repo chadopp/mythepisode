@@ -2,6 +2,10 @@
 #labels Featured
 
 = Details =
+Coming soon
+  * Update to look of episode listing page
+  * Update delete button look on previous recordings page
+  * Fix sort issue on previous recordings page
 
 21 Aug 2010
   * Added Previous Recordings to mainpage
