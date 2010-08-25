@@ -7,6 +7,8 @@ Coming soon
   * Update delete button look on previous recordings page
   * Fix sort issue on previous recordings page
   * Fix for grabid.pl and missing episodes
+  * Performance fix in handler.php
+  * Update to mainpage to only display recorded shows
 
 21 Aug 2010
   * Added Previous Recordings to mainpage
