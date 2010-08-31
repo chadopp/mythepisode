@@ -10,7 +10,7 @@ Coming soon
   * Performance fix in handler.php
   * Update to mainpage to only display recorded shows
   * Code cleanup - still needs some work
-  * Fix grab of summary with summary.pl
+  * Fix grab of summary information
 
 21 Aug 2010
   * Added Previous Recordings to mainpage
