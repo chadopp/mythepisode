@@ -2,7 +2,7 @@
 #labels Featured
 
 = Details =
-Coming soon
+31 Aug 2010
   * Update to look of show/episode listing page
   * Update delete button look on previous recordings page
   * Fix sort issue on previous recordings page
