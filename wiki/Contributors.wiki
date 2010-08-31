@@ -17,6 +17,7 @@ Chris K.:
 Doug H.:
   * Fix to handler.php to improve performance
   * Update to the mainpage to only display recorded shows
+  * Many code recommendations and improvements
 
 Marc T.:
   * php fix for previous recordings
