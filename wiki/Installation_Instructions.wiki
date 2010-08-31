@@ -13,11 +13,11 @@ tar xvf /tmp/episode.tar
 2. 
 cd /usr/share/mythtv/mythweb/modules/_shared/tmpl/default
 Add a line like the following to header.php
-
+NOTE: If you have installed mythepisode in the past you need to update the line below as it has changed.
 
 EXISTING LINE: <a href="tv/recorded"><?php echo t('Recorded Programs') ?></a>
 EXISTING LINE: &nbsp; | &nbsp;
-NEW LINE: <a href="episode/show?state=current"><?php echo t('TV Episodes') ?></a>
+NEW LINE: <a href="episode/show"><?php echo t('TV Episodes') ?></a>
 NEW LINE: &nbsp; | &nbsp;
 EXISTING LINE: <?php } ?>
 
