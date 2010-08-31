@@ -1,9 +1,8 @@
 #summary A few mythepisode screenshots
 #labels Featured
 
-<a href="https://sites.google.com/site/mythepisode/home/images/mainpage.jpg?attredirects=0" imageanchor="1"></a>
+<a href="https://sites.google.com/site/mythepisode/home/images/mainpage.PNG?attredirects=0" imageanchor="1"></a>
 
-<table border="1" bordercolor="#888888" cellspacing="0" style="border-collapse:collapse;border-color:rgb(136, 136, 136);border-width:1px">
 
 <tr>
 <td><b>Main Page</b><br/><br/>Provides a listing of the number of TV shows recorded in the US along with the number of currently running TV shows.  By selecting All TV Shows all 10,000 plus shows will be displayed in alphabetical order.  Selecting Current TV Shows only shows currently running shows.  Update Show Listing will go to tvrage.com and update the listing with current information.<br /><br/><br/><br/><div style="display:block;text-align:left"><a href="https://sites.google.com/site/mythepisode/home/images/mainpage.PNG?attredirects=0" imageanchor="1"><img border="0" height="231" src="https://sites.google.com/site/mythepisode/_/rsrc/1281242209243/home/images/mainpage.PNG?height=231&amp;width=400" width="400" /></a></div><br />
