@@ -3,12 +3,14 @@
 
 = Details =
 Coming soon
-  * Update to look of episode listing page
+  * Update to look of show/episode listing page
   * Update delete button look on previous recordings page
   * Fix sort issue on previous recordings page
   * Fix for grabid.pl and missing episodes
   * Performance fix in handler.php
   * Update to mainpage to only display recorded shows
+  * Code cleanup - still needs some work
+  * Fix grab of summary with summary.pl
 
 21 Aug 2010
   * Added Previous Recordings to mainpage
