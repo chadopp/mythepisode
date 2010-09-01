@@ -1,3 +1,3 @@
 #summary User feature request
-= Introduction =
+
 If you would like to see something added in future releases add it to the list or send me the code.
