@@ -4,8 +4,8 @@
  *
  * @date        $Date$
  * @version     $Revision$
- * @author      $Author: coppliger
- * @license     $GPL
+ * @author      Author: coppliger
+ * @license     GPL
  *
  /**/
 
