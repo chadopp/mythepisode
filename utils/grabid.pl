@@ -45,8 +45,12 @@ my @array    = ();
 my @sorted   = ();
 
 ## Get information from tvrage.com using their quickinfo script
+## The quickinfo script has some issues that I have reported, but
+## for now strip a few things.
 $show =~ s/\&//g; 
 $show =~ s/\#//g; 
+$show =~ s/ with//g; 
+$show =~ s/ With//g; 
 my $site = get "http://services.tvrage.com/tools/quickinfo.php?show=$show";
 
 foreach $line (split("\n",$site) ) {
