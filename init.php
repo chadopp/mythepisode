@@ -5,11 +5,11 @@
  * @date        $Date$
  * @version     $Revision$
  * @author      $Author: coppliger
- * @license     $GPL
+ * @license     GPL
  *
 /**/
 
-// If video is enabled, add it to the list.
+// If mythepisode is enabled, add it to the list.
     if (tmpl == 'default') {
         $Modules['episode']  = array('path'        => 'episode/show?state=recorded',
                                    'sort'        => 3,
