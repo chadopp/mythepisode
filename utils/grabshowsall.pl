@@ -3,7 +3,8 @@
 #
 # File     : grabshowsall.pl
 # Usage    : ./grabshowsall.pl > shows.txt
-# Revision : 1.0
+# Date     : $Date$
+# Revision : $Revision$
 # Author   : C. Oppliger
 # License  : GPL
 #
