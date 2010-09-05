@@ -5,7 +5,7 @@
 # Usage    : ./grabid.pl "show name" <path to showfile>
 # Date     : $Date$
 # Revision : $Revision$
-# Author   : C. Oppliger
+# Author   : $Author$
 # License  : GPL
 #
 ############################################################################
