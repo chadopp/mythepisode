@@ -5,7 +5,7 @@
 # Usage    : ./grabshowsall.pl > shows.txt
 # Date     : $Date$
 # Revision : $Revision$
-# Author   : C. Oppliger
+# Author   : $Author$
 # License  : GPL
 #
 # Updates  :

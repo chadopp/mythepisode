@@ -5,7 +5,7 @@
 # Usage    : called by grabid.pl
 # Date     : $Date$
 # Revision : $Revision$
-# Author   : C. Oppliger
+# Author   : $Author$
 # License  : GPL
 #
 ############################################################################
