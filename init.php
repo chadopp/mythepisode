@@ -1,0 +1,19 @@
+<?php
+/**
+ * Initialization routines for the episode module
+ *
+ * @date        $Date: 2010-08-01 $
+ * @version     $Revision: 1.0 $
+ * @author      $Author: coppliger $
+ * @license     $GPL $
+ *
+/**/
+
+// If video is enabled, add it to the list.
+    if (tmpl == 'default') {
+        $Modules['episode']  = array('path'        => 'episode/show?state=recorded',
+                                   'sort'        => 3,
+                                   'name'        => t('TV Episodes'),
+                                   'description' => t('')
+                                  );
+    };
