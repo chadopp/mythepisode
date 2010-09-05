@@ -3,7 +3,8 @@
 #
 # File     : summary.pl
 # Usage    : called by grabid.pl
-# Revision : 1.0
+# Date     : $Date$
+# Revision : $Revision$
 # Author   : C. Oppliger
 # License  : GPL
 #

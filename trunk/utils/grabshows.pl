@@ -3,7 +3,8 @@
 #
 # File     : grabshows.pl
 # Usage    : ./grabshows.pl
-# Revision : 1.0
+# Date     : $Date$
+# Revision : $Revision$
 # Author   : C. Oppliger
 # License  : GPL
 #
