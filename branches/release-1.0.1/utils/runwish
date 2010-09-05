@@ -1,0 +1,9 @@
+#!/bin/sh
+# If the personalize script didn't put your tvwish directory into TVWDIR,
+# do so yourself, then put something in the cron to call this runwish
+# script every day
+# Script delivered with tvwish.  Updated paths to work with mythepisode
+TVWDIR=/usr/share/mythtv/tvwish
+cd $TVWDIR
+# The -t means "turn off" test mode (Waterloo options syntax)
+perl tvwish v=1 -t /var/www/mythweb/data/episode/tvwish/master
