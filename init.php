@@ -2,10 +2,10 @@
 /**
  * Initialization routines for the episode module
  *
- * @date        $Date: 2010-08-01 $
- * @version     $Revision: 1.0 $
- * @author      $Author: coppliger $
- * @license     $GPL $
+ * @date        $Date$
+ * @version     $Revision$
+ * @author      $Author: coppliger
+ * @license     $GPL
  *
 /**/
 
