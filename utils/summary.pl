@@ -27,6 +27,7 @@ my $sum      = "";
 my $getlink = get "$link";
 
 open FILE, ">$filename" or die $!;
+binmode FILE, ":utf8";
 
 foreach my $data (split("\n",$getlink) ) {
     if ( $data =~ /^\<\/script\>\<br\>/ ) {

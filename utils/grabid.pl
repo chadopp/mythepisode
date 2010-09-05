@@ -53,6 +53,11 @@ $show =~ s/ with//g;
 $show =~ s/ With//g; 
 my $site = get "http://services.tvrage.com/tools/quickinfo.php?show=$show";
 
+if (!$site) {
+    print "Show id for $show not found. Could be temporary issues accessing tvrage.com\n";
+    exit 1;
+}
+
 foreach $line (split("\n",$site) ) {
     ## Parse the results from tvrage.com to get showid 
     if ($line =~ /^\<pre/) {
