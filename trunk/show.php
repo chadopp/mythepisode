@@ -2,10 +2,10 @@
 /**
  * Show listing
  *
- * @date        $Date: 2010-08-01 $
+ * @date        $Date$
  * @version     $Revision$
- * @author      $Author: coppliger $
- * @license     $GPL $
+ * @author      $Author: coppliger
+ * @license     $GPL
  *
  /**/
 
