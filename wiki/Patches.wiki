@@ -3,8 +3,7 @@
 
 = Details =
 1.0.2(Currently trunk)
-  * Update grabid.pl and grabshowsall.pl to bail out if it can't connect
-    to tvrage.com, leaving current shows.txt and summary files intact
+  * Update grabid.pl and grabshowsall.pl to bail out if it can't connect to tvrage.com, leaving current shows.txt and summary files intact
 
 1.0.1
   * Fix to grabid.pl for special characters
