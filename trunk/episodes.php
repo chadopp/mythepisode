@@ -9,7 +9,10 @@
  *
  /**/
 
-//ini_set('include_path', ini_get('include_path').':modules/tv');
+ini_set('include_path', ini_get('include_path').':modules/tv');
+require_once 'classes/Schedule.php';
+require_once 'classes/Channel.php';
+require_once 'classes/Program.php';
 require_once 'includes/recording_schedules.php';
 
 // Two strings passed in to identify showname and showstring to grab from tvrage.com

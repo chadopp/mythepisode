@@ -27,7 +27,7 @@ my $WC    = "/usr/bin/wc";
 my $PS    = "/bin/ps";
 my $GREP  = "/bin/grep";
 
-my $sumtool  = "/var/www/mythweb/modules/episode/utils/summary.pl";
+my $sumtool  = "/usr/share/mythtv/mythweb/modules/episode/utils/summary.pl";
 my $show     = $ARGV[0];
 my $showfile = $ARGV[1];
 my $count    = 0;
