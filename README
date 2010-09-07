@@ -9,6 +9,25 @@
  #
 ##
 
+NOTE:  If you are running trunk you will need to make a couple of changes to
+episodes.php since trunk has changed some of the mythweb classes/includes.  I've
+only had feedback from others and haven't tested this with trunk.
+
+- require_once 'classes/Schedule.php';
+- require_once 'classes/Channel.php';
+- require_once 'classes/Program.php';
+- require_once 'includes/recording_schedules.php';
+
++ require_once 'includes/recording_schedules.php';
++ require_once 'classes/Channel.php';
++ require_once 'classes/Program.php';
++ require_once 'classes/Schedule.php';
+
+- foreach ($Scheduled_Recordings as $callsign => $shows) {
++ foreach (Schedule::findScheduled() as $callsign => $shows) {
+
+##################################################################################
+
 As installed on my system
 
 1.
