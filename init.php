@@ -2,6 +2,7 @@
 /**
  * Initialization routines for the episode module
  *
+ * @url         $URL$
  * @date        $Date$
  * @version     $Revision$
  * @author      $Author$

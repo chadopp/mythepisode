@@ -2,6 +2,7 @@
 /**
  * Welcome page description of the episode module.
  *
+ * @url         $URL$
  * @date        $Date$
  * @version     $Revision$
  * @author      $Author$

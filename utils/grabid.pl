@@ -3,6 +3,7 @@
 #
 # File     : grabid.pl
 # Usage    : ./grabid.pl "show name" <path to showfile>
+# Url      : $URL$
 # Date     : $Date$
 # Revision : $Revision$
 # Author   : $Author$

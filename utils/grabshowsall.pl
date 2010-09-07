@@ -3,6 +3,7 @@
 #
 # File     : grabshowsall.pl
 # Usage    : ./grabshowsall.pl "path to shows.txt"
+# Url      : $URL$
 # Date     : $Date$
 # Revision : $Revision$
 # Author   : $Author$
