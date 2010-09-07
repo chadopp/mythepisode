@@ -3,6 +3,7 @@
 #
 # File     : grabshows.pl
 # Usage    : ./grabshows.pl
+# Url      : $URL$
 # Date     : $Date$
 # Revision : $Revision$
 # Author   : $Author$
