@@ -15,18 +15,16 @@ require_once "includes/sorting.php";
 
 // Directories used for show.php
 $showsTxt = "data/episode/shows.txt";
+$showsDat = "data/episode/shows.dat";
 $getrecorded = 1;
 
 // Directories used for episodes.php
-$showDir      = "data/episode/shows/";
+$showDir = "data/episode/shows/";
 // This is used to determine what the percent of matching
 // between mythdb subtitles and tvrage subtitles. i.e Alter Ego Altar Ego
 // Going too low will cause a bunch of bogus matches.  Best results are
 // 80-90
 $matchPercent = 85;
-
-// Directories used for record.php
-$showsDat = "data/episode/shows.dat";
 
 // Directories used for tvwish_list.php
 $listDir    = "data/episode/tvwish/episodes";
