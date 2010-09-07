@@ -30,7 +30,7 @@ $showsDat = "data/episode/shows.dat";
 // Directories used for tvwish_list.php
 $listDir    = "data/episode/tvwish/episodes";
 $masterFile = "data/episode/tvwish/master";
-$tvwishep   = "/var/www/mythweb/data/episode/tvwish/episodes";
+$tvwishep   = "/usr/share/mythtv/mythweb/data/episode/tvwish/episodes";
 
 // Load a custom page
 switch ($Path[1]) {

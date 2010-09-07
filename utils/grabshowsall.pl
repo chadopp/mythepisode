@@ -2,7 +2,7 @@
 ############################################################################
 #
 # File     : grabshowsall.pl
-# Usage    : ./grabshowsall.pl > shows.txt
+# Usage    : ./grabshowsall.pl "path to shows.txt"
 # Date     : $Date$
 # Revision : $Revision$
 # Author   : $Author$
@@ -33,6 +33,7 @@
 use LWP::Simple;
 use strict;
 
+my $outFile   = $ARGV[0];
 my @aoi       = ("US");
 my $current   = 0;
 my $stripshow = "";
@@ -44,19 +45,29 @@ my @array     = ();
 my @array2    = ();
 my $count     = 0;
 
-my $episodes = get "http://services.tvrage.com/feeds/show_list.php";
+if ($#ARGV != 0 ) {
+    print "usage: ./grabshowsall.pl <path to shows.txt>\n";
+    print "Ex: ./grabidshowsall.pl /tmp/shows.txt\n";
+    exit 1;
+}
 
-foreach my $episode (split("\n",$episodes) ) {
-    if ( $episode =~ m#<(name)>(.*)</\1># ) {
+my $shows = get "http://services.tvrage.com/feeds/show_list.php";
+if (!$shows) {
+    print "Unable to get show info...possible tvrage issues\n";
+    exit 1;
+}
+
+foreach my $show (split("\n",$shows) ) {
+    if ( $show =~ m#<(name)>(.*)</\1># ) {
         $name = $2;
         $name =~ s/\&amp\;/\&/g; 
         #print "Name   : $2\n";
     }
-    if ( $episode =~ m#<(country)>(.*)</\1># ) {
+    if ( $show =~ m#<(country)>(.*)</\1># ) {
         $country = $2;
         #print "Country: $2\n";
     }
-    if ( $episode =~ m#<(status)>(.*)</\1># ) {
+    if ( $show =~ m#<(status)>(.*)</\1># ) {
         $status = $2;
         if (($status == "1") || ($status == "7") || ($status == "9")) {
             $status = 1;
@@ -89,9 +100,14 @@ foreach my $episode (split("\n",$episodes) ) {
 
 @array2 = sort(@array2);
 
-foreach my $episode (@array2) {
-    binmode STDOUT, ":utf8";
-    print "$episode";
+## Write data to shows.txt file
+open FILE, ">$outFile" or die $!;
+binmode FILE, ":utf8";
+
+foreach my $show (@array2) {
+    print FILE "$show";
 }
+
+close(FILE);
 
 #print "Count is $count\n";
