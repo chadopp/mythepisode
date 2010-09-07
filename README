@@ -9,7 +9,7 @@
  #
 ##
 
-NOTE:  If you are running trunk you will need to make a couple of changes to
+NOTE:  If you are running mythweb trunk you will need to make a couple of changes to
 episodes.php since trunk has changed some of the mythweb classes/includes.  I've
 only had feedback from others and haven't tested this with trunk.
 
