@@ -32,6 +32,7 @@ my $sumtool  = "/usr/share/mythtv/mythweb/modules/episode/utils/summary.pl";
 my $show     = $ARGV[0];
 my $showfile = $ARGV[1];
 my $count    = 0;
+my $countunk = 50001;
 my $maxproc  = "15";
 my $dir      = "";
 my $id       = "";
@@ -83,8 +84,9 @@ foreach $line (split("\n",$site) ) {
                     #print "EP1 is $epnum\n";
                     #print "Episode Number: $2\n";
                 }else{
-                    $epnum = $count + 1;
+                    $epnum = "$countunk";
                     #print "EP2 is $epnum\n";
+                    $countunk++;
                 }
                 if ( $episode =~ m#<(title)>(.*)</\1># ) {
                     $title = $2;
@@ -94,7 +96,7 @@ foreach $line (split("\n",$site) ) {
                     #print "Title         : $2\n";
                 } 
                 if ( $episode =~ m#<(airdate)>(.*)</\1># ) {
-                     $airdate = $2
+                     $airdate = $2;
                      #print "Airdate       : $2\n";
                 }
                 if ( $episode =~ m#<(link)>(.*)</\1># ) {
