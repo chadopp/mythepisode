@@ -10,6 +10,9 @@
  *
 /**/
 
+// Update include path to include modules/tv classes/includes
+ini_set('include_path', ini_get('include_path').':modules/tv');
+
 require_once "includes/init.php";
 require_once "includes/sorting.php";
 

@@ -10,7 +10,7 @@
  *
  /**/
 
-ini_set('include_path', ini_get('include_path').':modules/tv');
+// Classes from modules/tv
 require_once 'classes/Schedule.php';
 require_once 'classes/Channel.php';
 require_once 'classes/Program.php';
