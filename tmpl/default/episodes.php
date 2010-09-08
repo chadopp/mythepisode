@@ -175,15 +175,38 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
         }
         ?>
 
+        <?php
+        if (($data[0] > '50000') && (!$special)) {
+            $special = 1;
+        ?>
+            <tr class="menu" align="left">
+              <td>Special Episodes</td>
+            </tr> 
+            <tr class="menu" align="left">
+              <td>Select</td>
+              <td>Episode Number</td>
+              <td>Original Airdate</td>
+              <td>Subtitle</td>
+              <td>Synopsis</td>
+              <td>Status</td>
+            </tr>
+       <?php
+       }
+       ?>
+
             <tr class="<?php echo $classes ?>" align="left">
               <td>
                 <input type="checkbox" <?php echo $boxCheck?> name="f[]" value="<?php echo htmlspecialchars($data[2])?>">
               </td>
-
-
+        <?php 
+        if ($data[0] > '50000') {
+            $data[0] = substr($data[0], 2);
+        }         
+        ?>
         <td>
           <?php echo htmlspecialchars($data[0])?>
         </td>
+
         <td>
           <?php echo htmlspecialchars($data[1])?>
         </td>
