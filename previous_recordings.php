@@ -14,6 +14,9 @@
 view and delete previously recorded programs from the database.
 \***                                                                        ***/
 
+// Classes from modules/tv
+require_once 'classes/Program.php';
+
 // Queries for a specific program title
 isset($_GET['title']) or $_GET['title'] = $_POST['title'];
 isset($_GET['title']) or $_GET['title'] = $_SESSION['previous_recorded_title'];
