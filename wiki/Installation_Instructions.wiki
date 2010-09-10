@@ -77,4 +77,4 @@ only had feedback from others and haven't tested this with trunk.
 - foreach ($Scheduled_Recordings as $callsign => $shows) {
 + foreach (Schedule::findScheduled() as $callsign => $shows) {
 
-}}
+}}}
