@@ -4,6 +4,9 @@
 = Details =
 
 As installed on my system
+
+See Note below if you are running mythweb trunk
+
 {{{
 1.
 cd /usr/share/mythtv/mythweb/modules
@@ -53,4 +56,23 @@ the scripts listed below.  I plan to fix this in the future.
 If it takes a long time to load the main page try setting $getrecorded to 0 in handler.php.  If you do this I think the page will load faster but shows that you have recorded won't show up in green on the main page.
 
 *Note:*  
-When you do an "Update listing" either for the shows or episodes please be patient as it is going out to tvrage and updating the information.  Generally updating the "Show Listing" is fairly quick(less than 30 seconds).  The more episodes a show has the longer it takes to gather summary information.  A show like "General Hospital" that has 5000 episodes can take forever.  I don't recommend updating shows like this very often.  It can take up to an hour.  If you have an account with tvrage I have a script that makes grabbing summaries much much faster.  For instance, a show like "General Hospital" that takes up to an hour can be reduced to less than a minute.
+When you do an "Update listing" either for the shows or episodes please be patient as it is going out to tvrage and updating the information.  Generally updating the "Show Listing" is fairly quick(less than 30 seconds).  The more episodes a show has the longer 
+it takes to gather summary information.  A show like "General Hospital" that has 5000 episodes can take forever.  I don't recommend updating shows like this very often.  It can take up to an hour.  If you have an account with tvrage I have a script that makes grabbing summaries much much faster.  For instance, a show like "General Hospital" that takes up to an hour can be reduced to less than a minute.
+
+*Note:*
+If you are running mythweb trunk you will need to make a couple of changes to
+episodes.php since trunk has changed some of the mythweb classes/includes.  I've
+only had feedback from others and haven't tested this with trunk.
+
+- require_once 'classes/Schedule.php';
+- require_once 'classes/Channel.php';
+- require_once 'classes/Program.php';
+- require_once 'includes/recording_schedules.php';
+
++ require_once 'includes/recording_schedules.php';
++ require_once 'classes/Channel.php';
++ require_once 'classes/Program.php';
++ require_once 'classes/Schedule.php';
+
+- foreach ($Scheduled_Recordings as $callsign => $shows) {
++ foreach (Schedule::findScheduled() as $callsign => $shows) {
