@@ -3,6 +3,7 @@
       to tvrage.com, leaving current shows.txt and summary files intact 
     * Remove class/include directories from mythepisode and point to modules/tv 
     * Fix layout of special episodes
+    * Update paths so different installation don't require path updates
 
 1.0.1
     * Fix to grabid.pl for special characters

@@ -70,10 +70,8 @@ cd /usr/share/mythtv/mythweb/modules/_shared/lang
 
 *Note:*
 If your paths differ from mine above then you will have to make a few changes to paths in 
-a couple of scripts.  I plan to fix this in the future.
-- grabid.pl
+the cronjob and the scripts below.  I plan to fix this in the future.
 - runwish
-- handler.php
 
 *Note:* 
 If it takes a long time to load the main page try setting $getrecorded to 0 in handler.php.  
