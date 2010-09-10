@@ -10,6 +10,11 @@
  *
 /**/
 
+// Setup some paths
+$rootDir   = $_SERVER['DOCUMENT_ROOT'].'/mythweb';
+$scriptDir = "$rootDir/modules/episode/utils";
+$dataDir   = "$rootDir/data";
+
 // Update include path to include modules/tv classes/includes
 ini_set('include_path', ini_get('include_path').':modules/tv');
 
@@ -32,7 +37,7 @@ $matchPercent = 85;
 // Directories used for tvwish_list.php
 $listDir    = "data/episode/tvwish/episodes";
 $masterFile = "data/episode/tvwish/master";
-$tvwishep   = "/usr/share/mythtv/mythweb/data/episode/tvwish/episodes";
+$tvwishep   = "$dataDir/episode/tvwish/episodes";
 
 // Load a custom page
 switch ($Path[1]) {

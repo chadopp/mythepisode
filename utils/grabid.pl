@@ -13,9 +13,9 @@
 use LWP::Simple;
 use strict;
 
-if ($#ARGV != 1 ) {
-    print "usage: ./grabid.pl \"show name in quotes\" <path to showfile>\n";
-    print "Ex: ./grabid.pl \"24\" /tmp/24\n"; 
+if ($#ARGV != 2 ) {
+    print "usage: ./grabid.pl \"show name in quotes\" <path to showfile> <path to utils dir>\n";
+    print "Ex: ./grabid.pl \"24\" /tmp/24 /var/www/mythweb/modules/episode/utils\n"; 
 	exit;
 }
 
@@ -28,9 +28,9 @@ my $WC    = "/usr/bin/wc";
 my $PS    = "/bin/ps";
 my $GREP  = "/bin/grep";
 
-my $sumtool  = "/usr/share/mythtv/mythweb/modules/episode/utils/summary.pl";
 my $show     = $ARGV[0];
 my $showfile = $ARGV[1];
+my $utilPath = $ARGV[2];
 my $count    = 0;
 my $countunk = 50001;
 my $maxproc  = "15";
@@ -45,6 +45,7 @@ my $file     = "";
 my $link     = "";
 my @array    = ();
 my @sorted   = ();
+my $sumtool  = "$utilPath/summary.pl";
 
 ## Get information from tvrage.com using their quickinfo script
 ## The quickinfo script has some issues that I have reported, but
