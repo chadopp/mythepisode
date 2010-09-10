@@ -1,0 +1,33 @@
+1.0.2(Currently trunk)
+    * Update grabid.pl and grabshowsall.pl to bail out if it can't connect 
+      to tvrage.com, leaving current shows.txt and summary files intact 
+    * Remove class/include directories from mythepisode and point to modules/tv 
+    * Fix layout of special episodes
+
+1.0.1
+    * Fix to grabid.pl for special characters
+    * Better matching on episodes without subtitles or invalid subtitles
+    * Fix tvwish variable 
+
+31 Aug 2010
+    * Update to look of show/episode listing page
+    * Update delete button look on previous recordings page
+    * Fix sort issue on previous recordings page
+    * Fix for grabid.pl and missing episodes
+    * Performance fix in handler.php
+    * Update to mainpage to only display recorded shows
+    * Code cleanup - still needs some work
+    * Fix grab of summary information 
+
+21 Aug 2010
+    * Added Previous Recordings to mainpage
+    * Fix for subtitles that are not exact matches
+    * Enhanced the previous recordings within the episode listing
+    * Fixed some php errors 
+
+19 Aug 2010
+    * fix a few issues with previous recordings 
+
+18 Aug 2010
+    * change the way previous recordings are viewed
+    * Update to grabshowsall.pl to allow multiple aoi's 
