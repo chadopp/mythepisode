@@ -123,7 +123,7 @@ if ($showTitle) {
 
     // Update the episodes list for passed in title
     if (!file_exists($showDir . "/" . $showFilename) || $state == "update") {
-        exec("modules/episode/utils/grabid.pl \"$showTitle\" \"$showPath\"");
+        exec("modules/episode/utils/grabid.pl \"$showTitle\" \"$showPath\" \"$scriptDir\"");
         unset($_SESSION['search']['state']);
         $allEpisodes = "all";
     }
