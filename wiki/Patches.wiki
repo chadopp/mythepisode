@@ -2,7 +2,7 @@
 #labels Featured
 
 = Details =
-1.0.2(Currently trunk)
+1.0.2
   * Update grabid.pl and grabshowsall.pl to bail out if it can't connect to tvrage.com, leaving current shows.txt and summary files intact
   * Remove class/include directories from mythepisode and point to modules/tv
   * Fix layout of special episodes
