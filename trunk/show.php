@@ -15,7 +15,7 @@ if ($_GET['state']) {
     unset($_SESSION['show']['state']);
     $_SESSION['show']['state'] = $_GET['state'];
 } else {
-    $_SESSION['show']['state'] = "recorded";
+    $_SESSION['show']['state'] = $defaultView;
 }
 
 $state = $_SESSION['show']['state'];
