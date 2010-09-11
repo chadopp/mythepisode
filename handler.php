@@ -22,9 +22,14 @@ require_once "includes/init.php";
 require_once "includes/sorting.php";
 
 // Directories used for show.php
-$showsTxt = "data/episode/shows.txt";
-$showsDat = "data/episode/shows.dat";
+$showsTxt    = "data/episode/shows.txt";
+$showsDat    = "data/episode/shows.dat";
 $getrecorded = 1;
+// The default view displayed when you load the mainpage. 
+// all - display all TV shows ever aired
+// current - display TV shows that are currently being aired
+// recorded - display TV shows that you have previously recorded 
+$defaultView = "recorded";
 
 // Directories used for episodes.php
 $showDir = "data/episode/shows/";
