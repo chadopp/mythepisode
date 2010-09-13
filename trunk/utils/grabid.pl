@@ -2,7 +2,7 @@
 ############################################################################
 #
 # File     : grabid.pl
-# Usage    : ./grabid.pl "show name" <path to showfile>
+# Usage    : ./grabid.pl "show name" <path to showfile> <path to utils dir> <path to imageDir>
 # Url      : $URL$
 # Date     : $Date$
 # Revision : $Revision$
@@ -13,12 +13,13 @@
 use LWP::Simple;
 use strict;
 
-if ($#ARGV != 2 ) {
-    print "usage: ./grabid.pl \"show name in quotes\" <path to showfile> <path to utils dir>\n";
-    print "Ex: ./grabid.pl \"24\" /tmp/24 /var/www/mythweb/modules/episode/utils\n"; 
+if ($#ARGV != 3 ) {
+    print "usage: ./grabid.pl \"show in quotes\" <shows.txt path> <utilsdir path> <imageDir path>\n";
+    print "Ex: ./grabid.pl \"24\" /tmp/24 /var/www/mythweb/modules/episode/utils /var/www/mythweb/data/episodes/images\n"; 
 	exit;
 }
 
+## Unix commands
 my $TOUCH = "/usr/bin/touch";
 my $RM    = "/bin/rm";
 my $MKDIR = "/bin/mkdir";
@@ -28,24 +29,42 @@ my $WC    = "/usr/bin/wc";
 my $PS    = "/bin/ps";
 my $GREP  = "/bin/grep";
 
-my $show     = $ARGV[0];
-my $showfile = $ARGV[1];
-my $utilPath = $ARGV[2];
-my $count    = 0;
-my $countunk = 50001;
-my $maxproc  = "15";
-my $dir      = "";
-my $id       = "";
-my $junk     = ""; 
-my $line     = "";
-my $epnum    = "";
-my $title    = "";
-my $airdate  = "";
-my $file     = "";
-my $link     = "";
-my @array    = ();
-my @sorted   = ();
-my $sumtool  = "$utilPath/summary.pl";
+## variables
+my $show        = $ARGV[0];
+my $showfile    = $ARGV[1];
+my $utilPath    = $ARGV[2];
+my $imagePath   = $ARGV[3];
+my $count       = 0;
+my $countunk    = 50001;
+my $maxproc     = "15";
+my $dir         = "";
+my $showId      = "";
+my $showName    = "";
+my $showUrl     = "";
+my $showPrem    = "";
+my $showStart   = "";
+my $showEnd     = "";
+my $showCtry    = "";
+my $showStatus  = "";
+my $showClass   = "";
+my $showGenre   = "";
+my $showNetwork = "";
+my $showAirtime = "";
+my $showLatest  = "";
+my $showNext    = "";
+my $episodeInfo = "";
+my $episodeUrl  = "";
+my $junk        = ""; 
+my $line        = "";
+my $epnum       = "";
+my $title       = "";
+my $airdate     = "";
+my $file        = "";
+my $link        = "";
+my $debug       = 0;
+my @array       = ();
+my @sorted      = ();
+my $sumtool     = "$utilPath/summary.pl";
 
 ## Get information from tvrage.com using their quickinfo script
 ## The quickinfo script has some issues that I have reported, but
@@ -54,7 +73,7 @@ $show =~ s/\&//g;
 $show =~ s/\#//g; 
 $show =~ s/ with//g; 
 $show =~ s/ With//g; 
-my $site = get "http://services.tvrage.com/tools/quickinfo.php?show=$show";
+my $site = get "http://services.tvrage.com/tools/quickinfo.php?show=$show&exact=1";
 
 if (!$site) {
     print "Show id for $show not found. Could be temporary issues accessing tvrage.com\n";
@@ -63,21 +82,85 @@ if (!$site) {
 
 foreach $line (split("\n",$site) ) {
     ## Parse the results from tvrage.com to get showid 
-    if ($line =~ /^\<pre/) {
-        ($junk,$id) = split("\@", $line);
-        chomp $id;    
-        print "$id\n";
+    my ($sec,$val) = split('\@',$line);
+    if ($sec =~ "Show ID" ) {
+        $showId = $val;
+    } elsif ($sec eq "Show Name" ) {
+        $showName = $val;
+    } elsif ( $sec eq "Show URL" ) {
+        $showUrl = $val;
+    } elsif ( $sec eq "Premiered" ) {
+        $showPrem = $val;
+    } elsif ( $sec eq "Started" ) {
+        $showStart = $val;
+    } elsif ( $sec eq "Ended" ) {
+        $showEnd = $val;
+    } elsif ($sec eq "Country" ) {
+        $showCtry = $val;
+    } elsif ( $sec eq "Status" ) {
+        $showStatus = $val;
+    } elsif ( $sec eq "Classification" ) {
+        $showClass = $val;
+    } elsif ( $sec eq "Genres" ) {
+        $showGenre = $val;
+    } elsif ( $sec eq "Network" ) {
+        $showNetwork = $val;
+    } elsif ( $sec eq "Airtime" ) {
+        $showAirtime = $val;
+    } elsif ( $sec eq "Latest Episode" ) {
+        my($ep,$title,$airdate) = split('\^',$val);
+        $showLatest = $ep.", \"".$title."\" aired on ".$airdate;
+    } elsif ( $sec eq "Next Episode" ) {
+        my($ep,$title,$airdate) = split('\^',$val);
+        $showNext = $ep.", \"".$title."\" airs on ".$airdate;
+    } elsif ( $sec eq "Episode Info" ) {
+        my($ep,$title,$airdate) = split('\^',$val);
+        $episodeInfo = $ep.", \"".$title."\" aired on ".$airdate;
+    } elsif ( $sec eq "Episode URL" ) {
+        $episodeUrl = $val;
+    }
+}
 
-        $dir = "/tmp/$id";
-        if (-d $dir) {
-            print "Removing dir $dir\n";
-            system("$RM -r $dir");
-        }
-        print "Creating dir $dir\n";
-        system("$MKDIR $dir");
+if ($debug) {
+    print "showId      is $showId\n";
+    print "showName    is $showName\n";
+    print "showUrl     is $showUrl\n";
+    print "showPrem    is $showPrem\n";
+    print "showStart   is $showStart\n";
+    print "showEnd     is $showEnd\n";
+    print "showCtry    is $showCtry\n";
+    print "showStatus  is $showStatus\n";
+    print "showClass   is $showClass\n";
+    print "showGenre   is $showGenre\n";
+    print "showNetwork is $showNetwork\n";
+    print "showAirtime is $showAirtime\n";
+    print "showLatest  is $showLatest\n";
+    print "showNext    is $showNext\n";
+    print "episodeInfo is $episodeInfo\n";
+    print "episodeUrl  is $episodeUrl\n";
+}
+
+## Get jpg image from tvrage.com.  Search the images directory
+## tree until we find the one we need
+if (! -f "$imagePath/$showId.jpg") {
+    my $ii = 0;
+    until ((-f "$imagePath/$showId.jpg") || ($ii >= 35)) {
+        getstore("http://images.tvrage.com/shows/${ii}/$showId.jpg",
+                 "$imagePath/$showId.jpg");
+        $ii++;
+    }
+}
+
+$dir = "/tmp/$showId";
+if (-d $dir) {
+    print "Removing dir $dir\n";
+    system("$RM -r $dir");
+}
+print "Creating dir $dir\n";
+system("$MKDIR $dir");
         
         ## Get a list of episodes based on the showid
-        my $episodes = get "http://www.tvrage.com/feeds/episode_list.php?sid=$id";
+        my $episodes = get "http://www.tvrage.com/feeds/episode_list.php?sid=$showId";
         foreach my $episode (split("\n",$episodes) ) {
             if ( $episode =~ /^\<episode/ ) {
                 if ( $episode =~ m#<(epnum)>(.*)</\1># ) {
@@ -110,14 +193,13 @@ foreach $line (split("\n",$site) ) {
                     ## Get summary information for each episode by spawning off
                     ## summary.pl for each episode.  Can be cpu intensive. 
                     until (`$PS -ef | $GREP summary.pl | $WC -l` <= "$maxproc") {}
-                    system("$sumtool $link $epnum \"$title\" $airdate $id &");
+                    system("$sumtool $link $epnum \"$title\" $airdate $showId &");
                     system("$TOUCH $dir/$epnum");
                     $count++;
                 }
             }
         }
-    } 
-}
+
 
 #print "Count is $count\n";
 if ($count == '0') {
@@ -139,6 +221,7 @@ until ((`$LS $dir/* | $WC -l` == $count) || ($wait > 60)) {
 @array = `$LS $dir`;
 @sorted = sort {$a <=> $b} @array;
 system("$RM $showfile"); 
+system("/bin/echo \"INFO:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$showGenre:$showNetwork\" > $showfile");
 foreach $file (@sorted) {
     chomp $file;
     until ((! -z "$dir/$file") || ($wait2 > 30)){

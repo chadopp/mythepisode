@@ -30,13 +30,13 @@ if (!file_exists($showsTxt) || $state == "update") {
 if ($state != "recorded") {
     // Read the list of shows from tvrage.com into an array and get total count
     $allShows = file($showsTxt);
-    $showCount = count($allShows);
+    $allCount = count($allShows);
 
     // Count the number of shows that are currently active TV shows
     foreach ($allShows as $current) {
         $current = explode("\t", $current);
         if ($current[3] == 1) {
-            $activeCount = $activeCount + 1;
+            $currentCount = $currentCount + 1;
         }
     }
 }
@@ -61,7 +61,7 @@ if ($state == "recorded") {
         // Read the list of shows from tvrage.com into an array and get total count
         $tempShows = file($showsTxt);
 
-        // convert the $allshows into an associative array
+        // convert $tempShows into an associative array
         array_walk($tempShows, 'explodeShows');
 
         $handle = fopen($showsDat, 'w') or die ("can't open showsDat");

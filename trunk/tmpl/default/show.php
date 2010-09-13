@@ -20,7 +20,7 @@ $headers[] = '<link rel="stylesheet" type="text/css"      href="'.skin_url.'/tv_
 require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 
 global $oldRecorded, $allShows, $state;
-global $showCount, $activeCount;
+global $allCount, $currentCount;
 
 ?>
 
@@ -54,8 +54,8 @@ function changeCell(td) {
 if ($_SESSION['show']['state'] != "recorded") {
 ?>
   <td>
-    Total Shows:&nbsp;&nbsp;<?php echo "$showCount"?>&nbsp;&nbsp;
-    Current Shows:&nbsp;&nbsp;<?php echo "$activeCount"?>
+    Total Shows:&nbsp;&nbsp;<?php echo "$allCount"?>&nbsp;&nbsp;
+    Current Shows:&nbsp;&nbsp;<?php echo "$currentCount"?>
   </td>
 <?php
 } else {

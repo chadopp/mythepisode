@@ -27,6 +27,39 @@ global $totalRecorded, $totalSched, $totalEpisodes;
 $remainingEpisodes = $totalEpisodes-$totalRecorded;
 $showTitle = stripslashes($showTitle);
 
+
+function imageResize($width, $height, $target) {
+
+// Takes the larger size of the width and height and applies the  
+// formula accordingly...this is so this script will work  
+// dynamically with any size image
+
+if ($width > $height) {
+    $percentage = ($target / $width);
+} else {
+    $percentage = ($target / $height);
+}
+
+// Gets the new value and applies the percentage, then rounds the value
+$width  = round($width * $percentage);
+$height = round($height * $percentage);
+
+// Returns the new sizes in html image tag format...this is so you
+// can plug this function inside an image tag and just get the
+
+return "width=\"$width\" height=\"$height\"";
+
+} 
+
+// Get the image size of the picture and load it into an array
+if (file_exists("$imageDir/$showId.jpg")) {
+    $imageInfo = getimagesize("$imageDir/$showId.jpg"); 
+} else {
+    if (file_exists($imageDir) && copy("$scriptDir/noImage.jpg", "$imageDir/noImage.jpg"))
+    $showId = "noImage";
+    $imageInfo = getimagesize("$imageDir/noImage.jpg");
+}
+
 ?>
 
 <style type="text/css">
@@ -57,57 +90,92 @@ function my_select() {
 </script> 
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0" >
-<tr align="center">
-  <td>
-    <font size=5> 
-      <?php echo "$showTitle"?>
-    </font>
+  <td width="20%" align="center">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+    <tr>
+      <img src="data/episode/images/<?php echo $showId?>.jpg" 
+      <?php echo imageResize($imageInfo[0], $imageInfo[1], 170); ?>>
+    </tr>
+  </table>
   </td>
-</tr>
-<tr align="center">
-  <td>
-    <a href="http://www.tvrage.com">
-      <?php echo t('Listing Source: www.tvrage.com') ?>
-    </a>
-      &nbsp;&nbsp; - &nbsp;&nbsp;
-      <a href="episode/episodes?state=update">
-      <?php echo t('Update Episode Listing') ?></a>
-  </td>
-</tr>
-</table>
+
+  <td width="60%">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+  <tr>
+    <td>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+      <tr align="center">
+        <td>
+          <font size=5> 
+            <?php echo "$showTitle"?>
+          </font>
+        </td>
+      </tr>
+      <tr align="center">
+        <td>
+          <a href="http://www.tvrage.com">
+          <?php echo t('Listing Source: www.tvrage.com') ?>
+          </a>
+          &nbsp;&nbsp; - &nbsp;&nbsp;
+          <a href="episode/episodes?state=update">
+          <?php echo t('Update Episode Listing') ?></a>
+        </td>
+      </tr>
+    </table>
+    </td>
+  </tr>
 
 <form id="change_display" action="episode/episodes" method="post">
 <div><input type="hidden" name="change_display" value="1"></div>
 
-<table id="display_options" class="commandbox commands" border="0" cellspacing="0" cellpadding="0">
-<tr>
-  <td class="x-title"><?php echo t('Display') ?>:</td>
-  <?php if ($_SESSION['episodes']['allepisodes'] == "all") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
-  <td class=<?php echo "$bgcolor"?>>
-    <a href="episode/episodes?allepisodes=all"> 
-    <?php echo t('All Episodes') ?>:<?php echo " $totalEpisodes"?>
+  <tr>
+    <td>
+    <table id="display_options" class="commandbox commands" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="x-title"><?php echo t('Display') ?>:</td>
+          <?php if ($_SESSION['episodes']['allepisodes'] == "all") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
+        <td class=<?php echo "$bgcolor"?>>
+          <a href="episode/episodes?allepisodes=all"> 
+          <?php echo t('All Episodes') ?>:<?php echo " $totalEpisodes"?>
+        </td>
+        <?php if ($_SESSION['episodes']['title']) { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
+        <td class=<?php echo "$bgcolor"?>>
+          <a href="episode/episodes?title=<?php echo $showTitle?>">
+          <?php echo t('Recorded') ?>:<?php echo " $totalRecorded"?>
+        </td>
+        <?php if ($_SESSION['episodes']['allepisodes'] == "none") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
+        <td class=<?php echo "$bgcolor"?>>
+          <a href="episode/episodes?allepisodes=none">
+          <?php echo t('Not Recorded') ?>:<?php echo " $remainingEpisodes"?>
+        </td>
+        <?php if ($_SESSION['episodes']['allepisodes'] == "sched") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
+        <td class=<?php echo "$bgcolor"?>>
+          <a href="episode/episodes?allepisodes=sched">
+          <?php echo t('Scheduled') ?>:<?php echo " $totalSched"?>
+        </td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+  </table>
   </td>
-  <?php if ($_SESSION['episodes']['title']) { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
-  <td class=<?php echo "$bgcolor"?>>
-    <a href="episode/episodes?title=<?php echo $showTitle?>">
-    <?php echo t('Recorded') ?>:<?php echo " $totalRecorded"?>
+  <td width="20%" align="center">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+    <tr><td>Start Date:</td><td><?php echo "$showStart"?></td></tr>
+    <tr><td>End Date:</td><td><?php echo "$showEnd"?></td></tr>
+    <tr><td>Country:</td><td><?php echo "$showCtry"?></td></tr>
+    <tr><td>Status:</td><td><?php echo "$showStatus"?></td></tr>
+    <tr><td>Classification:</td><td><?php echo "$showClass"?></td></tr>
+    <tr><td>Genre:</td><td><?php echo "$showGenre"?></td></tr>
+    <tr><td>Network:</td><td><?php echo "$showNetwork"?></td></tr>
+  </table>
   </td>
-  <?php if ($_SESSION['episodes']['allepisodes'] == "none") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
-  <td class=<?php echo "$bgcolor"?>>
-    <a href="episode/episodes?allepisodes=none">
-    <?php echo t('Not Recorded') ?>:<?php echo " $remainingEpisodes"?>
-  </td>
-  <?php if ($_SESSION['episodes']['allepisodes'] == "sched") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
-  <td class=<?php echo "$bgcolor"?>>
-    <a href="episode/episodes?allepisodes=sched">
-    <?php echo t('Scheduled') ?>:<?php echo " $totalSched"?>
-  </td>
-</tr>
 </table>
 </form>
 
 <?php
 if (isset($_SESSION['episodes']['allepisodes'])) { 
+
 ?>
 
     <form name="test" action="episode/tvwish_list" method="post">
@@ -133,6 +201,7 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
     }
 
     foreach ($showEpisodes as $Log) {
+        if (preg_match('/^INFO/', $Log)) continue
         $Log = rtrim($Log);
         $data = explode("\t", $Log);
         $dat = preg_replace('/\([1-9]\)/', '', $data[2]);

@@ -122,8 +122,8 @@ if ($showTitle) {
     $totalSched = count($schedEpisodes);
 
     // Update the episodes list for passed in title
-    if (!file_exists($showDir . "/" . $showFilename) || $state == "update") {
-        exec("modules/episode/utils/grabid.pl \"$showTitle\" \"$showPath\" \"$scriptDir\"");
+    if (!file_exists($showPath) || $state == "update") {
+        exec("modules/episode/utils/grabid.pl \"$showTitle\" \"$showPath\" \"$scriptDir\" \"$imageDir\"");
         unset($_SESSION['search']['state']);
         $allEpisodes = "all";
     }
@@ -149,6 +149,15 @@ if ($showTitle) {
     $totalRecorded = count($recEpisodes);
     $showEpisodes  = file($showDir . "/" . $showFilename);
     $totalEpisodes = count($showEpisodes);
+
+    // Get information about shows to display on the top right
+    // of the episode listing page
+    $episodeInfo = file($showPath);
+    if (preg_match('/^INFO/', $episodeInfo[0])) {
+        list(,$showId,$showStart,$showEnd,$showCtry,$showStatus,
+              $showClass,$showGenre,$showNetwork) = explode(":", $episodeInfo[0]);
+        $totalEpisodes = count($showEpisodes) - 1;
+    }
 }
 
 // Get a list of episodes for shows that have been recorded in the past.
