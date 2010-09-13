@@ -14,6 +14,13 @@
 $rootDir   = $_SERVER['DOCUMENT_ROOT'].'/mythweb';
 $scriptDir = "$rootDir/modules/episode/utils";
 $dataDir   = "$rootDir/data";
+$imageDir  = "$dataDir/episode/images";
+
+// Create the images dir if it doesn't exist
+if (!is_dir($imageDir) && !mkdir($imageDir, 0775)) {
+    custom_error('Error creating $imageDir: Please check permissions on the data directory.');
+    exit;
+}
 
 // Update include path to include modules/tv classes/includes
 ini_set('include_path', ini_get('include_path').':modules/tv');
@@ -32,7 +39,7 @@ $getrecorded = 1;
 $defaultView = "recorded";
 
 // Directories used for episodes.php
-$showDir = "data/episode/shows/";
+$showDir = "data/episode/shows";
 // This is used to determine what the percent of matching
 // between mythdb subtitles and tvrage subtitles. i.e Alter Ego Altar Ego
 // Going too low will cause a bunch of bogus matches.  Best results are

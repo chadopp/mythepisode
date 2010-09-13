@@ -87,3 +87,8 @@ forever.  I don't recommend updating shows like this very often.  It can take up
 If you have an account with tvrage I have a script that makes grabbing summaries much much faster.  
 For instance, a show like "General Hospital" that takes up to an hour can be reduced to less than 
 a minute.
+
+*Note:*
+The episodes page will display a thumbnail and additional information for each show.  The info
+will initially be blank with no thumbnail and blank show info until you do a "Update Episode
+Listing" on the episode page.  This will force a grab of the thumbnail and show information. 
