@@ -72,7 +72,10 @@ foreach my $show (split("\n",$shows) ) {
         $status = $2;
         if (($status == "1") || ($status == "7") || ($status == "9")) {
             $status = 1;
-        }elsif (($status == "2") || ($status == "10")) {
+        }elsif (($status == "2") || ($status == "3") || 
+                ($status == "4") || ($status == "5") || 
+                ($status == "6") || ($status == "8") || 
+                ($status == "10") || ($status == "11") || ($status == "12")) {
             $status = 0;
         }
         #print "Status: $2\n";

@@ -205,6 +205,7 @@ system("$MKDIR $dir");
 if ($count == '0') {
     system("$RM $showfile"); 
     system("$TOUCH $showfile");
+    system("/bin/echo \"INFO:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$showGenre:$showNetwork\" > $showfile");
     exit;
 }
  
