@@ -7,6 +7,7 @@
   * Update episodes.php to display thumbnail and additional show information
   * Improved show/episode matching
   * Temporarily disabled deletes of episodes from the DB until I figure out what all tables are impacted
+  * fix to tvwish implementation
 
 1.0.2
   * Update grabid.pl and grabshowsall.pl to bail out if it can't connect to tvrage.com, leaving current shows.txt and summary files intact
