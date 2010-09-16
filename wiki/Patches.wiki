@@ -2,6 +2,14 @@
 #labels Featured
 
 = Details =
+1.0.3
+  * Update to grabid.pl to grab additional show information and show
+thumbnail
+  * Update episodes.php to display thumbnail and additional show information
+  * Improved show/episode matching
+  * Temporarily disabled deletes of episodes from the DB until I figure out
+what all tables are impacted
+
 1.0.2
   * Update grabid.pl and grabshowsall.pl to bail out if it can't connect to tvrage.com, leaving current shows.txt and summary files intact
   * Remove class/include directories from mythepisode and point to modules/tv
