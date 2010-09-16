@@ -27,10 +27,12 @@ function StripString($rStr, $StripText) {
     return $rStr;
 }
 
+// Im temporarily disabling this since I think there is more to deleting
+// a recording than just deleting it from oldrecorded
 // Delete a record from the DB
-if (!empty($_GET['delete']))
-    $deleteRecorded = $db->query('DELETE FROM oldrecorded
-                                  WHERE programid=?', $_GET['category']);
+//if (!empty($_GET['delete']))
+//    $deleteRecorded = $db->query('DELETE FROM oldrecorded
+//                                  WHERE programid=?', $_GET['category']);
 
 // Parse the program list
 $result = mysql_query('SELECT title,subtitle,description,programid FROM oldrecorded GROUP BY programid');
