@@ -144,7 +144,7 @@ if ($debug) {
 ## tree until we find the one we need
 if (! -f "$imagePath/$showId.jpg") {
     my $ii = 0;
-    until ((-f "$imagePath/$showId.jpg") || ($ii >= 35)) {
+    until ((-f "$imagePath/$showId.jpg") || ($ii >= 50)) {
         getstore("http://images.tvrage.com/shows/${ii}/$showId.jpg",
                  "$imagePath/$showId.jpg");
         $ii++;
