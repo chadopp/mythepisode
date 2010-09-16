@@ -40,7 +40,7 @@ $wishFiles = array();
 
 while (($showFile = readdir($fileDir)) != false) {
     if ($showFile != "." && $showFile != "..") {
-        $showFile       = trim($showFile);
+        $showFile = trim($showFile);
         $wishFiles[] = $showFile;
     }
 }

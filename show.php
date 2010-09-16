@@ -82,13 +82,10 @@ $recordings = mysql_query("SELECT distinct title FROM oldrecorded")
 $oldRecorded = array();
 while ($row1 = mysql_fetch_assoc($recordings)) {
     $oldRecorded[] = str_replace(' ', '', strtolower($row1['title']));
-    $oldRecorded = preg_replace("/^[1990-2020]/", '', $oldRecorded);
-    $oldRecorded = preg_replace("/^The/", '', $oldRecorded);
+    $oldRecorded   = preg_replace("/^[1990-2020]/", '', $oldRecorded);
+    $oldRecorded   = preg_replace("/^The/", '', $oldRecorded);
 }
 
-//foreach ($oldRecorded as $chad) {
-//    print "$chad<br>";
-//}
 mysql_free_result($recordings);
 
 sort($oldRecorded);
