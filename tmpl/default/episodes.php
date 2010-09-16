@@ -201,7 +201,7 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
     }
 
     foreach ($showEpisodes as $Log) {
-        if (preg_match('/^INFO/', $Log)) continue
+        if (preg_match('/^INFO/', $Log)) continue;
         $Log = rtrim($Log);
         $data = explode("\t", $Log);
         $dat = preg_replace('/\([1-9]\)/', '', $data[2]);
@@ -339,7 +339,7 @@ if (isset($_SESSION['episodes']['title'])) {
       <td><?php echo t('Date Recorded')?></a></td>
       <td><?php echo t('Programid')?></a></td>
       <td><?php echo t('Synopsis')?></a></td>
-      <td><?php echo t('Delete')?></td>
+      <?php/*<td><?php echo t('Delete')?></td>*/?>
     </tr>
 
     <?php
@@ -355,7 +355,16 @@ if (isset($_SESSION['episodes']['title'])) {
           <td><?php echo $startdate ?></td>
           <td><?php echo $show->category ?></td>
           <td><?php echo $show->description ?></td>
+
+          <?php
+          /*
+          // I'm temporarily disabling this since I don't think deleting a recording
+          // from the oldrecorded is the only table that needs to be updated
+
           <td class="x-commands commands"><a id="delete_<?php echo $row?>" href="episode/episodes?delete=yes&category=<?php echo urlencode($show->category)?>&title=<?php echo urlencode($show->title)?>" title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
+          */
+          ?>
+ 
         </tr>
     <?php
         $row++;
