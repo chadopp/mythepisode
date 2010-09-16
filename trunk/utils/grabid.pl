@@ -73,7 +73,7 @@ $show =~ s/\&//g;
 $show =~ s/\#//g; 
 $show =~ s/ with//g; 
 $show =~ s/ With//g; 
-my $site = get "http://services.tvrage.com/tools/quickinfo.php?show=$show&exact=1";
+my $site = get "http://services.tvrage.com/tools/quickinfo.php?show=$show";
 
 if (!$site) {
     print "Show id for $show not found. Could be temporary issues accessing tvrage.com\n";

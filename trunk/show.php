@@ -25,6 +25,8 @@ $state = $_SESSION['show']['state'];
 if (!file_exists($showsTxt) || $state == "update") {
     exec("modules/episode/utils/grabshowsall.pl $showsTxt");
     unset($_SESSION['show']['state']);
+    if (file_exists($showsDat))
+        unlink($showsDat);
 }
 
 if ($state != "recorded") {
@@ -78,11 +80,18 @@ $recordings = mysql_query("SELECT distinct title FROM oldrecorded")
 
 // Put previously recorded shows in an array
 $oldRecorded = array();
-while ($row1 = mysql_fetch_assoc($recordings))
+while ($row1 = mysql_fetch_assoc($recordings)) {
     $oldRecorded[] = str_replace(' ', '', strtolower($row1['title']));
+    $oldRecorded = preg_replace("/^[1990-2020]/", '', $oldRecorded);
+    $oldRecorded = preg_replace("/^The/", '', $oldRecorded);
+}
 
+//foreach ($oldRecorded as $chad) {
+//    print "$chad<br>";
+//}
 mysql_free_result($recordings);
 
+sort($oldRecorded);
 $recordedCount = count($oldRecorded);
 
 // Load the class for this page

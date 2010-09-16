@@ -52,18 +52,20 @@ function StripString($rStr, $StripText) {
     return $rStr;
 }
 
+// Im temporarily disabling this since I think there is more to deleting
+// a recording than just deleting it from oldrecorded
 // Delete a record from the DB
-if (!empty($_GET['delete']))
-    $deleteRecorded = $db->query('DELETE FROM oldrecorded
-                                   WHERE programid=?', $_GET['category']);
+//if (!empty($_GET['delete']))
+//    $deleteRecorded = $db->query('DELETE FROM oldrecorded
+//                                   WHERE programid=?', $_GET['category']);
 
 $Total_Programs = 0;
 $All_Shows      = array();
 $Programs       = array();
 
 $showTitle      = $_SESSION['search']['showstr'];
-$showTitle      = addslashes($showTitle);
 $showTitle      = preg_replace('/ \(US\)/', '', $showTitle);
+$shortTitle     = preg_replace("/^The /", '', $showTitle);
 $state          = $_SESSION['search']['state'];
 $showFilename   = preg_replace('/\s+/', '', $_SESSION['search']['showname']);
 $showFilename   = trim($showFilename);
@@ -84,8 +86,12 @@ if ($showTitle) {
                 continue;
             // Parse each show group
             foreach ($show_group as $key => $show) {
-                //echo "ShowTitle $showTitle - mythtitle $show->title<br>";
-                if (strtolower($showTitle) != strtolower($show->title))
+                //echo "ShowTitle $shortTitle - mythtitle $show->title<br>";
+                $show->title = preg_replace("/[1990-2020]/", '', $show->title);
+                $show->title = preg_replace("/^The/", '', $show->title);
+                $show->title = ltrim($show->title, " ");
+                //echo "ShowTitle $show->title<br>";
+                if (strtolower($shortTitle) != strtolower($show->title))
                     continue;
                 // Make sure this is a valid show (ie. skip in-progress recordings and other junk)
                 if (!$callsign || $show->length < 1)
@@ -129,9 +135,12 @@ if ($showTitle) {
     }
 
     // Check the DB for any episodes of the show previously recorded
-    $getSubtitles = mysql_query(sprintf("SELECT subtitle,starttime
-                                           FROM oldrecorded where title like '%s' 
-                                          GROUP BY programid", mysql_real_escape_string($showTitle)));
+    $epSub = mysql_real_escape_string($showTitle);
+    $getSubtitles = mysql_query("SELECT subtitle,starttime 
+                                   FROM oldrecorded 
+                                  WHERE title like '%{$epSub}' 
+                                    AND (recstatus = '-2' OR recstatus = '-3')
+                               Group BY programid");
 
     $recEpisodes = array();
     $recDate     = array();
@@ -164,9 +173,12 @@ if ($showTitle) {
 if ($recordedTitle) {
 
     // Parse the program list
-    $result = mysql_query(sprintf("SELECT title,subtitle,description,programid,starttime 
-                                     FROM oldrecorded where title like '%s' 
-                                    GROUP BY programid", mysql_real_escape_string($recordedTitle)));
+    $recSub = mysql_real_escape_string($recordedTitle);
+    $result = mysql_query("SELECT title,subtitle,description,programid,starttime 
+                             FROM oldrecorded 
+                            WHERE title like '%{$recSub}' 
+                              AND (recstatus = '-2' OR recstatus = '-3')
+                         GROUP BY programid");
 
     while (true) {
         $Program_Titles = array();

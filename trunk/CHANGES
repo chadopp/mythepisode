@@ -1,7 +1,8 @@
 1.0.3 trunk
     * Update to grabid.pl to grab additional show information and show
       thumbnail
-    * Update episodes.php to display thumbnail and addition show information
+    * Update episodes.php to display thumbnail and additional show information
+    * Improved show/episode matching
 
 1.0.2
     * Update grabid.pl and grabshowsall.pl to bail out if it can't connect 

@@ -19,9 +19,10 @@ if ($_GET['wishstr'] || $_POST['wishstr']) {
 }
 
 // If check boxes are selected create a show file
-$showTitle      = str_replace(" ", "", $_POST["title"]);
 $cbSelected     = $_POST["f"];
-$seriesHeading  = "Series: $showTitle";
+$longTitle      = $_POST['title'];
+$seriesHeading  = "Series: $longTitle";
+$showTitle      = str_replace(" ", "", $_POST["title"]);
 $listFile       = "$listDir/$showTitle";
 
 if (count($cbSelected) > 0) {
