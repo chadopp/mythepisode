@@ -3,7 +3,7 @@
 
 = Details =
 
-1.0.4
+1.0.4 (trunk)
     * Update to grabid.pl that signicantly reduces the time it takes to update episode information.  Remove the need for summary.pl
     * Change the way in which episode numbers are displayed.  Cleans up some issues with duplicates
     * Fix issue with mythepisode on Internet Explorer
