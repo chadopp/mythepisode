@@ -134,9 +134,6 @@ if ($debug) {
 
 ## Get jpg image from tvrage.com.
 if (! -f "$imagePath/$showId.jpg") {
-    ## This API key was explicitly requested and assigned by tvrage.com for use with
-    ## mythepisode.  If you create an application that is not associated with mythepisode
-    ## that requires access to the tvrage API key you need to request a key through tvrage.com
     my $images = get "http://services.tvrage.com/myfeeds/showinfo.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
     foreach $line (split("\n",$images) ) {
         ## Parse the results from tvrage.com to get showid
