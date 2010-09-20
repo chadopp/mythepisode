@@ -65,7 +65,7 @@ $Programs       = array();
 
 $showTitle      = $_SESSION['search']['showstr'];
 $showTitle      = preg_replace('/ \(US\)/', '', $showTitle);
-$mythTitle      = preg_replace("/^The /", '', $showTitle);
+$showTitle      = preg_replace("/^The /", '', $showTitle);
 $state          = $_SESSION['search']['state'];
 $showFilename   = preg_replace('/\s+/', '', $_SESSION['search']['showname']);
 $showFilename   = trim($showFilename);
@@ -87,7 +87,6 @@ foreach ($overrideFile as $overrideShow) {
     $rageName = rtrim($rageName);
     if ($rageName == $showTitle)  {
         $mythName = explode("---", "$mythTemp");
-        $mythTitle = $mythName;
         break;
     }
 }
@@ -105,7 +104,7 @@ if ($showTitle) {
             // Parse each show group
             foreach ($show_group as $key => $show) {
                 //echo "Sheduled ...$show->title...<br>";
-                //echo "ShowTitle ...$mythTitle... - mythtitle ...$show->title...<br>";
+                //echo "ShowTitle ...$showTitle... - mythtitle ...$show->title...<br>";
                 $show->title = preg_replace("/^The/", '', $show->title);
                 $show->title = ltrim($show->title, " ");
                 foreach ($mythName as $mythShow) { 
