@@ -55,7 +55,8 @@ return "width=\"$width\" height=\"$height\"";
 if (file_exists("$imageDir/$showId.jpg")) {
     $imageInfo = getimagesize("$imageDir/$showId.jpg"); 
 } else {
-    if (file_exists($imageDir) && copy("$scriptDir/noImage.jpg", "$imageDir/noImage.jpg"))
+    if (!file_exists("$imageDir/noImage.jpg"))
+        copy("$scriptDir/noImage.jpg", "$imageDir/noImage.jpg");
     $showId = "noImage";
     $imageInfo = getimagesize("$imageDir/noImage.jpg");
 }
@@ -135,22 +136,22 @@ function my_select() {
         <td class="x-title"><?php echo t('Display') ?>:</td>
           <?php if ($_SESSION['episodes']['allepisodes'] == "all") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
         <td class=<?php echo "$bgcolor"?>>
-          <a href="episode/episodes?allepisodes=all"> 
+          <a href="episode/episodes/?allepisodes=all"> 
           <?php echo t('All Episodes') ?>:<?php echo " $totalEpisodes"?>
         </td>
         <?php if ($_SESSION['episodes']['title']) { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
         <td class=<?php echo "$bgcolor"?>>
-          <a href="episode/episodes?title=<?php echo $showTitle?>">
+          <a href="episode/episodes/?title=<?php echo $showTitle?>">
           <?php echo t('Recorded') ?>:<?php echo " $totalRecorded"?>
         </td>
         <?php if ($_SESSION['episodes']['allepisodes'] == "none") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
         <td class=<?php echo "$bgcolor"?>>
-          <a href="episode/episodes?allepisodes=none">
+          <a href="episode/episodes/?allepisodes=none">
           <?php echo t('Not Recorded') ?>:<?php echo " $remainingEpisodes"?>
         </td>
         <?php if ($_SESSION['episodes']['allepisodes'] == "sched") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
         <td class=<?php echo "$bgcolor"?>>
-          <a href="episode/episodes?allepisodes=sched">
+          <a href="episode/episodes/?allepisodes=sched">
           <?php echo t('Scheduled') ?>:<?php echo " $totalSched"?>
         </td>
       </tr>
@@ -245,7 +246,8 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
         ?>
 
         <?php
-        if (($data[0] > '50000') && (!$special)) {
+
+        if ((preg_match('/^Season/', $data[0])) && (!$special)) {
             $special = 1;
         ?>
             <tr class="menu" align="left">
@@ -261,17 +263,14 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
             </tr>
        <?php
        }
+
        ?>
 
             <tr class="<?php echo $classes ?>" align="left">
               <td>
                 <input type="checkbox" <?php echo $boxCheck?> name="f[]" value="<?php echo htmlspecialchars($data[2])?>">
               </td>
-        <?php 
-        if ($data[0] > '50000') {
-            $data[0] = substr($data[0], 2);
-        }         
-        ?>
+     
         <td>
           <?php echo htmlspecialchars($data[0])?>
         </td>
@@ -360,8 +359,7 @@ if (isset($_SESSION['episodes']['title'])) {
           /*
           // I'm temporarily disabling this since I don't think deleting a recording
           // from the oldrecorded is the only table that needs to be updated
-
-          <td class="x-commands commands"><a id="delete_<?php echo $row?>" href="episode/episodes?delete=yes&category=<?php echo urlencode($show->category)?>&title=<?php echo urlencode($show->title)?>" title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
+          <td class="x-commands commands"><a id="delete_<?php echo $row?>" href="episode/episodes/?delete=yes&category=<?php echo urlencode($show->category)?>&title=<?php echo urlencode($show->title)?>" title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
           */
           ?>
  

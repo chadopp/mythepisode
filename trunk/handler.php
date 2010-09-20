@@ -10,6 +10,12 @@
  *
 /**/
 
+// Update include path to include modules/tv classes/includes
+ini_set('include_path', ini_get('include_path').':modules/tv');
+
+require_once "includes/init.php";
+require_once "includes/sorting.php";
+
 // Setup some paths
 $rootDir   = $_SERVER['DOCUMENT_ROOT'].'/mythweb';
 $scriptDir = "$rootDir/modules/episode/utils";
@@ -22,16 +28,11 @@ if (!is_dir($imageDir) && !mkdir($imageDir, 0775)) {
     exit;
 }
 
-// Update include path to include modules/tv classes/includes
-ini_set('include_path', ini_get('include_path').':modules/tv');
-
-require_once "includes/init.php";
-require_once "includes/sorting.php";
-
 // Directories used for show.php
-$showsTxt    = "data/episode/shows.txt";
-$showsDat    = "data/episode/shows.dat";
-$getrecorded = 1;
+$showsTxt      = "data/episode/shows.txt";
+$showsDat      = "data/episode/shows.dat";
+$showsOverride = "data/episode/override.txt";
+$getrecorded   = 1;
 // The default view displayed when you load the mainpage. 
 // all - display all TV shows ever aired
 // current - display TV shows that are currently being aired

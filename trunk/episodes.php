@@ -65,7 +65,7 @@ $Programs       = array();
 
 $showTitle      = $_SESSION['search']['showstr'];
 $showTitle      = preg_replace('/ \(US\)/', '', $showTitle);
-$shortTitle     = preg_replace("/^The /", '', $showTitle);
+$mythTitle      = preg_replace("/^The /", '', $showTitle);
 $state          = $_SESSION['search']['state'];
 $showFilename   = preg_replace('/\s+/', '', $_SESSION['search']['showname']);
 $showFilename   = trim($showFilename);
@@ -73,6 +73,24 @@ $showPath       = "$showDir/$showFilename";
 $toggleSelect   = "false";
 $schedEpisodes  = array();
 $schedDate      = array();
+
+// Override is used for shows that have names that don't matchup properly
+// For example mythtv records "Survivor" as "Survivor: Nicaragua".  Since
+// the names don't match they won't display properly as recorded and won't
+// show sheduled/previous recordings.  The override.txt file located
+// under data/episodes is used to overcome this issue.
+$overrideFile = file($showsOverride);
+$mythName = array("$showTitle");
+
+foreach ($overrideFile as $overrideShow) {
+    list($mythTemp,$rageName) = explode(":::", "$overrideShow");
+    $rageName = rtrim($rageName);
+    if ($rageName == $showTitle)  {
+        $mythName = explode("---", "$mythTemp");
+        $mythTitle = $mythName;
+        break;
+    }
+}
 
 if ($showTitle) {
     // Parse the list of scheduled recordings
@@ -86,42 +104,43 @@ if ($showTitle) {
                 continue;
             // Parse each show group
             foreach ($show_group as $key => $show) {
-                //echo "ShowTitle $shortTitle - mythtitle $show->title<br>";
-                $show->title = preg_replace("/[1990-2020]/", '', $show->title);
+                //echo "Sheduled ...$show->title...<br>";
+                //echo "ShowTitle ...$mythTitle... - mythtitle ...$show->title...<br>";
                 $show->title = preg_replace("/^The/", '', $show->title);
                 $show->title = ltrim($show->title, " ");
-                //echo "ShowTitle $show->title<br>";
-                if (strtolower($shortTitle) != strtolower($show->title))
-                    continue;
-                // Make sure this is a valid show (ie. skip in-progress recordings and other junk)
-                if (!$callsign || $show->length < 1)
-                    continue;
-                // Skip conflicting shows?
-                elseif (in_array($show->recstatus, array(
-                    'Conflict',
-                    'Overlap'
-                ))) {
-                    continue;
-                }
-                // Skip duplicate shows?
+                foreach ($mythName as $mythShow) { 
+                    if (strtolower($mythShow) != strtolower($show->title))
+                        continue;
+                    // Make sure this is a valid show (ie. skip in-progress recordings and other junk)
+                    if (!$callsign || $show->length < 1)
+                        continue;
+                    // Skip conflicting shows?
                     elseif (in_array($show->recstatus, array(
-                    'DontRecord',
-                    'PreviousRecording',
-                    'CurrentRecording',
-                    'EarlierShowing',
-                    'LaterShowing'
-                ))) {
-                    continue;
-                }
+                        'Conflict',
+                        'Overlap'
+                    ))) {
+                        continue;
+                    }
+                    // Skip duplicate shows?
+                        elseif (in_array($show->recstatus, array(
+                        'DontRecord',
+                        'PreviousRecording',
+                        'CurrentRecording',
+                        'EarlierShowing',
+                        'LaterShowing'
+                    ))) {
+                        continue;
+                    }
 
-                // Assign a reference for this show to the various arrays
-                $schedDate[]     = $show->airdate;
-                $schedEpisodes[] = strtolower($show->subtitle);
-                $schedEpisodes   = preg_replace('/[^0-9a-z ]+/i', '', $schedEpisodes);
-                $schedEpisodes   = preg_replace('/[^\w\d\s]+­/i', '', $schedEpisodes);
-                $schedEpisodes   = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $schedEpisodes);
-                $schedEpisodes   = preg_replace('/\s+/', '', $schedEpisodes);
-                $schedEpisodes   = preg_replace('/[\/\;]/', '', $schedEpisodes);
+                    // Assign a reference for this show to the various arrays
+                    $schedDate[]     = $show->airdate;
+                    $schedEpisodes[] = strtolower($show->subtitle);
+                    $schedEpisodes   = preg_replace('/[^0-9a-z ]+/i', '', $schedEpisodes);
+                    $schedEpisodes   = preg_replace('/[^\w\d\s]+­/i', '', $schedEpisodes);
+                    $schedEpisodes   = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $schedEpisodes);
+                    $schedEpisodes   = preg_replace('/\s+/', '', $schedEpisodes);
+                    $schedEpisodes   = preg_replace('/[\/\;]/', '', $schedEpisodes);
+                }
             }
         }
     }
@@ -129,16 +148,25 @@ if ($showTitle) {
 
     // Update the episodes list for passed in title
     if (!file_exists($showPath) || $state == "update") {
-        exec("modules/episode/utils/grabid.pl \"$showTitle\" \"$showPath\" \"$scriptDir\" \"$imageDir\"");
+        exec("modules/episode/utils/grabid.pl \"$showTitle\" \"$showPath\" \"$imageDir\"");
         unset($_SESSION['search']['state']);
         $allEpisodes = "all";
     }
 
+    // Setup the title query string bases off of mythName array
+    foreach ($mythName as $queryString) {
+        $queryString = mysql_real_escape_string($queryString);
+        if (!$titleQuery) {
+            $titleQuery = "title like '%{$queryString}'";
+        } else {
+            $titleQuery = "$titleQuery OR title like '%{$queryString}'";
+        }
+    }
+
     // Check the DB for any episodes of the show previously recorded
-    $epSub = mysql_real_escape_string($showTitle);
     $getSubtitles = mysql_query("SELECT subtitle,starttime 
                                    FROM oldrecorded 
-                                  WHERE title like '%{$epSub}' 
+                                  WHERE ($titleQuery) 
                                     AND (recstatus = '-2' OR recstatus = '-3')
                                Group BY programid");
 
@@ -171,12 +199,10 @@ if ($showTitle) {
 
 // Get a list of episodes for shows that have been recorded in the past.
 if ($recordedTitle) {
-
     // Parse the program list
-    $recSub = mysql_real_escape_string($recordedTitle);
     $result = mysql_query("SELECT title,subtitle,description,programid,starttime 
                              FROM oldrecorded 
-                            WHERE title like '%{$recSub}' 
+                            WHERE ($titleQuery) 
                               AND (recstatus = '-2' OR recstatus = '-3')
                          GROUP BY programid");
 

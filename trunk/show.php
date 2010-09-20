@@ -80,16 +80,41 @@ $recordings = mysql_query("SELECT distinct title FROM oldrecorded")
 
 // Put previously recorded shows in an array
 $oldRecorded = array();
-while ($row1 = mysql_fetch_assoc($recordings)) {
+while ($row1 = mysql_fetch_assoc($recordings))
     $oldRecorded[] = str_replace(' ', '', strtolower($row1['title']));
-    $oldRecorded   = preg_replace("/^[1990-2020]/", '', $oldRecorded);
-    $oldRecorded   = preg_replace("/^The/", '', $oldRecorded);
+
+// Override is used for shows that have names that don't matchup properly
+// For example mythtv records "Survivor" as "Survivor: Nicaragua".  Since
+// the names don't match they won't display properly as recorded and won't
+// show sheduled/previous recordings.  The override.txt file located 
+// under data/episodes is used to overcome this issue. 
+$overrideCount = 0;
+if (!file_exists($showsOverride))
+    copy("$scriptDir/override.txt", "$showsOverride");
+
+$overrideFile = file($showsOverride);
+$mythTitle = array();
+
+foreach ($overrideFile as $overrideShow) {
+    list($mythName,$rageName) = explode(":::", "$overrideShow");
+    $rageName  = trim($rageName);
+    $mythName  = trim($mythName);
+    $rageName  = str_replace(' ', '', strtolower($rageName));
+    $mythName  = str_replace(' ', '', strtolower($mythName));
+    $mythTitle = explode("---", "$mythName");
+    foreach ($mythTitle as $tempTitle) {
+        if (in_array("$tempTitle", $oldRecorded))  {
+            array_push($oldRecorded, "$rageName");
+            $overrideCount++;
+            break; 
+        }
+    }
 }
 
 mysql_free_result($recordings);
 
 sort($oldRecorded);
-$recordedCount = count($oldRecorded);
+$recordedCount = count($oldRecorded) - $overrideCount;
 
 // Load the class for this page
 require_once tmpl_dir . 'show.php';

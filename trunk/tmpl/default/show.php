@@ -268,7 +268,7 @@ if ($_SESSION['show']['state'] == "recorded") {
         }
         ?>
 
-   <td class="off" onmouseover="changeCell(this)" onmouseout="changeCell(this)" onclick="window.location='episode/episodes/?showstr=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>'"><?php echo htmlspecialchars($data[1])?>
+   <td onmouseover="changeCell(this)" onmouseout="changeCell(this)"><a href="episode/episodes/?showstr=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>"><?php echo htmlspecialchars($data[1])?>
    </td>
 
         <?php

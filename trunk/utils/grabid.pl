@@ -2,42 +2,36 @@
 ############################################################################
 #
 # File     : grabid.pl
-# Usage    : ./grabid.pl "show name" <path to showfile> <path to utils dir> <path to imageDir>
+# Usage    : ./grabid.pl "show name" <path to showfile> <path to imageDir>
 # Url      : $URL$
 # Date     : $Date$
 # Revision : $Revision$
 # Author   : $Author$
 # License  : GPL
 #
+## The API key used in this script was explicitly requested and assigned by 
+## tvrage.com for use with mythepisode.  If you create an application that is 
+## not associated with mythepisode that requires access to the tvrage API 
+## key you need to request a key through tvrage.com
 ############################################################################
 use LWP::Simple;
+use LWP::Simple qw(get $ua);
 use strict;
 
-if ($#ARGV != 3 ) {
-    print "usage: ./grabid.pl \"show in quotes\" <shows.txt path> <utilsdir path> <imageDir path>\n";
-    print "Ex: ./grabid.pl \"24\" /tmp/24 /var/www/mythweb/modules/episode/utils /var/www/mythweb/data/episodes/images\n"; 
-	exit;
+$ua->agent('My agent/1.0');
+$ua->timeout(60); # time out after 60 seconds
+
+if ($#ARGV != 2 ) {
+    print "usage: ./grabid.pl \"show in quotes\" <shows.txt path> <imageDir path>\n";
+    print "Ex: ./grabid.pl \"24\" /tmp/24 /var/www/mythweb/data/episodes/images\n"; 
+    exit;
 }
 
-## Unix commands
-my $TOUCH = "/usr/bin/touch";
-my $RM    = "/bin/rm";
-my $MKDIR = "/bin/mkdir";
-my $CAT   = "/bin/cat";
-my $LS    = "/bin/ls";
-my $WC    = "/usr/bin/wc";
-my $PS    = "/bin/ps";
-my $GREP  = "/bin/grep";
-
 ## variables
+my $debug       = 0;
 my $show        = $ARGV[0];
 my $showfile    = $ARGV[1];
-my $utilPath    = $ARGV[2];
-my $imagePath   = $ARGV[3];
-my $count       = 0;
-my $countunk    = 50001;
-my $maxproc     = "15";
-my $dir         = "";
+my $imagePath   = $ARGV[2];
 my $showId      = "";
 my $showName    = "";
 my $showUrl     = "";
@@ -54,17 +48,14 @@ my $showLatest  = "";
 my $showNext    = "";
 my $episodeInfo = "";
 my $episodeUrl  = "";
-my $junk        = ""; 
+my $seasonnum   = "";
 my $line        = "";
 my $epnum       = "";
 my $title       = "";
 my $airdate     = "";
-my $file        = "";
 my $link        = "";
-my $debug       = 0;
-my @array       = ();
-my @sorted      = ();
-my $sumtool     = "$utilPath/summary.pl";
+my $junk        = "";
+my $summary     = "";
 
 ## Get information from tvrage.com using their quickinfo script
 ## The quickinfo script has some issues that I have reported, but
@@ -73,6 +64,7 @@ $show =~ s/\&//g;
 $show =~ s/\#//g; 
 $show =~ s/ with//g; 
 $show =~ s/ With//g; 
+
 my $site = get "http://services.tvrage.com/tools/quickinfo.php?show=$show";
 
 if (!$site) {
@@ -140,96 +132,76 @@ if ($debug) {
     print "episodeUrl  is $episodeUrl\n";
 }
 
-## Get jpg image from tvrage.com.  Search the images directory
-## tree until we find the one we need
+## Get jpg image from tvrage.com.
 if (! -f "$imagePath/$showId.jpg") {
-    my $ii = 0;
-    until ((-f "$imagePath/$showId.jpg") || ($ii >= 50)) {
-        getstore("http://images.tvrage.com/shows/${ii}/$showId.jpg",
-                 "$imagePath/$showId.jpg");
-        $ii++;
-    }
-}
-
-$dir = "/tmp/$showId";
-if (-d $dir) {
-    print "Removing dir $dir\n";
-    system("$RM -r $dir");
-}
-print "Creating dir $dir\n";
-system("$MKDIR $dir");
-        
-        ## Get a list of episodes based on the showid
-        my $episodes = get "http://www.tvrage.com/feeds/episode_list.php?sid=$showId";
-        foreach my $episode (split("\n",$episodes) ) {
-            if ( $episode =~ /^\<episode/ ) {
-                if ( $episode =~ m#<(epnum)>(.*)</\1># ) {
-                    $epnum = $2;
-                    #print "EP1 is $epnum\n";
-                    #print "Episode Number: $2\n";
-                }else{
-                    $epnum = "$countunk";
-                    #print "EP2 is $epnum\n";
-                    $countunk++;
-                }
-                if ( $episode =~ m#<(title)>(.*)</\1># ) {
-                    $title = $2;
-                    $title =~ s/\&\#39\;/\'/g;
-                    $title =~ s/\&amp\;quot\;/\"/g;
-                    $title =~ s/\&amp\;/\&/g;
-                    #print "Title         : $2\n";
-                } 
-                if ( $episode =~ m#<(airdate)>(.*)</\1># ) {
-                     $airdate = $2;
-                     #print "Airdate       : $2\n";
-                }
-                if ( $episode =~ m#<(link)>(.*)</\1># ) {
-                    $link = $2;
-                    #print "Link          : $2\n";
-                    ## Account for shows that have the same episode id.  
-                    if (-f "$dir/$epnum") {
-                        $epnum = "$epnum.$airdate";
-                    } 
-                    ## Get summary information for each episode by spawning off
-                    ## summary.pl for each episode.  Can be cpu intensive. 
-                    until (`$PS -ef | $GREP summary.pl | $WC -l` <= "$maxproc") {}
-                    system("$sumtool $link $epnum \"$title\" $airdate $showId &");
-                    system("$TOUCH $dir/$epnum");
-                    $count++;
-                }
-            }
+    ## This API key was explicitly requested and assigned by tvrage.com for use with
+    ## mythepisode.  If you create an application that is not associated with mythepisode
+    ## that requires access to the tvrage API key you need to request a key through tvrage.com
+    my $images = get "http://services.tvrage.com/myfeeds/showinfo.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
+    foreach $line (split("\n",$images) ) {
+        ## Parse the results from tvrage.com to get showid
+        if ( $line =~ m#<(image)>(.*)</\1># ) {
+            my $showImage = $2; chomp $showImage;
+            print "Image is $showImage\n" if $debug;
+            getstore("$showImage", "$imagePath/$showId.jpg");
         }
-
-
-#print "Count is $count\n";
-if ($count == '0') {
-    system("$RM $showfile"); 
-    system("$TOUCH $showfile");
-    system("/bin/echo \"INFO:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$showGenre:$showNetwork\" > $showfile");
-    exit;
-}
- 
-my $wait = 0;
-my $wait2 = 0;
-## Before we continue we need to ensure all summary information
-## has been collected.  Timeout after 60 seconds
-until ((`$LS $dir/* | $WC -l` == $count) || ($wait > 60)) {
-    sleep 1;
-    $wait++;
-}
-
-## Sort the files and combine them into one
-@array = `$LS $dir`;
-@sorted = sort {$a <=> $b} @array;
-system("$RM $showfile"); 
-system("/bin/echo \"INFO:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$showGenre:$showNetwork\" > $showfile");
-foreach $file (@sorted) {
-    chomp $file;
-    until ((! -z "$dir/$file") || ($wait2 > 30)){
-        sleep 1;
-        $wait2++; 
     }
-    system("$CAT $dir/$file >> $showfile");
+} else {
+    print "Thumbnail exists for $showName\n" if $debug;
 }
 
-system("$RM -r $dir");
+
+open FILE, ">$showfile" or die $!;
+binmode FILE, ":utf8";
+
+print FILE "INFO:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$showGenre:$showNetwork\n";
+
+## Get a list of episodes based on the showid
+my $episodes = get "http://services.tvrage.com/myfeeds/episode_list.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
+foreach my $episode (split("\n",$episodes)) {
+    if ($episode =~ /^\<Season no/) {
+        ($junk,$seasonnum) = split("\"", $episode); 
+        print "Season is $seasonnum\n" if $debug;
+    }
+    if ($episode =~ /^\<Special/) {
+        $seasonnum = "Season";
+        print "Season is $seasonnum\n" if $debug;
+    }
+    if ($episode =~ /^\<episode/) {
+        if ($episode =~ m#<(seasonnum)>(.*)</\1>#) {
+            $epnum = "$seasonnum-$2";
+            print "Episode Number: $2\n"if $debug;
+        }
+        if ($episode =~ m#<(season)>(.*)</\1>#) {
+            $epnum = "$seasonnum-$2";
+            print "Episode Number: $2\n" if $debug;
+        }
+        if ($episode =~ m#<(title)>(.*)</\1>#) {
+            $title = $2;
+            $title =~ s/\&\#39\;/\'/g;
+            $title =~ s/\&amp\;quot\;/\"/g;
+            $title =~ s/\&amp\;/\&/g;
+            print "Title         : $2\n" if $debug;
+        }
+        if ($episode =~ m#<(airdate)>(.*)</\1>#) {
+            $airdate = $2;
+            print "Airdate       : $2\n" if $debug;
+        }
+        if ($episode =~ m#<(link)>(.*)</\1>#) {
+            $link = $2;
+            print "Link          : $2\n" if $debug;
+        }
+        if ($episode =~ m#<(summary)>(.*)</\1>#) {
+            $summary = $2;
+        }
+        if ($summary eq "") {
+            $summary = "No summary data available";
+        }
+        print "Summary       : $summary\n" if $debug;
+        ##print "$epnum\t$airdate\t$title\t$link\t$summary\n";
+        print FILE "$epnum\t$airdate\t$title\t$link\t$summary\n";
+        $summary = "";
+    }
+}
+
+close(FILE);
