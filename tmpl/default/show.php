@@ -149,7 +149,7 @@ if ($_SESSION['show']['state'] != "recorded") {
                     if ($a == 0) {
                         $a=1;
 ?>			
-                        <tr width="100%" class="menu" align="center">
+                        <tr class="menu" align="center">
                           <td colspan="1">- <?php echo "0-9"?> -</td>
 
                     <?php
@@ -159,8 +159,8 @@ if ($_SESSION['show']['state'] != "recorded") {
                     $i=0;
                     ?>
 
-                        <tr></tr><tr></tr>
-                        <tr width="100%" class="menu" align="center">
+                        </tr><tr></tr><tr></tr>
+                        <tr class="menu" align="center">
                           <td colspan="1">
                             <a name="<?php echo $firstChar?>">- <?php echo $firstChar?> -</a>
                           </td>
@@ -242,7 +242,7 @@ if ($_SESSION['show']['state'] == "recorded") {
                 if (!$stillNums) {
                     $stillNums = true;
 ?>
-<tr width="100%" class="menu" align="center">
+<tr class="menu" align="center">
   <td colspan="1">- <?php echo "0-9"?> -</td>
 
                 <?php
@@ -251,8 +251,8 @@ if ($_SESSION['show']['state'] == "recorded") {
                 $i=0;
                 ?>
 
-<tr></tr><tr></tr>
-<tr width="100%" class="menu" align="center">
+</tr><tr></tr><tr></tr>
+<tr class="menu" align="center">
   <td colspan="1">
        <a name="<?php echo $firstChar?>">- <?php echo $firstChar?> -</a>
     </td>

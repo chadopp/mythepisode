@@ -64,6 +64,7 @@ $All_Shows      = array();
 $Programs       = array();
 
 $showTitle      = $_SESSION['search']['showstr'];
+$fixedTitle     = $showTitle;
 $showTitle      = preg_replace('/ \(US\)/', '', $showTitle);
 $showTitle      = preg_replace("/^The /", '', $showTitle);
 $state          = $_SESSION['search']['state'];

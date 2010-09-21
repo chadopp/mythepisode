@@ -25,6 +25,7 @@ global $showEpisodes, $recEpisodes, $schedEpisodes, $recDate;
 global $toggleSelect, $showTitle, $matchPercent;
 global $totalRecorded, $totalSched, $totalEpisodes;
 $remainingEpisodes = $totalEpisodes-$totalRecorded;
+$fixedTitle = stripslashes($fixedTitle);
 $showTitle = stripslashes($showTitle);
 
 
@@ -108,7 +109,7 @@ function my_select() {
       <tr align="center">
         <td>
           <font size=5> 
-            <?php echo "$showTitle"?>
+            <?php echo "$fixedTitle"?>
           </font>
         </td>
       </tr>
