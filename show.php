@@ -90,7 +90,7 @@ while ($row1 = mysql_fetch_assoc($recordings))
 // under data/episodes is used to overcome this issue. 
 $overrideCount = 0;
 if (!file_exists($showsOverride))
-    copy("$scriptDir/override.txt", "$showsOverride");
+    copy("$scriptDir/override.template", "$showsOverride");
 
 $overrideFile = file($showsOverride);
 $mythTitle = array();
