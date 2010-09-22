@@ -6,17 +6,6 @@
 
 
 {{{
-##
- # mythepisode README
- #
- # @url         $URL: https://mythepisode.googlecode.com/svn/trunk/README $
- # @date        $Date: 2010-09-19 21:38:34 -0700 (Sun, 19 Sep 2010) $
- # @version     $Revision: 167 $
- # @author      $Author: chadopp $
- # @license     GPL
- #
-##
-
 NOTES:
 I have test mythepisode with the following browsers(although not thoroughly)
 Firefox - very fast on my system
