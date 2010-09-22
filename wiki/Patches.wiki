@@ -7,7 +7,7 @@
     * Update to grabid.pl that signicantly reduces the time it takes to update episode information.  Remove the need for summary.pl
     * Change the way in which episode numbers are displayed.  Cleans up some issues with duplicates
     * Fix issue with mythepisode on Internet Explorer
-    * Added the ability to override shows that are recorded with titles that are too specific.  For example "Survivor" is recorded by mythtv based on the listing "Survivor: Nicaragua".  Without the override feature mythepisode did not recognize it as being recorded and did not know about previous/scheduled recordings
+    * Added the ability to override shows that are recorded with titles that are too specific.  For example "Survivor" is recorded by mythtv based on the listing "Survivor: Nicaragua".  Without the override feature mythepisode will not recognize it as being recorded and will not know about previous/scheduled recordings.  See the README for more details
 
 1.0.3
   * Update to grabid.pl to grab additional show information and show thumbnail
