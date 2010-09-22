@@ -9,12 +9,59 @@
  #
 ##
 
-NOTE:  I'm interested in feedback from anyone running trunk or the soon to be
-release .24
+NOTES: 
+I have test mythepisode with the following browsers(although not thoroughly)
+Firefox - very fast on my system
+Safari  - very fast on my system
+Chrome  - very fast on my system
+IE      - very slow on my system
 
-NOTE:  If you are running mythweb trunk you will need to make a couple of changes to
-episodes.php since trunk has changed some of the mythweb classes/includes.  I've
-only had feedback from others and haven't tested this with trunk.
+- If it takes a long time to load the main page try setting $getrecorded to 0 
+  in handler.php. If you do this I think the page will load faster but shows 
+  that you have recorded won't show up in green on the main page.
+
+- The episodes page will display a thumbnail and additional information for 
+  each show.  The info will initially be blank with no thumbnail and blank show 
+  info until you do a "Update Episode Listing" on the episode page.  This will 
+  force a grab of the thumbnail and show information.
+
+- I have added a file called override.txt which will reside in 
+  data/episode/override.txt.  When you first install mythepisode if the file 
+  doesn't exist in data/episode it will be copied from the utils directory and 
+  placed in data/episode.  This file is used to overcome issues with shows that 
+  have different recorded titles than those that come from tvrage.com
+
+  A couple of examples that impact me
+
+  recorded by mythtv as:          listed in mythepisode as:
+  ----------------------          -------------------------
+  Survivor: Nicaragua             Survivor
+  2010 MTV Video Music Awards     MTV Video Music Awards
+  Hawaii Five-0                   Hawaii Five-0 (2010)
+  The Amazing Race 17             The Amazing Race
+
+  To overcome this issue you can add them to override.txt using the following 
+  format - recorded name:::tvrage name
+
+  Survivor: Nicaragua:::Survivor
+  62nd Primetime Emmy Awards:::The Emmy Awards
+  2010 MTV Video Music Awards:::MTV Video Music Awards
+  2010 World Series of Poker:::World Series of Poker
+  Hawaii Five-0:::Hawaii Five-0 (2010)
+  The Amazing Race 17:::The Amazing Race
+
+  Some shows like Survivor have a different name every year but need to be listed
+  under Survivor within mythepisode.  You can add these by putting --- inbetween each one.
+  Survivor: Nicaragua---Survivor: Pearl Island:::Survivor
+  2010 World Series of Poker---2011 World Series of Poker:::World Series of Poker
+
+##################################################################################
+I'm interested in feedback from anyone running trunk or the soon to be
+release .24.  I don't plan on upgrading my system anytime soon.
+
+If you are running mythweb trunk or greater you will need to make a couple of 
+changes to episodes.php since trunk has changed some of the mythweb classes/includes.  
+I've only had feedback from others and haven't tested this with trunk.
 
 - require_once 'classes/Schedule.php';
 - require_once 'classes/Channel.php';
@@ -28,7 +75,6 @@ only had feedback from others and haven't tested this with trunk.
 
 - foreach ($Scheduled_Recordings as $callsign => $shows) {
 + foreach (Schedule::findScheduled() as $callsign => $shows) {
-
 ##################################################################################
 
 As installed on my system
@@ -75,43 +121,3 @@ cd /usr/share/mythtv/mythweb/modules/_shared/lang
 If your paths differ from mine above then you will have to make a few changes to paths in 
 the cronjob and the scripts below.  I plan to fix this in the future.
 - runwish
-
-*Note:* 
-If it takes a long time to load the main page try setting $getrecorded to 0 in handler.php.  
-If you do this I think the page will load faster but shows that you have recorded won't show 
-up in green on the main page.
-
-*Note:*
-The episodes page will display a thumbnail and additional information for each show.  The info
-will initially be blank with no thumbnail and blank show info until you do a "Update Episode
-Listing" on the episode page.  This will force a grab of the thumbnail and show information. 
-
-*Note:*
-I have added a file called override.txt which will reside in data/episode/override.txt.  When
-you first install mythepisode if the file doesn't exist in data/episode it will be copied from
-the utils directory and placed in data/episode.  This file is used to overcome issues with shows
-that have different recorded titles than those that come from tvrage.com
-
-A couple of examples that impact me
-
-recorded by mythtv as:		listed in mythepisode as:
-----------------------          ------------------------- 
-Survivor: Nicaragua		Survivor
-2010 MTV Video Music Awards	MTV Video Music Awards
-Hawaii Five-0			Hawaii Five-0 (2010)
-The Amazing Race 17		The Amazing Race
-
-To overcome this issue you can add them to override.txt using the following format
-recorded name:::tvrage name
-
-Survivor: Nicaragua:::Survivor
-62nd Primetime Emmy Awards:::The Emmy Awards
-2010 MTV Video Music Awards:::MTV Video Music Awards
-2010 World Series of Poker:::World Series of Poker
-Hawaii Five-0:::Hawaii Five-0 (2010)
-The Amazing Race 17:::The Amazing Race
-
-Some shows like Survivor have a different name every year but need to be listed
-under Survivor within mythepisode.  You can add these by putting --- inbetween each one.
-Survivor: Nicaragua---Survivor: Pearl Island:::Survivor
-2010 World Series of Poker---2011 World Series of Poker:::World Series of Poker

@@ -7,8 +7,9 @@
     * Added the ability to override shows that are recorded with titles
       that are too specific.  For example "Survivor" is recorded by
       mythtv based on the listing "Survivor: Nicaragua".  Without the
-      override feature mythepisode did not recognize it as being recorded
-      and did not know about previous/scheduled recordings
+      override feature mythepisode will not recognize it as being recorded
+      and will not know about previous/scheduled recordings.  See the
+      README for details.
 
 1.0.3
     * Update to grabid.pl to grab additional show information and show
