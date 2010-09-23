@@ -45,10 +45,7 @@ IE      - very slow on my system
   2010 MTV Video Music Awards:::MTV Video Music Awards
   2010 World Series of Poker:::World Series of Poker
   Hawaii Five-0:::Hawaii Five-0 (2010)
-  Amazing Race 17:::Amazing Race
-
-  Note: If the show has "The" at the beginning of the title like "The Amazing Race",
-  leave "The" off of the beginning.
+  The Amazing Race 17:::The Amazing Race
 
   Some shows like Survivor have a different name every year but need to be listed
   under Survivor within mythepisode.  You can add these by putting --- inbetween each one.
