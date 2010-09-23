@@ -38,7 +38,7 @@ IE      - very slow on my system
   The Amazing Race 17             The Amazing Race
 
   To overcome this issue you can add them to override.txt using the following
-  format - recorded name:::tvrage name
+  format - recorded title:::tvrage title
 
   Survivor: Nicaragua:::Survivor
   62nd Primetime Emmy Awards:::The Emmy Awards
