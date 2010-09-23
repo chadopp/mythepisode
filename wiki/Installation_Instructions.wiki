@@ -7,7 +7,7 @@
 
 {{{
 NOTES:
-I have test mythepisode with the following browsers(although not thoroughly)
+I have tested mythepisode with the following browsers(although not thoroughly)
 Firefox - very fast on my system
 Safari  - very fast on my system
 Chrome  - very fast on my system
