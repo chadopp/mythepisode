@@ -86,7 +86,7 @@ $mythName = array("$showTitle");
 foreach ($overrideFile as $overrideShow) {
     list($mythTemp,$rageName) = explode(":::", "$overrideShow");
     $rageName = rtrim($rageName);
-    if ($rageName == $showTitle)  {
+    if ($rageName == $fixedTitle)  {
         $mythName = explode("---", "$mythTemp");
         break;
     }
@@ -109,6 +109,8 @@ if ($showTitle) {
                 $show->title = preg_replace("/^The/", '', $show->title);
                 $show->title = ltrim($show->title, " ");
                 foreach ($mythName as $mythShow) { 
+                    $mythShow = preg_replace("/^The/", '', $mythShow); 
+                    $mythShow = ltrim($mythShow, " ");
                     if (strtolower($mythShow) != strtolower($show->title))
                         continue;
                     // Make sure this is a valid show (ie. skip in-progress recordings and other junk)
