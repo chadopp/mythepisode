@@ -22,11 +22,11 @@ IE      - very slow on my system
   info until you do a "Update Episode Listing" on the episode page.  This will
   force a grab of the thumbnail and show information.
 
-- I have added a file called override.txt which will reside in
-  data/episode/override.txt.  When you first install mythepisode if the file
-  doesn't exist in data/episode it will be copied from the utils directory and
-  placed in data/episode.  This file is used to overcome issues with shows that
-  have different recorded titles than those that come from tvrage.com
+- I have added a file called override.txt which resides in the data/episode dir.  
+  When you install mythepisode if the file doesn't exist in data/episode a template
+  will be copied from the utils directory and placed in data/episode.  This file is 
+  used to overcome issues with shows that have different recorded titles than those 
+  that come from tvrage.com
 
   A couple of examples that impact me
 
@@ -47,8 +47,10 @@ IE      - very slow on my system
   Hawaii Five-0:::Hawaii Five-0 (2010)
   The Amazing Race 17:::The Amazing Race
 
-  Some shows like Survivor have a different name every year but need to be listed
-  under Survivor within mythepisode.  You can add these by putting --- inbetween each one.
+  Some shows like Survivor have a different name every season but need to be listed
+  under Survivor within mythepisode.  You can add these by putting --- in between each 
+  one.
+
   Survivor: Nicaragua---Survivor: Pearl Island:::Survivor
   2010 World Series of Poker---2011 World Series of Poker:::World Series of Poker
 
