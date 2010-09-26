@@ -23,7 +23,7 @@ $state = $_SESSION['show']['state'];
 // If a shows.txt file doesn't exist or you select update a new list of
 // shows will be grabbed from tvrage.com
 if (!file_exists($showsTxt) || $state == "update") {
-    exec("modules/episode/utils/grabshowsall.pl $showsTxt");
+    exec("modules/episode/utils/grabshowsall.pl $showsTxt $showsCountry");
     unset($_SESSION['show']['state']);
     if (file_exists($showsDat))
         unlink($showsDat);

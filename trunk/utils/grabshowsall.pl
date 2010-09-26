@@ -9,12 +9,10 @@
 # Author   : $Author$
 # License  : GPL
 #
-# Updates  :
-# Chris Kapp  17-Aug-2010  Added ability to have multiple aoi's
-#
 # Change the $aoi(area of interest) to your country
-# For single aoi my @aoi = ("US");
-# For multiple aoi's my @aoi = ("US", "CA"); 
+# Add an entry to data/episode/country.txt for each country you wish to display
+# show/episode information on.  If the country.txt file has no entries or doesn't
+# exist, "US" will be the default country displayed.
 #
 # Status Codes:
 # 0 - Never aired
@@ -34,41 +32,51 @@
 use LWP::Simple;
 use strict;
 
-my $outFile   = $ARGV[0];
-my @aoi       = ("US");
-my $current   = 0;
-my $stripshow = "";
-my $shortshow = "";
-my $name      = "";
-my $country   = "";
-my $status    = "";
-my @array     = ();
-my @array2    = ();
-my $count     = 0;
+my $outFile     = $ARGV[0];
+my $countryFile = $ARGV[1];
+my @aoi         = ("US");
+my $current     = 0;
+my $stripshow   = "";
+my $shortshow   = "";
+my $name        = "";
+my $country     = "";
+my $status      = "";
+my @array       = ();
+my @array2      = ();
+my $count       = 0;
 
-if ($#ARGV != 0 ) {
-    print "usage: ./grabshowsall.pl <path to shows.txt>\n";
-    print "Ex: ./grabidshowsall.pl /tmp/shows.txt\n";
+if ($#ARGV != 1) {
+    print "usage: ./grabshowsall.pl <path to shows.txt> <path to countries.txt\n";
+    print "Ex: ./grabidshowsall.pl /tmp/shows.txt /tmp/countries.txt\n";
     exit 1;
 }
 
+## Get a list of shows from tvrage.com
 my $shows = get "http://services.tvrage.com/feeds/show_list.php";
 if (!$shows) {
     print "Unable to get show info...possible tvrage issues\n";
     exit 1;
 }
 
+## If a country.txt file exists and is greater than 0 bytes use it
+## to get a list of aoi's
+if ((open(my $COUNTRY,"<:encoding(UTF-8)", $countryFile)) && (-s $countryFile)) {
+    @aoi=<$COUNTRY>;
+    close($COUNTRY);
+    chomp(@aoi);
+}
+
 foreach my $show (split("\n",$shows) ) {
-    if ( $show =~ m#<(name)>(.*)</\1># ) {
+    if ($show =~ m#<(name)>(.*)</\1>#) {
         $name = $2;
         $name =~ s/\&amp\;/\&/g; 
         #print "Name   : $2\n";
     }
-    if ( $show =~ m#<(country)>(.*)</\1># ) {
+    if ($show =~ m#<(country)>(.*)</\1>#) {
         $country = $2;
         #print "Country: $2\n";
     }
-    if ( $show =~ m#<(status)>(.*)</\1># ) {
+    if ($show =~ m#<(status)>(.*)</\1>#) {
         $status = $2;
         if (($status == "1") || ($status == "7") || ($status == "9")) {
             $status = 1;
@@ -113,5 +121,3 @@ foreach my $show (@array2) {
 }
 
 close(FILE);
-
-#print "Count is $count\n";

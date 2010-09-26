@@ -65,7 +65,6 @@ $Programs       = array();
 
 $showTitle      = $_SESSION['search']['showstr'];
 $fixedTitle     = $showTitle;
-$showTitle      = preg_replace('/ \(US\)/', '', $showTitle);
 $showTitle      = preg_replace("/^The /", '', $showTitle);
 $state          = $_SESSION['search']['state'];
 $showFilename   = preg_replace('/\s+/', '', $_SESSION['search']['showname']);
@@ -79,7 +78,8 @@ $schedDate      = array();
 // For example mythtv records "Survivor" as "Survivor: Nicaragua".  Since
 // the names don't match they won't display properly as recorded and won't
 // show sheduled/previous recordings.  The override.txt file located
-// under data/episodes is used to overcome this issue.
+// under data/episode is used to overcome this issue.  See the README for
+// more details
 $overrideFile = file($showsOverride);
 $mythName = array("$showTitle");
 

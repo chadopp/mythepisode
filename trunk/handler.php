@@ -31,6 +31,7 @@ if (!is_dir($imageDir) && !mkdir($imageDir, 0775)) {
 // Directories used for show.php
 $showsTxt      = "data/episode/shows.txt";
 $showsDat      = "data/episode/shows.dat";
+$showsCountry  = "data/episode/country.txt";
 $showsOverride = "data/episode/override.txt";
 $getrecorded   = 1;
 // The default view displayed when you load the mainpage. 
