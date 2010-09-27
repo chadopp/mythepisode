@@ -109,7 +109,8 @@ function my_select() {
       <tr align="center">
         <td>
           <font size=5> 
-            <?php echo "$fixedTitle"?>
+            <a href=<?php echo "http:$showLink"?>>
+            <?php echo "$fixedTitle"?></a>
           </font>
         </td>
       </tr>
@@ -319,7 +320,7 @@ $_SESSION['episodes']['allepisodes'] = "all";
         <input type="button" value="Toggle" onClick="my_select(<?php echo "$toggleSelect" ?>);">
       </td>
       <td colspan="6" align="center">
-        <input type="hidden" value="<?php echo "$showTitle"?>" name="title">
+        <input type="hidden" value="<?php echo "$fixedTitle"?>" name="title">
         <input type="submit" value="Create tvwish list" name="submit" id="submit">
       </td>
     </tr>

@@ -194,7 +194,8 @@ if ($showTitle) {
     $episodeInfo = file($showPath);
     if (preg_match('/^INFO/', $episodeInfo[0])) {
         list(,$showId,$showStart,$showEnd,$showCtry,$showStatus,
-              $showClass,$showGenre,$showNetwork) = explode(":", $episodeInfo[0]);
+              $showClass,$showGenre,$showNetwork,$showLink) = explode(":", $episodeInfo[0]);
+        if (!$showLink) $showLink = "//www.tvrage.com";
         $totalEpisodes = count($showEpisodes) - 1;
     }
 }
