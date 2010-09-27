@@ -81,6 +81,7 @@ foreach $line (split("\n",$site) ) {
         $showName = $val;
     } elsif ( $sec eq "Show URL" ) {
         $showUrl = $val;
+        ($junk, $showUrl) = split(":", $showUrl);
     } elsif ( $sec eq "Premiered" ) {
         $showPrem = $val;
     } elsif ( $sec eq "Started" ) {
@@ -151,7 +152,7 @@ if (! -f "$imagePath/$showId.jpg") {
 open FILE, ">$showfile" or die $!;
 binmode FILE, ":utf8";
 
-print FILE "INFO:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$showGenre:$showNetwork\n";
+print FILE "INFO:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$showGenre:$showNetwork:$showUrl\n";
 
 ## Get a list of episodes based on the showid
 my $episodes = get "http://services.tvrage.com/myfeeds/episode_list.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";

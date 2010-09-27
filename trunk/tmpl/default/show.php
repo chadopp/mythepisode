@@ -177,14 +177,14 @@ if ($_SESSION['show']['state'] != "recorded") {
                 ?>
 				
                     <td bgcolor="green">
-                      <a href='episode/episodes/?showstr=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>'><?php echo  htmlspecialchars($data[1])?></a>
+                      <a href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&showname=<?php echo urlencode($data[0])?>'><?php echo  htmlspecialchars($data[1])?></a>
                     </td>
 
                     <?php
                     } else {
                     ?>
                     <td>
-                      <a href='episode/episodes/?showstr=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>'><?php echo htmlspecialchars($data[1])?></a>
+                      <a href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&showname=<?php echo urlencode($data[0])?>'><?php echo htmlspecialchars($data[1])?></a>
                     </td>
 
                     <?php
@@ -196,7 +196,7 @@ if ($_SESSION['show']['state'] != "recorded") {
                     if (($getrecorded) && (in_array("$datastr", $oldRecorded))) {
                     ?>
                         <td bgcolor="green">
-                          <a href='episode/episodes/?showstr=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>'><?php echo htmlspecialchars($data[1])?></a>
+                          <a href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&showname=<?php echo urlencode($data[0])?>'><?php echo htmlspecialchars($data[1])?></a>
                         </td>
 
                     <?php
@@ -204,7 +204,7 @@ if ($_SESSION['show']['state'] != "recorded") {
                     ?>
                     
                         <td>
-                          <a href='episode/episodes/?showstr=<?php echo urlencode($data[2])?>&showname=<?php echo $data[0]?>&allepisodes=<?php echo all?>'><?php echo htmlspecialchars($data[1])?></a>
+                          <a href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&showname=<?php echo $data[0]?>&allepisodes=<?php echo all?>'><?php echo htmlspecialchars($data[1])?></a>
                         </td>
 
                     <?php
@@ -268,7 +268,7 @@ if ($_SESSION['show']['state'] == "recorded") {
         }
         ?>
 
-   <td onmouseover="changeCell(this)" onmouseout="changeCell(this)"><a href="episode/episodes/?showstr=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>"><?php echo htmlspecialchars($data[1])?>
+   <td onmouseover="changeCell(this)" onmouseout="changeCell(this)"><a href="episode/episodes/?showstr=<?php echo urlencode($data[1])?>&showname=<?php echo urlencode($data[0])?>"><?php echo htmlspecialchars($data[1])?>
    </td>
 
         <?php
