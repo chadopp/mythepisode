@@ -2,4 +2,10 @@
 #labels Featured
 
 = Information =
-I've only tested with .22 and have pretty good results.  Curious what MythTV version others are using and their experiences with mythepisode.  What version of mythepisode?
+
+MythTV Version:
+Mythepisode Version:
+Browser:
+Linux Distro:
+Number of Shows:
+Number of Episodes:
