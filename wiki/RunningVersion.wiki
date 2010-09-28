@@ -1,12 +1,5 @@
 #summary What version of MythTV have you tested mythepisode on
+#labels Featured
 
 = Introduction =
-
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+I've only tested with .22 and have pretty good results.  Just curious what version others are using and their experiences.
