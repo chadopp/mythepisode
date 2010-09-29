@@ -21,6 +21,7 @@ if ($_GET['showstr'] || $_POST['showstr']) {
     unset($_SESSION['search']);
     $_SESSION['search']['showstr']  = _or($_GET['showstr'], $_POST['showstr']);
     $_SESSION['search']['showname'] = _or($_GET['showname'], $_POST['showname']);
+    $_SESSION['search']['longshow'] = _or($_GET['longshow'], $_POST['longshow']);
     $allEpisodes = "all";
 }
 
@@ -64,6 +65,7 @@ $All_Shows      = array();
 $Programs       = array();
 
 $showTitle      = $_SESSION['search']['showstr'];
+$longTitle      = $_SESSION['search']['longshow'];
 $fixedTitle     = $showTitle;
 $showTitle      = preg_replace("/^The /", '', $showTitle);
 $state          = $_SESSION['search']['state'];
@@ -150,7 +152,7 @@ if ($showTitle) {
 
     // Update the episodes list for passed in title
     if (!file_exists($showPath) || $state == "update") {
-        exec("modules/episode/utils/grabid.pl \"$showTitle\" \"$showPath\" \"$imageDir\"");
+        exec("modules/episode/utils/grabid.pl \"$longTitle\" \"$showPath\" \"$imageDir\"");
         unset($_SESSION['search']['state']);
         $allEpisodes = "all";
     }
