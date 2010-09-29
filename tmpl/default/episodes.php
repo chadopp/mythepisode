@@ -110,7 +110,7 @@ function my_select() {
         <td>
           <font size=5> 
             <a href=<?php echo "http:$showLink"?>>
-            <?php echo "$fixedTitle"?></a>
+            <?php echo "$longTitle"?></a>
           </font>
         </td>
       </tr>
