@@ -28,27 +28,32 @@ if (!is_dir($imageDir) && !mkdir($imageDir, 0775)) {
     exit;
 }
 
-// Directories used for show.php
+// Files/Directories used for show.php
 $showsTxt      = "data/episode/shows.txt";
 $showsDat      = "data/episode/shows.dat";
 $showsCountry  = "data/episode/country.txt";
 $showsOverride = "data/episode/override.txt";
+
+// If set to 0 the mainpage loads slightly faster but doesn't display
+// recorded shows in green.  1 should be ok in most cases 
 $getrecorded   = 1;
+
 // The default view displayed when you load the mainpage. 
-// all - display all TV shows ever aired
-// current - display TV shows that are currently being aired
+// all      - display all TV shows ever aired
+// current  - display TV shows that are currently being aired
 // recorded - display TV shows that you have previously recorded 
 $defaultView = "recorded";
 
-// Directories used for episodes.php
+// Files/Directories used for episodes.php
 $showDir = "data/episode/shows";
+
 // This is used to determine what the percent of matching
 // between mythdb subtitles and tvrage subtitles. i.e Alter Ego Altar Ego
 // Going too low will cause a bunch of bogus matches.  Best results are
 // 80-90
 $matchPercent = 85;
 
-// Directories used for tvwish_list.php
+// Files/Directories used for tvwish_list.php
 $listDir    = "data/episode/tvwish/episodes";
 $masterFile = "data/episode/tvwish/master";
 $tvwishep   = "$dataDir/episode/tvwish/episodes";
