@@ -3,6 +3,11 @@
 
 = Details =
 
+1.0.5
+    * Addition of data/episode/country.txt so that the user can specify the countries they choose for show listings.  The default country is the "US" if no country file exists.
+    * Fix tvwish title issue
+    * Hover over the show title on the episodes listing page and get a show summary.  The show title is also linked to tvrage for the specific show title.
+
 1.0.4
     * Update to grabid.pl that significantly reduces the time it takes to update episode information.  Remove the need for summary.pl
     * Change the way in which episode numbers are displayed.  Cleans up some issues with duplicates
