@@ -28,7 +28,6 @@ $remainingEpisodes = $totalEpisodes-$totalRecorded;
 $fixedTitle = stripslashes($fixedTitle);
 $showTitle = stripslashes($showTitle);
 
-
 function imageResize($width, $height, $target) {
 
 // Takes the larger size of the width and height and applies the  
@@ -64,12 +63,45 @@ if (file_exists("$imageDir/$showId.jpg")) {
 
 ?>
 
+<!-- This stuff should eventually go into a .css file -->
 <style type="text/css">
 td.x-active {
     padding:            .35em .5em;
     border-left:        1px solid #304943;
     height:             2em;
     background-color:   #485;
+}
+
+div.showinfo a {
+    margin-left: 15%;
+    margin-right: 15%;
+    position:        relative;
+    display:         block;
+    color:           white;
+    text-decoration: none;
+    padding:         .2em .8em;
+}
+div.showinfo a span {
+    display:none;
+}
+
+div.showinfo a:hover {
+    background-color: #204670;
+    border-top:       thin solid #668;
+    border-bottom:    thin solid #668;
+    border-left:      thin solid #668;
+    cursor:           default;
+}
+div.showinfo a:hover span {
+    display:          block;
+    position:         absolute;
+    background-color: white;
+    color:            #204670;
+    right:            1px;
+    margin-top:       0px;
+    width:            460px;
+    padding:          5px;
+    border:           thin dashed #88a;
 }
 </style>
 
@@ -109,9 +141,11 @@ function my_select() {
       <tr align="center">
         <td>
           <font size=5> 
-            <a href=<?php echo "http:$showLink"?>>
-            <?php echo "$longTitle"?></a>
-          </font>
+            <div class="showinfo">
+            <?php if (!$showData) $showData = "Update Episode Listing" ?>
+            <a href=<?php echo "http:$showLink"?>><?php echo "$longTitle"?><font size=2><span align=left><?php echo "$showData"?></span></a>
+            </div>
+          </font></font>
         </td>
       </tr>
       <tr align="center">
@@ -300,7 +334,7 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
         ?>
 
         <td width="60%">
-          <?php echo htmlspecialchars($data[4])?>
+          <?php echo $data[4]?>
         </td>
 
         <td class="<?php echo $classes?>">

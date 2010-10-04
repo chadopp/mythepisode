@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 ############################################################################
 #
 # File     : grabid.pl
@@ -16,6 +16,7 @@
 ############################################################################
 use LWP::Simple;
 use LWP::Simple qw(get $ua);
+use XML::Simple;
 use strict;
 
 $ua->agent('My agent/1.0');
@@ -56,6 +57,7 @@ my $airdate     = "";
 my $link        = "";
 my $junk        = "";
 my $summary     = "";
+my $showSummary = "";
 
 ## Get information from tvrage.com using their quickinfo script
 ## The quickinfo script has some issues that I have reported, but
@@ -133,28 +135,26 @@ if ($debug) {
     print "episodeUrl  is $episodeUrl\n";
 }
 
+my $images = get "http://services.tvrage.com/myfeeds/showinfo.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
+my $xml = new XML::Simple;
+my $showData = $xml->XMLin("$images");
+$showSummary = $showData->{summary};
+$showSummary =~ s/\n/ - /g;
+$showSummary =~ s/://g;
+
 ## Get jpg image from tvrage.com.
 if (! -f "$imagePath/$showId.jpg") {
-    my $images = get "http://services.tvrage.com/myfeeds/showinfo.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
-    foreach $line (split("\n",$images) ) {
-        ## Parse the results from tvrage.com to get showid
-        if ( $line =~ m#<(image)>(.*)</\1># ) {
-            my $showImage = $2; chomp $showImage;
-            print "Image is $showImage\n" if $debug;
-            getstore("$showImage", "$imagePath/$showId.jpg");
-        }
-    }
-} else {
-    print "Thumbnail exists for $showName\n" if $debug;
+    my $showImage = $showData->{image};
+    getstore("$showImage", "$imagePath/$showId.jpg");
 }
-
 
 open FILE, ">$showfile" or die $!;
 binmode FILE, ":utf8";
 
-print FILE "INFO:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$showGenre:$showNetwork:$showUrl\n";
+print FILE "INFO:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$showGenre:$showNetwork:$showUrl:$showSummary\n";
 
 ## Get a list of episodes based on the showid
+## Need to update this using xml::simple
 my $episodes = get "http://services.tvrage.com/myfeeds/episode_list.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
 foreach my $episode (split("\n",$episodes)) {
     if ($episode =~ /^\<Season no/) {
