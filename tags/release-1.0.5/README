@@ -1,0 +1,138 @@
+##
+ # mythepisode README
+ #
+ # @url         $URL$
+ # @date        $Date$
+ # @version     $Revision$
+ # @author      $Author$
+ # @license     GPL
+ #
+##
+
+NOTES: 
+I have test mythepisode with the following browsers(although not thoroughly)
+Firefox - very fast on my system
+Safari  - very fast on my system
+Chrome  - very fast on my system
+IE      - very slow on my system
+
+- If it takes a long time to load the main page try setting $getrecorded to 0 
+  in handler.php. If you do this I think the page will load faster but shows 
+  that you have recorded won't show up in green on the main page.
+
+- The episodes page will display a thumbnail and additional information for 
+  each show.  The info will initially be blank with no thumbnail and blank show 
+  info until you do a "Update Episode Listing" on the episode page.  This will 
+  force a grab of the thumbnail and show information.
+
+- I have added a file called override.txt which will reside in 
+  data/episode/override.txt.  When you first install mythepisode if the file 
+  doesn't exist in data/episode it will be copied from the utils directory and 
+  placed in data/episode.  This file is used to overcome issues with shows that 
+  have different recorded titles than those that come from tvrage.com
+
+  A couple of examples that impact me
+
+  recorded by mythtv as:          listed in mythepisode as:
+  ----------------------          -------------------------
+  Survivor: Nicaragua             Survivor
+  2010 MTV Video Music Awards     MTV Video Music Awards
+  Hawaii Five-0                   Hawaii Five-0 (2010)
+  The Amazing Race 17             The Amazing Race
+
+  To overcome this issue you can add them to override.txt using the following 
+  format - recorded title:::tvrage title
+
+  Survivor: Nicaragua:::Survivor
+  62nd Primetime Emmy Awards:::The Emmy Awards
+  2010 MTV Video Music Awards:::MTV Video Music Awards
+  2010 World Series of Poker:::World Series of Poker
+  Hawaii Five-0:::Hawaii Five-0 (2010)
+  The Amazing Race 17:::The Amazing Race
+
+  Some shows like Survivor have a different name every year but need to be 
+  listed under Survivor within mythepisode.  You can add these by putting --- 
+  inbetween each one.
+
+  Survivor: Nicaragua---Survivor: Pearl Island:::Survivor
+  2010 World Series of Poker---2011 World Series of Poker:::World Series of Poker
+
+################################################################################
+I'm interested in feedback from anyone running trunk or the soon to be
+release .24.  I don't plan on upgrading my system anytime soon.
+
+If you are running mythweb trunk or greater you will need to make a couple of 
+changes to episodes.php since trunk has changed some of the mythweb 
+classes/includes.  I've only had feedback from others and haven't tested this 
+with trunk.
+
+- require_once 'classes/Schedule.php';
+- require_once 'classes/Channel.php';
+- require_once 'classes/Program.php';
+- require_once 'includes/recording_schedules.php';
+
++ require_once 'includes/recording_schedules.php';
++ require_once 'classes/Channel.php';
++ require_once 'classes/Program.php';
++ require_once 'classes/Schedule.php';
+
+- foreach ($Scheduled_Recordings as $callsign => $shows) {
++ foreach (Schedule::findScheduled() as $callsign => $shows) {
+################################################################################
+
+As installed on my system
+
+1.
+cd /usr/share/mythtv/mythweb/modules
+gunzip /tmp/episode.tar.gz
+tar xvf /tmp/episode.tar
+
+2. 
+cd /usr/share/mythtv/mythweb/modules/_shared/tmpl/default
+Add a line like the following to header.php  
+
+NOTE: If you have installed mythepisode in the past you need to update the line below as it has changed.
+
+EXISTING LINE: <a href="tv/recorded"><?php echo t('Recorded Programs') ?></a>
+EXISTING LINE: &nbsp; | &nbsp;
+NEW LINE: <a href="episode/show"><?php echo t('TV Episodes') ?></a>
+NEW LINE: &nbsp; | &nbsp;
+EXISTING LINE: <?php } ?>
+
+3.
+mkdir /var/lib/mythtv/episode
+chmod 777 /var/lib/mythtv/episode
+cd /var/lib/mythtv/episode
+gunzip /tmp/data.tar.gz
+tar xvf /tmp/data.tar
+chown -R www-data:www-data /var/lib/mythtv/episode    (my web server runs as www-data)
+cd /usr/share/mythtv/mythweb/data
+ln -s /var/lib/mythtv/episode  episode
+
+4.
+download tvwish from http://www.templetons.com/brad/myt/tvwish.html and install it under /usr/share/mythtv/tvwish
+Add a cronjob to roots crontab
+00 12 * * * /usr/share/mythtv/mythweb/modules/episode/utils/runwish > /dev/null 2>&1
+
+5.
+cd /usr/share/mythtv/mythweb/modules/_shared/lang
+./build_translation.pl
+
+6.
+cd /var/lib/mythtv/episode
+vi country.txt
+Add a line for each country you wish to display shows for.
+example:
+US
+CA
+UK
+
+This would display shows for all 3 countries after you perform an "Update Show
+Listing".  If you decide not to create a country.txt file the display will 
+default to "US" only show.
+
+*Note:*
+If your paths differ from mine above then you will have to make a few changes 
+to paths in the cronjob and the scripts below.  I plan to fix this in the 
+future.
+- runwish
