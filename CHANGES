@@ -1,3 +1,6 @@
+1.0.6
+    * Fix path issue with handler.php
+
 1.0.5
     * Addition of data/episode/country.txt so that the user can
       specify the countries they choose for show listings.  The default

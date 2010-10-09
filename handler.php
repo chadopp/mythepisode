@@ -17,7 +17,7 @@ require_once "includes/init.php";
 require_once "includes/sorting.php";
 
 // Setup some paths
-$rootDir   = $_SERVER['DOCUMENT_ROOT'].'/mythweb';
+$rootDir   = getcwd();
 $scriptDir = "$rootDir/modules/episode/utils";
 $dataDir   = "$rootDir/data";
 $imageDir  = "$dataDir/episode/images";
