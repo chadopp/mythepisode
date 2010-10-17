@@ -80,14 +80,22 @@ with trunk.
 + foreach (Schedule::findScheduled() as $callsign => $shows) {
 ################################################################################
 
+-------------------------
+Installation Instructions
+-------------------------
+
 As installed on my system
 
-1.
-cd /usr/share/mythtv/mythweb/modules
+Step 1:
+-------
+cd /usr/share/mythtv/mythweb/modules (path may be slightly different on your system,
+                                      but you have to install mythepisode under
+                                      mythweb/modules)
 gunzip /tmp/episode.tar.gz
 tar xvf /tmp/episode.tar
 
-2. 
+Step 2: 
+-------
 cd /usr/share/mythtv/mythweb/modules/_shared/tmpl/default
 Add a line like the following to header.php  
 
@@ -99,25 +107,34 @@ NEW LINE: <a href="episode/show"><?php echo t('TV Episodes') ?></a>
 NEW LINE: &nbsp; | &nbsp;
 EXISTING LINE: <?php } ?>
 
-3.
+Step 3:
+-------
 Create a directory where you want your show/episode information stored.  I use the
-same directory path where my tv and video recordings are stored
+same directory path where my tv and video recordings are stored.  This will ensure
+that if you update mythweb or mythepisode your data files will stay intact.
+
 mkdir /var/lib/mythtv/episode  (This can be wherever you want)
 chmod 777 /var/lib/mythtv/episode
 cd /usr/share/mythtv/mythweb/data (The path to the mythweb/data dir may be different
                                    for your installation.)
 ln -s /var/lib/mythtv/episode  episode
 
-4.
+Step 4:
+-------
+This step is optional, but required if you want to use the tvwish funtion in 
+mythepisode
+
 download tvwish from http://www.templetons.com/brad/myt/tvwish.html and install it under /usr/share/mythtv/tvwish
 Add a cronjob to roots crontab
 00 12 * * * /usr/share/mythtv/mythweb/modules/episode/utils/runwish > /dev/null 2>&1
 
-5.
+Step 5:
+-------
 cd /usr/share/mythtv/mythweb/modules/_shared/lang
 ./build_translation.pl
 
-6.
+Step 6:
+-------
 cd /var/lib/mythtv/episode
 vi country.txt
 Add a line for each country you wish to display shows for.
