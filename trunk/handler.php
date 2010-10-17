@@ -20,19 +20,16 @@ require_once "includes/sorting.php";
 $rootDir   = getcwd();
 $scriptDir = "$rootDir/modules/episode/utils";
 $dataDir   = "$rootDir/data";
-$imageDir  = "$dataDir/episode/images";
-
-// Create the images dir if it doesn't exist
-if (!is_dir($imageDir) && !mkdir($imageDir, 0775)) {
-    custom_error('Error creating $imageDir: Please check permissions on the data directory.');
-    exit;
-}
+$epDir     = "$dataDir/episode";
+$showDir   = "$epDir/shows";
+$imageDir  = "$epDir/images";
+$wishDir   = "$epDir/tvwish";
 
 // Files/Directories used for show.php
-$showsTxt      = "data/episode/shows.txt";
-$showsDat      = "data/episode/shows.dat";
-$showsCountry  = "data/episode/country.txt";
-$showsOverride = "data/episode/override.txt";
+$showsTxt      = "$epDir/shows.txt";
+$showsDat      = "$epDir/shows.dat";
+$showsCountry  = "$epDir/country.txt";
+$showsOverride = "$epDir/override.txt";
 
 // If set to 0 the mainpage loads slightly faster but doesn't display
 // recorded shows in green.  1 should be ok in most cases 
@@ -44,18 +41,15 @@ $getrecorded   = 1;
 // recorded - display TV shows that you have previously recorded 
 $defaultView = "recorded";
 
-// Files/Directories used for episodes.php
-$showDir = "data/episode/shows";
-
 // This is used to determine what the percent of matching
 // between mythdb subtitles and tvrage subtitles. i.e Alter Ego Altar Ego
 // Going too low will cause a bunch of bogus matches.  Best results are
-// 80-90
+// 80-90. 100 is exact match.
 $matchPercent = 85;
 
 // Files/Directories used for tvwish_list.php
-$listDir    = "data/episode/tvwish/episodes";
-$masterFile = "data/episode/tvwish/master";
+$listDir    = "$wishDir/episodes";
+$masterFile = "$wishDir/master";
 $tvwishep   = "$dataDir/episode/tvwish/episodes";
 
 // Load a custom page

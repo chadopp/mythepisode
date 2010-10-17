@@ -18,6 +18,25 @@ if ($_GET['wishstr'] || $_POST['wishstr']) {
     exit;
 }
 
+// Create the wish dir if it doesn't exist
+if (!is_dir($wishDir) && !mkdir($wishDir, 0775)) {
+    custom_error('Error creating '.$wishDir.': Please check permissions on the data directory.');
+    exit;
+}
+
+// Create the list dir if it doesn't exist
+if (!is_dir($listDir) && !mkdir($listDir, 0775)) {
+    custom_error('Error creating '.$listDir.': Please check permissions on the data directory.');
+    exit;
+}
+
+// Copy the template file over to data/episode/tvwish/master if one doesn't exist
+if (!file_exists($masterFile)) {
+    copy("$scriptDir/master.template", "$masterFile");
+    custom_error('Initial tvwish master file did not exist.  Master wishfile created...Resave your tvwish list for '.$_POST['title'].'');
+    exit;
+}
+
 // If check boxes are selected create a show file
 $cbSelected     = $_POST["f"];
 $longTitle      = $_POST['title'];
