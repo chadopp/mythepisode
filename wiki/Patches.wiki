@@ -3,6 +3,10 @@
 
 = Details =
 
+1.0.6
+    * Fix path issues with handler.php
+    * Create directories automatically if they don't exist.  Initial install doesn't require installation of data.tar.gz
+
 1.0.5
     * Addition of data/episode/country.txt so that the user can specify the countries they choose for show listings.  The default country is the "US" if no country file exists.
     * Fix tvwish title issue
