@@ -1,5 +1,7 @@
 1.0.6
-    * Fix path issue with handler.php
+    * Fix path issues with handler.php
+    * Create directories automatically if they don't exist.  Initial
+      install doesn't require installation of data.tar.gz
 
 1.0.5
     * Addition of data/episode/country.txt so that the user can

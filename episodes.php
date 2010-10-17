@@ -53,6 +53,12 @@ function StripString($rStr, $StripText) {
     return $rStr;
 }
 
+// Create the images dir if it doesn't exist
+if (!is_dir($imageDir) && !mkdir($imageDir, 0775)) {
+    custom_error('Error creating '.$imageDir.': Please check permissions on the data directory.');
+    exit;
+}
+
 // Im temporarily disabling this since I think there is more to deleting
 // a recording than just deleting it from oldrecorded
 // Delete a record from the DB

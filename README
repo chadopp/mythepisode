@@ -100,13 +100,12 @@ NEW LINE: &nbsp; | &nbsp;
 EXISTING LINE: <?php } ?>
 
 3.
-mkdir /var/lib/mythtv/episode
+Create a directory where you want your show/episode information stored.  I use the
+same directory path where my tv and video recordings are stored
+mkdir /var/lib/mythtv/episode  (This can be wherever you want)
 chmod 777 /var/lib/mythtv/episode
-cd /var/lib/mythtv/episode
-gunzip /tmp/data.tar.gz
-tar xvf /tmp/data.tar
-chown -R www-data:www-data /var/lib/mythtv/episode    (my web server runs as www-data)
-cd /usr/share/mythtv/mythweb/data
+cd /usr/share/mythtv/mythweb/data (The path to the mythweb/data dir may be different
+                                   for your installation.)
 ln -s /var/lib/mythtv/episode  episode
 
 4.
