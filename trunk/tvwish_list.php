@@ -79,9 +79,8 @@ if ($_SESSION['wish']['wishstr'] == "activate") {
 } elseif ($_SESSION['wish']['wishstr'] == "deactivate") {
     $out = fopen("$masterFile", "w");
     foreach ($tempFile as $tempEntry) {
-        if (!stristr($tempEntry, $state)) {
+        if (!stristr($tempEntry, $state))
             fputs($out, $tempEntry);
-        }
     }
     unset($_SESSION['wish']);
     fclose($out);

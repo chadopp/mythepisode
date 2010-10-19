@@ -51,9 +51,8 @@ if ($state != "recorded") {
     // Count the number of shows that are currently active TV shows
     foreach ($allShows as $current) {
         $current = explode("\t", $current);
-        if ($current[3] == 1) {
+        if ($current[3] == 1)
             $currentCount = $currentCount + 1;
-        }
     }
 }
 
