@@ -6,6 +6,8 @@ suggestions.
 
 
 = Contributors =
+Alec C.:
+  * Fix tvrage links
 
 Chris K.:
   * DB query update
