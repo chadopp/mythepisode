@@ -69,7 +69,7 @@ if ($_SESSION['show']['state'] != "recorded") {
 </tr>
 <tr align="center">
   <td>
-    <a href="http://www.tvrage.com">
+    <a href="http://www.tvrage.com" target="_blank">
       <?php echo t('Listing Source: www.tvrage.com') ?>
     </a>
     &nbsp;&nbsp; - &nbsp;&nbsp;

@@ -8,9 +8,9 @@
  * @author      $Author$
  * @license     GPL
  *
- /**/
+/**/
 
-// A single show string passed in
+// Determine what view we want to display; all, current, or recorded 
 if ($_GET['state']) {
     unset($_SESSION['show']['state']);
     $_SESSION['show']['state'] = $_GET['state'];
@@ -43,6 +43,7 @@ if (!file_exists($showsTxt) || $state == "update") {
         unlink($showsDat);
 }
 
+// Get a count of all and current shows from tvrage
 if ($state != "recorded") {
     // Read the list of shows from tvrage.com into an array and get total count
     $allShows = file($showsTxt);
@@ -73,7 +74,7 @@ if ($state == "recorded") {
     }
 
     if (!file_exists($showsDat)) {
-        // Read the list of shows from tvrage.com into an array and get total count
+        // Read the list of shows from tvrage.com into an array
         $tempShows = file($showsTxt);
 
         // convert $tempShows into an associative array

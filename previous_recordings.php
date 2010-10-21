@@ -21,12 +21,6 @@ require_once 'classes/Program.php';
 isset($_GET['title']) or $_GET['title'] = $_POST['title'];
 isset($_GET['title']) or $_GET['title'] = $_SESSION['previous_recorded_title'];
 
-function StripString($rStr, $StripText) {
-    $rTempStr = explode($StripText, $rStr);
-    $rStr     = implode("", $rTempStr);
-    return $rStr;
-}
-
 // Im temporarily disabling this since I think there is more to deleting
 // a recording than just deleting it from oldrecorded
 // Delete a record from the DB
