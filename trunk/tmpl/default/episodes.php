@@ -143,14 +143,14 @@ function my_select() {
           <font size=5> 
             <div class="showinfo">
             <?php if (!$showData) $showData = "Update Episode Listing" ?>
-            <a href=<?php echo "http:$showLink"?>><?php echo "$longTitle"?><font size=2><span align=left><?php echo "$showData"?></span></a>
+            <a href=<?php echo "http:$showLink"?> target="_blank"><?php echo "$longTitle"?><font size=2><span align=left><?php echo "$showData"?></span></a>
             </div>
           </font></font>
         </td>
       </tr>
       <tr align="center">
         <td>
-          <a href="http://www.tvrage.com">
+          <a href="http://www.tvrage.com" target="_blank">
           <?php echo t('Listing Source: www.tvrage.com') ?>
           </a>
           &nbsp;&nbsp; - &nbsp;&nbsp;
@@ -319,7 +319,7 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
         if ($data[3] != "") {
         ?>
             <td>
-              <a href=<?php echo $data[3]?>><?php echo htmlspecialchars($data[2])?></a>
+              <a href=<?php echo $data[3]?> target="_blank"><?php echo htmlspecialchars($data[2])?></a> 
             </td>
 
         <?php

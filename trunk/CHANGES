@@ -1,3 +1,7 @@
+1.0.7
+    * Fix to external tvrage links
+    * Updated some of the code comments
+
 1.0.6
     * Fix path issues with handler.php
     * Create directories automatically if they don't exist.  Initial

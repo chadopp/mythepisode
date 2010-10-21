@@ -10,13 +10,13 @@
  *
  /**/
 
-// Classes from modules/tv
+// Load classes from modules/tv
 require_once 'classes/Schedule.php';
 require_once 'classes/Channel.php';
 require_once 'classes/Program.php';
 require_once 'includes/recording_schedules.php';
 
-// Two strings passed in to identify showname and showstring to grab from tvrage.com
+// Strings passed in to identify showname, showstring, longshow to grab from tvrage.com
 if ($_GET['showstr'] || $_POST['showstr']) {
     unset($_SESSION['search']);
     $_SESSION['search']['showstr']  = _or($_GET['showstr'], $_POST['showstr']);
@@ -30,6 +30,7 @@ if ($_GET['state'] || $_POST['state']) {
     $_SESSION['search']['state'] = _or($_GET['state'], $_POST['state']);
 }
 
+// Grab the allepisodes string if it exists
 if ($_GET['allepisodes'] || $_POST['allepisodes']) {
     unset($_SESSION['episodes']);
     $_SESSION['episodes']['allepisodes'] = _or($_GET['allepisodes'], $_POST['allepisodes']);
@@ -40,17 +41,11 @@ if ($_GET['allepisodes'] || $_POST['allepisodes']) {
 }   
  
 
-// Queries for a specific program title that were previously recorded
+// Get the episode title used to query the DB for previous recordings
 if ($_GET['title'] || $_POST['title']) {
     $_SESSION['episodes']['title'] = _or($_GET['title'], $_POST['title']);
     unset($_SESSION['episodes']['allepisodes']);
     $recordedTitle = $_GET['title'];
-}
-
-function StripString($rStr, $StripText) {
-    $rTempStr = explode($StripText, $rStr);
-    $rStr     = implode("", $rTempStr);
-    return $rStr;
 }
 
 // Create the images dir if it doesn't exist
@@ -66,10 +61,10 @@ if (!is_dir($imageDir) && !mkdir($imageDir, 0775)) {
 //    $deleteRecorded = $db->query('DELETE FROM oldrecorded
 //                                   WHERE programid=?', $_GET['category']);
 
+// Set some variables
 $Total_Programs = 0;
 $All_Shows      = array();
 $Programs       = array();
-
 $showTitle      = $_SESSION['search']['showstr'];
 $longTitle      = $_SESSION['search']['longshow'];
 $fixedTitle     = $showTitle;
@@ -91,6 +86,8 @@ $schedDate      = array();
 $overrideFile = file($showsOverride);
 $mythName = array("$showTitle");
 
+// Go thru the overridFile and get a list of shows to override and split
+// them  into titles
 foreach ($overrideFile as $overrideShow) {
     list($mythTemp,$rageName) = explode(":::", "$overrideShow");
     $rageName = rtrim($rageName);
@@ -100,6 +97,7 @@ foreach ($overrideFile as $overrideShow) {
     }
 }
 
+// If the showTitle is defined look for scheduled recordings
 if ($showTitle) {
     // Parse the list of scheduled recordings
     global $Scheduled_Recordings;
@@ -156,14 +154,14 @@ if ($showTitle) {
     }
     $totalSched = count($schedEpisodes);
 
-    // Update the episodes list for passed in title
+    // Update the episodes list for passed in title by grabbing episodes from tvrage
     if (!file_exists($showPath) || $state == "update") {
         exec("modules/episode/utils/grabid.pl \"$longTitle\" \"$showPath\" \"$imageDir\"");
         unset($_SESSION['search']['state']);
         $allEpisodes = "all";
     }
 
-    // Setup the title query string bases off of mythName array
+    // Setup the title query string bases off of mythName array.
     foreach ($mythName as $queryString) {
         $queryString = mysql_real_escape_string($queryString);
         if (!$titleQuery) {
@@ -209,7 +207,8 @@ if ($showTitle) {
     }
 }
 
-// Get a list of episodes for shows that have been recorded in the past.
+// Get a list of episodes for shows that have been recorded in the past to display
+// on the previous recordings page.
 if ($recordedTitle) {
     // Parse the program list
     $result = mysql_query("SELECT title,subtitle,description,programid,starttime 
