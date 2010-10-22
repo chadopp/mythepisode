@@ -17,5 +17,12 @@
 // Print a basic overview of what this module does
          t('welcome: TV Episodes'),
 
+// Next, print a list of possible subsectons
+        '<ul>';
+    foreach (Modules::getModuleProperity('episode', 'links') as $link => $name) {
+        echo ' <li><a href="', root_url, Modules::getModuleProperity('episode', 'path'), '/', $link, '">', html_entities($name), "</a></li>\n";
+    }
+    echo '</ul>',
+
 // Close the div
          "</div>\n";

@@ -66,4 +66,7 @@ switch ($Path[1]) {
     case 'previous_recordings';
         require_once 'modules/episode/previous_recordings.php';
         exit;
+    default;
+        require_once 'modules/episode/show.php';
+        exit;
 }

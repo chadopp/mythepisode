@@ -43,7 +43,7 @@ if (!file_exists($showsTxt) || $state == "update") {
         unlink($showsDat);
 }
 
-// Get a count of all and current shows from tvrage
+// If state is not recorded get a count of all and current shows from tvrage
 if ($state != "recorded") {
     // Read the list of shows from tvrage.com into an array and get total count
     $allShows = file($showsTxt);
@@ -57,13 +57,16 @@ if ($state != "recorded") {
     }
 }
 
+// If state is set to recorded we need to look at showsDat
 if ($state == "recorded") {
     $recordedShows = array();
 
+    // Remove whitespace and make lowercase
     function fixShow($show) {
         return str_replace(' ', '', strtolower($show));
     }
 
+    // Cleanup show names
     function explodeShows($item, $key) {
         global $recordedShows;
         $show    = rtrim($item);
@@ -73,13 +76,15 @@ if ($state == "recorded") {
         $recordedShows[fixShow($show[1])] = $show;
     }
 
+    // Create showsDat if it doesn't exist
     if (!file_exists($showsDat)) {
         // Read the list of shows from tvrage.com into an array
         $tempShows = file($showsTxt);
 
-        // convert $tempShows into an associative array
+        // Convert $tempShows into an associative array
         array_walk($tempShows, 'explodeShows');
 
+        // Open showsDat for writing
         $handle = fopen($showsDat, 'w') or die ("can't open showsDat");
         fwrite($handle, serialize($recordedShows));
         fclose($handle);
@@ -88,7 +93,7 @@ if ($state == "recorded") {
     }
 }
 
-// Get a list of previous recordings so we know if a show has had episodes recorded.
+// Get a list of previous recordings from the DB
 $recordings = mysql_query("SELECT distinct title FROM oldrecorded") 
                                   or trigger_error('SQL Error: ' . mysql_error(), FATAL);
 
@@ -102,13 +107,17 @@ while ($row1 = mysql_fetch_assoc($recordings))
 // the names don't match they won't display properly as recorded and won't
 // show sheduled/previous recordings.  The override.txt file located 
 // under data/episodes is used to overcome this issue. 
-$overrideCount = 0;
+
+// Copy the override.template to data/episode/override.txt if it doesn't exit 
 if (!file_exists($showsOverride))
     copy("$scriptDir/override.template", "$showsOverride");
 
-$overrideFile = file($showsOverride);
-$mythTitle = array();
+// Read showsOverride file into an array
+$overrideFile  = file($showsOverride);
+$mythTitle     = array();
+$overrideCount = 0;
 
+// Go through overrideFile array and get the override show titles
 foreach ($overrideFile as $overrideShow) {
     list($mythName,$rageName) = explode(":::", "$overrideShow");
     $rageName  = trim($rageName);
@@ -116,6 +125,7 @@ foreach ($overrideFile as $overrideShow) {
     $rageName  = str_replace(' ', '', strtolower($rageName));
     $mythName  = str_replace(' ', '', strtolower($mythName));
     $mythTitle = explode("---", "$mythName");
+    // Determine each new show title and add it to oldRecorded array
     foreach ($mythTitle as $tempTitle) {
         if (in_array("$tempTitle", $oldRecorded))  {
             array_push($oldRecorded, "$rageName");
@@ -127,6 +137,7 @@ foreach ($overrideFile as $overrideShow) {
 
 mysql_free_result($recordings);
 
+// Sort oldRecorded and get a count 
 sort($oldRecorded);
 $recordedCount = count($oldRecorded) - $overrideCount;
 
