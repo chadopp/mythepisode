@@ -3,6 +3,13 @@
 
 = Details =
 
+1.0.7(trunk)
+    * Fix to external tvrage links
+    * Updated some of the code comments
+    * Update the episode listing page to display episodes that are currently available to watch
+    * Update to welcome page
+    * Fix default page link
+
 1.0.6
     * Fix path issues with handler.php
     * Create directories automatically if they don't exist.  Initial install doesn't require installation of data.tar.gz
