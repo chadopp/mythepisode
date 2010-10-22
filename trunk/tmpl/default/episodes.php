@@ -21,7 +21,7 @@ require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 
 global $All_Shows, $Total_Programs;
 global $show, $allEpisodes, $schedDate;
-global $showEpisodes, $recEpisodes, $schedEpisodes, $recDate;
+global $showEpisodes, $recEpisodes, $watchedEpisodes, $unwatchedEpisodes, $schedEpisodes, $recDate, $watchedDate, $unwatchedDate;
 global $toggleSelect, $showTitle, $matchPercent;
 global $totalRecorded, $totalSched, $totalEpisodes;
 $remainingEpisodes = $totalEpisodes-$totalRecorded;
@@ -259,24 +259,46 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
         }else{
             $prevMatch = close_match("$datalc", $recEpisodes, $matchPercent);
         }
+        if ($watchedMatch = in_array("$data[1]", $watchedDate)) {
+        }else{
+            $watchedMatch = close_match("$datalc", $watchedEpisodes, $matchPercent);
+        }
+        if ($unwatchedMatch = in_array("$data[1]", $unwatchedDate)) {
+        }else{
+            $unwatchedMatch = close_match("$datalc", $unwatchedEpisodes, $matchPercent);
+        }
         if ($schedMatch = in_array("$data[1]", $schedDate)) {
         }else{
             $schedMatch = close_match("$datalc", $schedEpisodes, $matchPercent);
         }
 
-        if ($schedMatch) {
-            $classes .= " list_separator";
+        if ($unwatchedMatch) {
+            if ($allEpisodes != "all") {
+                $boxCheck = "unchecked";
+                continue;
+            }
+            $classes .= " deactivated will_record";
             $boxCheck = "unchecked";
-        } elseif ($prevMatch) {
+        } elseif ($watchedMatch) {
             if ($allEpisodes != "all") {
                 $boxCheck = "unchecked";
                 continue;
             }
             $classes .= " deactivated";
             $boxCheck = "unchecked";
+        } elseif ($schedMatch) {
+            $classes .= " scheduled";
+            $boxCheck = "unchecked";
+        } elseif ($prevMatch) {
+            if ($allEpisodes != "all") {
+                $boxCheck = "unchecked";
+                continue;
+            }
+            $classes .= " duplicate";
+            $boxCheck = "unchecked";
         } else {
             if ($_SESSION['episodes']['allepisodes'] == "sched") continue;
-            $classes .= " scheduled";
+            $classes .= " duplicate record_old_duplicate";
             $boxCheck = "checked";
         }
         ?>
@@ -303,29 +325,29 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
        ?>
 
             <tr class="<?php echo $classes ?>" align="left">
-              <td>
+              <td class="<?php echo $classes ?>">
                 <input type="checkbox" <?php echo $boxCheck?> name="f[]" value="<?php echo htmlspecialchars($data[2])?>">
               </td>
      
-        <td>
+        <td class="<?php echo $classes ?>">
           <?php echo htmlspecialchars($data[0])?>
         </td>
 
-        <td>
+        <td class="<?php echo $classes ?>">
           <?php echo htmlspecialchars($data[1])?>
         </td>
  
         <?php
         if ($data[3] != "") {
         ?>
-            <td>
-              <a href=<?php echo $data[3]?> target="_blank"><?php echo htmlspecialchars($data[2])?></a> 
+            <td class="<?php echo $classes ?>">
+              <a href=<?php echo $data[3]?> target="_blank"><?php echo htmlspecialchars($data[2])?></a>
             </td>
 
         <?php
         } else {
         ?>
-            <td>
+            <td class="<?php echo $classes ?>">
               <?php echo htmlspecialchars($data[2])?>
             </td>
 
@@ -333,14 +355,26 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
         }
         ?>
 
-        <td width="60%">
+        <td width="60%" class="<?php echo $classes ?>">
           <?php echo $data[4]?>
         </td>
 
         <td class="<?php echo $classes?>">
-          <?php if ($prevMatch) echo "Previously Recorded"?>
+          <?php
+            if ($unwatchedMatch)
+              echo "Unwatched!";
+            elseif ($watchedMatch)
+              echo "Watched";
+            elseif ($prevMatch)
+              echo "Previously Recorded";
+            elseif ($schedMatch)
+              echo "Scheduled to Record";
+            else
+              echo "Not Recorded";
+          ?>
+          <?php /*if ($prevMatch) echo "Previously Recorded"?>
           <?php if ($schedMatch) echo "Scheduled to Record"?>
-          <?php if (!$prevMatch && !$schedMatch) echo "Not Recorded"?>
+          <?php if (!$prevMatch && !$schedMatch) echo "Not Recorded"*/?>
         </td>
         </tr></tr>
 

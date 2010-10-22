@@ -195,6 +195,46 @@ if ($showTitle) {
     $showEpisodes  = file($showDir . "/" . $showFilename);
     $totalEpisodes = count($showEpisodes);
 
+    // Check the DB for any episodes of the show available AND watched
+    $getSubtitles = mysql_query("SELECT subtitle,starttime 
+                                   FROM recorded 
+                                  WHERE ($titleQuery) 
+                                    AND watched = '1'
+                               Group BY basename");
+
+    $watchedEpisodes = array();
+    $watchedDate     = array();
+    while ($row = mysql_fetch_assoc($getSubtitles)) {
+        $watchedDate[]     = date('Y-m-d', strtotime($row['starttime']));
+        $watchedEpisodes[] = strtolower($row['subtitle']);
+    }
+
+    mysql_free_result($getSubtitles);
+    $watchedEpisodes   = preg_replace('/[^0-9a-z ]+/i', '', $watchedEpisodes);
+    $watchedEpisodes   = preg_replace('/[^\w\d\s]+­/i', '', $watchedEpisodes);
+    $watchedEpisodes   = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $watchedEpisodes);
+    $watchedEpisodes   = preg_replace('/\s+/', '', $watchedEpisodes);
+    
+    // Check the DB for any episodes of the show available AND unwatched
+    $getSubtitles = mysql_query("SELECT subtitle,starttime 
+                                   FROM recorded 
+                                  WHERE ($titleQuery) 
+                                    AND (watched = '0')
+                               Group BY basename");
+
+    $unwatchedEpisodes = array();
+    $unwatchedDate     = array();
+    while ($row = mysql_fetch_assoc($getSubtitles)) {
+        $unwatchedDate[]     = date('Y-m-d', strtotime($row['starttime']));
+        $unwatchedEpisodes[] = strtolower($row['subtitle']);
+    }
+
+    mysql_free_result($getSubtitles);
+    $unwatchedEpisodes   = preg_replace('/[^0-9a-z ]+/i', '', $unwatchedEpisodes);
+    $unwatchedEpisodes   = preg_replace('/[^\w\d\s]+­/i', '', $unwatchedEpisodes);
+    $unwatchedEpisodes   = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $unwatchedEpisodes);
+    $unwatchedEpisodes   = preg_replace('/\s+/', '', $unwatchedEpisodes);
+
     // Get information about shows to display on the top right
     // of the episode listing page
     $episodeInfo = file($showPath);

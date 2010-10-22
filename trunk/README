@@ -103,7 +103,7 @@ NOTE: If you have installed mythepisode in the past you need to update the line 
 
 EXISTING LINE: <a href="tv/recorded"><?php echo t('Recorded Programs') ?></a>
 EXISTING LINE: &nbsp; | &nbsp;
-NEW LINE: <a href="episode/show"><?php echo t('TV Episodes') ?></a>
+NEW LINE: <a href="episode"><?php echo t('TV Episodes') ?></a>
 NEW LINE: &nbsp; | &nbsp;
 EXISTING LINE: <?php } ?>
 
