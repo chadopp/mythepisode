@@ -16,6 +16,9 @@ require_once 'classes/Channel.php';
 require_once 'classes/Program.php';
 require_once 'includes/recording_schedules.php';
 
+// Load the sorting routines
+require_once 'includes/sorting.php';
+
 // Strings passed in to identify showname, showstring, longshow to grab from tvrage.com
 if ($_GET['showstr'] || $_POST['showstr']) {
     unset($_SESSION['search']);
@@ -287,7 +290,7 @@ if ($recordedTitle) {
     
     // Sort the programs
     if (count($All_Shows))
-        sort_programs($All_Shows, 'previous_recorded_sortby');
+        sort_programs($All_Shows, 'episode_sortby');
 
 }
 
