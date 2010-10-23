@@ -28,6 +28,13 @@ $remainingEpisodes = $totalEpisodes-$totalRecorded;
 $fixedTitle = stripslashes($fixedTitle);
 $showTitle = stripslashes($showTitle);
 
+function get_sort_link_with_parms($field, $string, $parms) {
+     $link = get_sort_link($field,$string);
+     $pos = strpos($link, '?') + 1;
+      
+     return substr($link,0,$pos).$parms.'&'.substr($link,$pos);;
+ }
+
 function imageResize($width, $height, $target) {
 
 // Takes the larger size of the width and height and applies the  
@@ -404,9 +411,9 @@ if (isset($_SESSION['episodes']['title'])) {
     <table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">
     <tr class="menu">
       <td><?php echo t('Title')?></a></td>
-      <td><?php echo t('Subtitle')?></a></td> 
+      <td><?php echo get_sort_link_with_parms('subtitle',t('Subtitle'), 'title='. $showTitle)?></a></td>
       <td><?php echo t('Date Recorded')?></a></td>
-      <td><?php echo t('Programid')?></a></td>
+      <td><?php echo get_sort_link_with_parms('category',t('Programid'), 'title='. $showTitle)?></a></td>
       <td><?php echo t('Synopsis')?></a></td>
       <?php/*<td><?php echo t('Delete')?></td>*/?>
     </tr>
