@@ -277,7 +277,7 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
                 $boxCheck = "unchecked";
                 continue;
             }
-            $classes .= " deactivated will_record";
+            $classes .= " cat_Sports will_record";
             $boxCheck = "unchecked";
         } elseif ($watchedMatch) {
             if ($allEpisodes != "all") {
@@ -294,11 +294,11 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
                 $boxCheck = "unchecked";
                 continue;
             }
-            $classes .= " duplicate";
+            $classes .= " deactivated";
             $boxCheck = "unchecked";
         } else {
             if ($_SESSION['episodes']['allepisodes'] == "sched") continue;
-            $classes .= " duplicate record_old_duplicate";
+            $classes .= " duplicate";
             $boxCheck = "checked";
         }
         ?>
@@ -425,13 +425,7 @@ if (isset($_SESSION['episodes']['title'])) {
           <td><?php echo $show->category ?></td>
           <td><?php echo $show->description ?></td>
 
-          <?php
-          /*
-          // I'm temporarily disabling this since I don't think deleting a recording
-          // from the oldrecorded is the only table that needs to be updated
           <td class="x-commands commands"><a id="delete_<?php echo $row?>" href="episode/episodes/?delete=yes&category=<?php echo urlencode($show->category)?>&title=<?php echo urlencode($show->title)?>" title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
-          */
-          ?>
  
         </tr>
     <?php

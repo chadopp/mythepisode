@@ -54,12 +54,10 @@ if (!is_dir($imageDir) && !mkdir($imageDir, 0775)) {
     exit;
 }
 
-// Im temporarily disabling this since I think there is more to deleting
-// a recording than just deleting it from oldrecorded
 // Delete a record from the DB
-//if (!empty($_GET['delete']))
-//    $deleteRecorded = $db->query('DELETE FROM oldrecorded
-//                                   WHERE programid=?', $_GET['category']);
+if (!empty($_GET['delete']))
+    $deleteRecorded = $db->query('DELETE FROM oldrecorded
+                                   WHERE programid=?', $_GET['category']);
 
 // Set some variables
 $Total_Programs = 0;
