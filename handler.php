@@ -47,6 +47,10 @@ $defaultView = "recorded";
 // 80-90. 100 is exact match.
 $matchPercent = 85;
 
+// This is used to determine when the show data should be updated
+// this value is in seconds.  i.e. 7 days * 24 hours * 60 minutes * 60 seconds
+$maxFileAgeInSeconds = 604800;
+ 
 // Files/Directories used for tvwish_list.php
 $listDir    = "$wishDir/episodes";
 $masterFile = "$wishDir/master";

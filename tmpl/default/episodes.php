@@ -21,7 +21,8 @@ require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 
 global $All_Shows, $Total_Programs;
 global $show, $allEpisodes, $schedDate;
-global $showEpisodes, $recEpisodes, $watchedEpisodes, $unwatchedEpisodes, $schedEpisodes, $recDate, $watchedDate, $unwatchedDate;
+global $showEpisodes, $recEpisodes, $watchedEpisodes, $unwatchedEpisodes; 
+global $schedEpisodes, $recDate, $watchedDate, $unwatchedDate;
 global $toggleSelect, $showTitle, $matchPercent;
 global $totalRecorded, $totalSched, $totalEpisodes;
 $remainingEpisodes = $totalEpisodes-$totalRecorded;
@@ -262,46 +263,33 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
 
         // Check for date matches first and then subtitle.  I do this since some
         // episodes have bogus subtitles or no subtitle. 
-        if ($prevMatch = in_array("$data[1]", $recDate)) {
-        }else{
-            $prevMatch = close_match("$datalc", $recEpisodes, $matchPercent);
-        }
-        if ($watchedMatch = in_array("$data[1]", $watchedDate)) {
-        }else{
-            $watchedMatch = close_match("$datalc", $watchedEpisodes, $matchPercent);
-        }
-        if ($unwatchedMatch = in_array("$data[1]", $unwatchedDate)) {
-        }else{
-            $unwatchedMatch = close_match("$datalc", $unwatchedEpisodes, $matchPercent);
-        }
-        if ($schedMatch = in_array("$data[1]", $schedDate)) {
-        }else{
-            $schedMatch = close_match("$datalc", $schedEpisodes, $matchPercent);
-        }
-
-        if ($unwatchedMatch) {
+        if ($watchedMatch = in_array("$data[1]", $watchedDate) || 
+           ($watchedMatch = close_match("$datalc", $watchedEpisodes, $matchPercent))) {
+            if ($allEpisodes != "all") {
+                $boxCheck = "unchecked";
+                continue;
+            }
+            $classes .= " deactivated";
+            $boxCheck = "unchecked";
+        }elseif ($unwatchedMatch = in_array("$data[1]", $unwatchedDate) || 
+           ($unwatchedMatch = close_match("$datalc", $unwatchedEpisodes, $matchPercent))) {
             if ($allEpisodes != "all") {
                 $boxCheck = "unchecked";
                 continue;
             }
             $classes .= " cat_Sports will_record";
             $boxCheck = "unchecked";
-        } elseif ($watchedMatch) {
+        }elseif ($prevMatch = in_array("$data[1]", $recDate) || 
+           ($prevMatch = close_match("$datalc", $recEpisodes, $matchPercent))) {
             if ($allEpisodes != "all") {
                 $boxCheck = "unchecked";
                 continue;
             }
             $classes .= " deactivated";
             $boxCheck = "unchecked";
-        } elseif ($schedMatch) {
+        }elseif ($schedMatch = in_array("$data[1]", $schedDate) || 
+           ($schedMatch = close_match("$datalc", $schedEpisodes, $matchPercent))) {
             $classes .= " scheduled";
-            $boxCheck = "unchecked";
-        } elseif ($prevMatch) {
-            if ($allEpisodes != "all") {
-                $boxCheck = "unchecked";
-                continue;
-            }
-            $classes .= " deactivated";
             $boxCheck = "unchecked";
         } else {
             if ($_SESSION['episodes']['allepisodes'] == "sched") continue;

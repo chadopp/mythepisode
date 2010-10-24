@@ -133,6 +133,7 @@ if ($showTitle) {
                     // Skip duplicate shows?
                         elseif (in_array($show->recstatus, array(
                         'DontRecord',
+                        'NeverRecord',
                         'PreviousRecording',
                         'CurrentRecording',
                         'EarlierShowing',
@@ -140,7 +141,7 @@ if ($showTitle) {
                     ))) {
                         continue;
                     }
-
+                    // print "Sched Episode is $show->subtitle - at $show->airdate - $show->recstatus<BR>";
                     // Assign a reference for this show to the various arrays
                     $schedDate[]     = $show->airdate;
                     $schedEpisodes[] = strtolower($show->subtitle);
@@ -155,8 +156,24 @@ if ($showTitle) {
     }
     $totalSched = count($schedEpisodes);
 
+    // check to see if the data should be refreshed from tvrage.
+    // if the file doesnècontain INFO, and the show is still current
+    // and the data is over 7 days old get the new file
+    $updateFile=false;
+    if (file_exists($showPath)) {
+        $episodeInfo = file($showPath);
+        if (preg_match('/^INFO/', $episodeInfo[0])) {
+            list(,$showId,$showStart,$showEnd,$showCtry,$showStatus,
+                 $showClass,$showGenre,$showNetwork,$showLink,$showSummary) = explode(":", $episodeInfo[0]);
+            if ($showEnd=="" && (time() - filemtime($showPath)) > $maxFileAgeInSeconds)
+                $updateFile=true;
+        } else {
+            $updateFile=true;
+        }
+    }
+ 	
     // Update the episodes list for passed in title by grabbing episodes from tvrage
-    if (!file_exists($showPath) || $state == "update") {
+    if (!file_exists($showPath) || $state == "update" || $updateFile) {
         exec("modules/episode/utils/grabid.pl \"$longTitle\" \"$showPath\" \"$imageDir\"");
         unset($_SESSION['search']['state']);
         $allEpisodes = "all";
