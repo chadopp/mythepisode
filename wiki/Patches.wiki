@@ -8,7 +8,12 @@
     * Updated some of the code comments
     * Update the episode listing page to display episodes that are currently available to watch
     * Update to welcome page
-    * Fix default page link
+    * Fix default mainpage link
+    * Turned on episode deletes
+    * Fix sorting on recorded episodes page
+    * Fix for shows that are set to never record
+    * Add check for out of date episode information
+
 
 1.0.6
     * Fix path issues with handler.php
