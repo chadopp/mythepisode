@@ -77,6 +77,7 @@ $showPath       = "$showDir/$showFilename";
 $toggleSelect   = "false";
 $schedEpisodes  = array();
 $schedDate      = array();
+$schedEpisodesDetails  = array();
 
 // Override is used for shows that have names that don't matchup properly
 // For example mythtv records "Survivor" as "Survivor: Nicaragua".  Since
@@ -150,6 +151,12 @@ if ($showTitle) {
                     $schedEpisodes   = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $schedEpisodes);
                     $schedEpisodes   = preg_replace('/\s+/', '', $schedEpisodes);
                     $schedEpisodes   = preg_replace('/[\/\;]/', '', $schedEpisodes);
+                    $schedEpisodesDetails[] = array(
+                            "syndicatedepisodenumber" => substr($show->syndicatedepisodenumber,0,1)."-".substr($show->syndicatedepisodenumber,1),
+                            "airdate" => $show->airdate,
+                            "subtitle" => $show->subtitle,
+                            "description" => $show->description,
+                            "matched" => false);
                 }
             }
         }

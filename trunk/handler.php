@@ -56,6 +56,9 @@ $listDir    = "$wishDir/episodes";
 $masterFile = "$wishDir/master";
 $tvwishep   = "$dataDir/episode/tvwish/episodes";
 
+// Hide tvwish options by setting to true
+$tvwishHide = false;
+
 // Load a custom page
 switch ($Path[1]) {
     case 'show';
