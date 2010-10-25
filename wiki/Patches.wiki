@@ -13,7 +13,8 @@
     * Fix sorting on recorded episodes page
     * Fix for shows that are set to never record
     * Add check for out of date episode information
-
+    * Add option to hide tvwish menus/options
+    * Identify and display episodes that are scheduled to record but not matched in mythepisode
 
 1.0.6
     * Fix path issues with handler.php
