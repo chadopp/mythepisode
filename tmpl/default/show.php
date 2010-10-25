@@ -105,10 +105,16 @@ if ($_SESSION['show']['state'] != "recorded") {
     <a href="episode/previous_recordings">
       <?php echo t('Previous Recordings') ?>
   </td>
+  <?php 
+  if(!$tvwishHide) {
+  ?>
   <td class="x-check">
     <a href="episode/tvwish_list">
       <?php echo t('TVwish') ?>
   </td>
+  <?php 
+  }
+  ?>
 </tr>
 </table>
 

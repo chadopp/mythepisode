@@ -22,7 +22,7 @@ require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 global $All_Shows, $Total_Programs;
 global $show, $allEpisodes, $schedDate;
 global $showEpisodes, $recEpisodes, $watchedEpisodes, $unwatchedEpisodes; 
-global $schedEpisodes, $recDate, $watchedDate, $unwatchedDate;
+global $schedEpisodes, $recDate, $watchedDate, $unwatchedDate, $schedEpisodesDetails;
 global $toggleSelect, $showTitle, $matchPercent;
 global $totalRecorded, $totalSched, $totalEpisodes;
 $remainingEpisodes = $totalEpisodes-$totalRecorded;
@@ -226,7 +226,13 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
     <form name="test" action="episode/tvwish_list" method="post">
     <table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">
       <tr class="menu" align="left">
+        <?php 
+        if(!$tvwishHide) {
+        ?>
         <td>Select</td>
+        <?php 
+        }
+        ?>
         <td>Episode Number</td>
         <td>Original Airdate</td>
         <td>Subtitle</td>
@@ -236,12 +242,16 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
 
     <?php
 
+    $close_matchPosition = -1;
     //The purpose of this function is to match shows that have a very
     //similar subtitle. Ex. Altar Ego - Alter Ego
     function close_match($key, $arrayvalue, $matchPercent) {
+        global $close_matchPosition;
+        $close_matchPosition=0;
         foreach ($arrayvalue as $match) {
             similar_text($match, $key, $p);
             if ($p >= $matchPercent) return TRUE;
+                $close_matchPosition = $close_matchPosition + 1;
        }
     }
 
@@ -287,8 +297,12 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
             }
             $classes .= " deactivated";
             $boxCheck = "unchecked";
-        }elseif ($schedMatch = in_array("$data[1]", $schedDate) || 
-           ($schedMatch = close_match("$datalc", $schedEpisodes, $matchPercent))) {
+        }elseif ($schedMatch = in_array("$data[1]", $schedDate) ) {
+            $schedEpisodesDetails[array_search("$data[1]", $schedDate)]["matched"] = true;
+            $classes .= " scheduled";
+            $boxCheck = "unchecked";
+        }elseif (($schedMatch = close_match("$datalc", $schedEpisodes, $matchPercent))) {
+            $schedEpisodesDetails[$close_matchPosition]["matched"] = true;
             $classes .= " scheduled";
             $boxCheck = "unchecked";
         } else {
@@ -307,7 +321,13 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
               <td>Special Episodes</td>
             </tr> 
             <tr class="menu" align="left">
+              <?php 
+              if(!$tvwishHide) {
+              ?>
               <td>Select</td>
+              <?php 
+              }
+              ?>
               <td>Episode Number</td>
               <td>Original Airdate</td>
               <td>Subtitle</td>
@@ -320,9 +340,15 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
        ?>
 
             <tr class="<?php echo $classes ?>" align="left">
+              <?php 
+              if(!$tvwishHide) {
+              ?>
               <td class="<?php echo $classes ?>">
                 <input type="checkbox" <?php echo $boxCheck?> name="f[]" value="<?php echo htmlspecialchars($data[2])?>">
               </td>
+              <?php 
+              }
+              ?>
      
         <td class="<?php echo $classes ?>">
           <?php echo htmlspecialchars($data[0])?>
@@ -373,11 +399,50 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
         </td>
         </tr></tr>
 
-<?php
+    <?php
     } 
 $_SESSION['episodes']['allepisodes'] = "all";
-?>
+    $classes = " record_duplicate scheduled";
+    foreach ($schedEpisodesDetails as $Log) {
+        if (!$Log["matched"]) {
+    ?>
+    <tr class="<?php echo $classes ?>" align="left">
+             <?php 
+             if(!$tvwishHide) {
+             ?>
+      <td class="<?php echo $classes ?>">
+        &nbsp;
+      </td>
+             <?php 
+             }
+             ?>
+       
+      <td class="<?php echo $classes ?>">
+        <?php echo htmlspecialchars($Log["syndicatedepisodenumber"])?>
+      </td>
 
+      <td class="<?php echo $classes ?>">
+        <?php echo htmlspecialchars($Log["airdate"])?>
+      </td>
+   
+      <td class="<?php echo $classes ?>">
+        <?php echo htmlspecialchars($Log["subtitle"])?>
+      </td>
+  
+      <td width="60%" class="<?php echo $classes ?>">
+        <?php echo $Log["description"]?>
+      </td>
+  
+      <td class="<?php echo $classes?>">Unmatched but Scheduled to Record
+      </td>
+    </tr></tr>
+  <?php
+  	   }
+      }
+  ?>
+  <?php
+  if(!$tvwishHide) {
+  ?>
     <tr class="menu">
       <td>
         <input type="button" value="Toggle" onClick="my_select(<?php echo "$toggleSelect" ?>);">
@@ -387,6 +452,9 @@ $_SESSION['episodes']['allepisodes'] = "all";
         <input type="submit" value="Create tvwish list" name="submit" id="submit">
       </td>
     </tr>
+  <?php 
+  }
+  ?>
   </table>	
 </form>
 

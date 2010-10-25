@@ -73,7 +73,7 @@ if ($state == "recorded") {
         $show    = preg_replace('/<.+?>/', '', $show);
         $show    = explode("\t", $show);
         $show[0] = ucfirst($show[0]);
-        $recordedShows[fixShow($show[1])] = $show;
+        $recordedShows[fixShow($show[2])] = $show;
     }
 
     // Create showsDat if it doesn't exist
