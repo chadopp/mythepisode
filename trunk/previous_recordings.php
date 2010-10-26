@@ -22,12 +22,24 @@ isset($_GET['title']) or $_GET['title'] = $_POST['title'];
 isset($_GET['title']) or $_GET['title'] = $_SESSION['previous_recorded_title'];
 
 // Delete a record from the DB
-if (!empty($_GET['delete']))
-    $deleteRecorded = $db->query('DELETE FROM oldrecorded
-                                   WHERE programid=?', $_GET['category']);
+if (!empty($_GET['delete'])) {
+    $dbCheck = $db->query('SELECT programid FROM recorded
+                            WHERE programid=?', $_GET['category']);
+    if ($dbCheck->num_rows() == 1) {
+        $Warnings[] = 'Title still exists in Recorded Programs Table';
+    }else{
+        $deleteRecorded = $db->query('DELETE FROM oldrecorded
+                                       WHERE programid=?', $_GET['category']);
+    }
+}
 
 // Parse the program list
 $result = mysql_query('SELECT title,subtitle,description,programid FROM oldrecorded GROUP BY programid');
+$result = mysql_query("SELECT title,subtitle,description,programid
+                         FROM oldrecorded
+                        WHERE (recstatus = '-2' OR recstatus = '-3')
+                     GROUP BY programid");
+
 
 $Total_Programs = 0;
 $All_Shows      = array();

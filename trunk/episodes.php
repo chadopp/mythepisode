@@ -58,9 +58,16 @@ if (!is_dir($imageDir) && !mkdir($imageDir, 0775)) {
 }
 
 // Delete a record from the DB
-if (!empty($_GET['delete']))
-    $deleteRecorded = $db->query('DELETE FROM oldrecorded
-                                   WHERE programid=?', $_GET['category']);
+if (!empty($_GET['delete'])) {
+    $dbCheck = $db->query('SELECT programid FROM recorded
+                            WHERE programid=?', $_GET['category']);
+    if ($dbCheck->num_rows() == 1) {
+        $Warnings[] = 'Title still exists in Recorded Programs Table';
+    }else{
+        $deleteRecorded = $db->query('DELETE FROM oldrecorded
+                                       WHERE programid=?', $_GET['category']);
+    }
+}
 
 // Set some variables
 $Total_Programs = 0;
@@ -86,7 +93,7 @@ $schedEpisodesDetails  = array();
 // under data/episode is used to overcome this issue.  See the README for
 // more details
 $overrideFile = file($showsOverride);
-$mythName = array("$showTitle");
+$mythName     = array("$showTitle");
 
 // Go thru the overridFile and get a list of shows to override and split
 // them  into titles
@@ -144,19 +151,22 @@ if ($showTitle) {
                     }
                     // print "Sched Episode is $show->subtitle - at $show->airdate - $show->recstatus<BR>";
                     // Assign a reference for this show to the various arrays
-                    $schedDate[]     = $show->airdate;
-                    $schedEpisodes[] = strtolower($show->subtitle);
-                    $schedEpisodes   = preg_replace('/[^0-9a-z ]+/i', '', $schedEpisodes);
-                    $schedEpisodes   = preg_replace('/[^\w\d\s]+­/i', '', $schedEpisodes);
-                    $schedEpisodes   = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $schedEpisodes);
-                    $schedEpisodes   = preg_replace('/\s+/', '', $schedEpisodes);
-                    $schedEpisodes   = preg_replace('/[\/\;]/', '', $schedEpisodes);
-                    $schedEpisodesDetails[] = array(
-                            "syndicatedepisodenumber" => substr($show->syndicatedepisodenumber,0,1)."-".substr($show->syndicatedepisodenumber,1),
-                            "airdate" => $show->airdate,
-                            "subtitle" => $show->subtitle,
-                            "description" => $show->description,
-                            "matched" => false);
+                    $schedDate[]        = $show->airdate;
+                    $schedEpisodesTitle = strtolower($show->subtitle);
+                    $schedEpisodesTitle = preg_replace('/[^0-9a-z ]+/i', '', $schedEpisodesTitle);
+                    $schedEpisodesTitle = preg_replace('/[^\w\d\s]+­/i', '', $schedEpisodesTitle);
+                    $schedEpisodesTitle = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $schedEpisodesTitle);
+                    $schedEpisodesTitle = preg_replace('/\s+/', '', $schedEpisodesTitle);
+                    $schedEpisodesTitle = preg_replace('/[\/\;]/', '', $schedEpisodesTitle);
+                    $schedEpisodes[]    = $schedEpisodesTitle;
+                    if(!array_key_exists($schedEpisodesTitle, $schedEpisodesDetails) && $show->subtitle!="") {
+                        $schedEpisodesDetails[$schedEpisodesTitle]=array(
+                        "syndicatedepisodenumber" => substr($show->syndicatedepisodenumber,0,1)."-".substr($show->syndicatedepisodenumber,1),
+                        "airdate"     => $show->airdate,
+                        "subtitle"    => $show->subtitle,
+                        "description" => $show->description,
+                        "matched"     => false);
+                    }
                 }
             }
         }
@@ -211,10 +221,10 @@ if ($showTitle) {
     }
 
     mysql_free_result($getSubtitles);
-    $recEpisodes   = preg_replace('/[^0-9a-z ]+/i', '', $recEpisodes);
-    $recEpisodes   = preg_replace('/[^\w\d\s]+­/i', '', $recEpisodes);
-    $recEpisodes   = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $recEpisodes);
-    $recEpisodes   = preg_replace('/\s+/', '', $recEpisodes);
+    $recEpisodes = preg_replace('/[^0-9a-z ]+/i', '', $recEpisodes);
+    $recEpisodes = preg_replace('/[^\w\d\s]+­/i', '', $recEpisodes);
+    $recEpisodes = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $recEpisodes);
+    $recEpisodes = preg_replace('/\s+/', '', $recEpisodes);
 
     $totalRecorded = count($recEpisodes);
     $showEpisodes  = file($showDir . "/" . $showFilename);
@@ -235,10 +245,10 @@ if ($showTitle) {
     }
 
     mysql_free_result($getSubtitles);
-    $watchedEpisodes   = preg_replace('/[^0-9a-z ]+/i', '', $watchedEpisodes);
-    $watchedEpisodes   = preg_replace('/[^\w\d\s]+­/i', '', $watchedEpisodes);
-    $watchedEpisodes   = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $watchedEpisodes);
-    $watchedEpisodes   = preg_replace('/\s+/', '', $watchedEpisodes);
+    $watchedEpisodes = preg_replace('/[^0-9a-z ]+/i', '', $watchedEpisodes);
+    $watchedEpisodes = preg_replace('/[^\w\d\s]+­/i', '', $watchedEpisodes);
+    $watchedEpisodes = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $watchedEpisodes);
+    $watchedEpisodes = preg_replace('/\s+/', '', $watchedEpisodes);
     
     // Check the DB for any episodes of the show available AND unwatched
     $getSubtitles = mysql_query("SELECT subtitle,starttime 
@@ -255,10 +265,10 @@ if ($showTitle) {
     }
 
     mysql_free_result($getSubtitles);
-    $unwatchedEpisodes   = preg_replace('/[^0-9a-z ]+/i', '', $unwatchedEpisodes);
-    $unwatchedEpisodes   = preg_replace('/[^\w\d\s]+­/i', '', $unwatchedEpisodes);
-    $unwatchedEpisodes   = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $unwatchedEpisodes);
-    $unwatchedEpisodes   = preg_replace('/\s+/', '', $unwatchedEpisodes);
+    $unwatchedEpisodes = preg_replace('/[^0-9a-z ]+/i', '', $unwatchedEpisodes);
+    $unwatchedEpisodes = preg_replace('/[^\w\d\s]+­/i', '', $unwatchedEpisodes);
+    $unwatchedEpisodes = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $unwatchedEpisodes);
+    $unwatchedEpisodes = preg_replace('/\s+/', '', $unwatchedEpisodes);
 
     // Get information about shows to display on the top right
     // of the episode listing page

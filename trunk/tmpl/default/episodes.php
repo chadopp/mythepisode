@@ -21,7 +21,7 @@ require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 
 global $All_Shows, $Total_Programs;
 global $show, $allEpisodes, $schedDate;
-global $showEpisodes, $recEpisodes, $watchedEpisodes, $unwatchedEpisodes; 
+global $showEpisodes, $recEpisodes, $watchedEpisodes, $unwatchedEpisodes, $schedEpisodesDetails;
 global $schedEpisodes, $recDate, $watchedDate, $unwatchedDate, $schedEpisodesDetails;
 global $toggleSelect, $showTitle, $matchPercent;
 global $totalRecorded, $totalSched, $totalEpisodes;
@@ -298,11 +298,11 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
             $classes .= " deactivated";
             $boxCheck = "unchecked";
         }elseif ($schedMatch = in_array("$data[1]", $schedDate) ) {
-            $schedEpisodesDetails[array_search("$data[1]", $schedDate)]["matched"] = true;
+            $schedEpisodesDetails[$schedEpisodes[array_search("$data[1]", $schedDate)]]["matched"] = true;
             $classes .= " scheduled";
             $boxCheck = "unchecked";
         }elseif (($schedMatch = close_match("$datalc", $schedEpisodes, $matchPercent))) {
-            $schedEpisodesDetails[$close_matchPosition]["matched"] = true;
+            $schedEpisodesDetails["$datalc"]["matched"] = true;
             $classes .= " scheduled";
             $boxCheck = "unchecked";
         } else {
@@ -403,8 +403,8 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
     } 
 $_SESSION['episodes']['allepisodes'] = "all";
     $classes = " record_duplicate scheduled";
-    foreach ($schedEpisodesDetails as $Log) {
-        if (!$Log["matched"]) {
+    foreach ($schedEpisodesDetails as $logKey => $Log) {
+         if (!$Log["matched"] && !in_array($logKey, $recEpisodes)) {
     ?>
     <tr class="<?php echo $classes ?>" align="left">
              <?php 
