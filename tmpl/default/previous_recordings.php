@@ -19,9 +19,9 @@ require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 global $All_Shows, $Total_Programs;
 
 function get_sort_link_with_parms($field, $string) {
-     $link = get_sort_link($field,$string);
-     $pos = strpos($link, '?') + 1;
-     return substr($link,0,$pos).'&'.substr($link,$pos);;
+    $link = get_sort_link($field,$string);
+    $pos = strpos($link, '?') + 1;
+    return substr($link,0,$pos).'&'.substr($link,$pos);;
 }
 
 ?>
@@ -29,7 +29,7 @@ function get_sort_link_with_parms($field, $string) {
 <p>
 <form id="program_titles" action="episode/previous_recordings" method="get">
 <table class="command command_border_l command_border_t command_border_b command_border_r" border="0" cellspacing="0" cellpadding="4" align="center">
-<tr>
+  <tr>
     <td><?php echo t('Show Previous Recordings') ?>:</td>
     <td><select name="title" onchange="$('program_titles').submit()">
         <?php
@@ -45,32 +45,32 @@ function get_sort_link_with_parms($field, $string) {
         ?>
     </select></td>
     <td><noscript><input type="submit" value="<?php echo t('Go') ?>"></noscript></td>
-</tr>
+  </tr>
 </table>
 </form>
 </p>
 
 
 <table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">
-<tr class="menu">
-      <td><?php echo t('Title')?></a></td>
-      <td><?php echo get_sort_link_with_parms('subtitle',t('Subtitle'))?></a></td>
-      <td><?php echo get_sort_link_with_parms('category',t('Programid'))?></a></td>
-      <td><?php echo t('Synopsis')?></a></td>
-
-</tr>
+  <tr class="menu">
+    <td><?php echo t('Title')?></a></td>
+    <td><?php echo get_sort_link_with_parms('subtitle',t('Subtitle'))?></a></td>
+    <td><?php echo get_sort_link_with_parms('category',t('Programid'))?></a></td>
+    <td><?php echo t('Synopsis')?></a></td>
+  </tr>
 
 <?php
 foreach ($All_Shows as $show) {
 ?>
 
-    <tr class="scheduled">
-      <td><?php echo $show->title; ?></td>
-      <td><?php echo $show->subtitle?></td>
-      <td><?php echo $show->category?></td>
-      <td><?php echo $show->description?></td>
-      <td class="x-commands commands"><a id="delete_<?php echo $row?>" href="episode/previous_recordings?delete=yes&category=<?php echo urlencode($show->category)?>"  title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
-    </tr>
+  <tr class="scheduled">
+    <td><?php echo $show->title; ?></td>
+    <td><?php echo $show->subtitle?></td>
+    <td><?php echo $show->category?></td>
+    <td><?php echo $show->description?></td>
+    <td class="x-commands commands"><a id="delete_<?php echo $row?>" href="episode/previous_recordings?delete=yes&category=<?php echo urlencode($show->category)?>"  title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
+  </tr>
+
 <?php
 }
 ?>
@@ -80,5 +80,5 @@ foreach ($All_Shows as $show) {
 
 <?php
 // Print the page footer
-    require 'modules/_shared/tmpl/'.tmpl.'/footer.php';
+require 'modules/_shared/tmpl/'.tmpl.'/footer.php';
 ?>
