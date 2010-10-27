@@ -18,6 +18,12 @@ require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 
 global $All_Shows, $Total_Programs;
 
+function get_sort_link_with_parms($field, $string) {
+     $link = get_sort_link($field,$string);
+     $pos = strpos($link, '?') + 1;
+     return substr($link,0,$pos).'&'.substr($link,$pos);;
+}
+
 ?>
 
 <p>
@@ -45,67 +51,29 @@ global $All_Shows, $Total_Programs;
 </p>
 
 
-<?php
-// Setup for grouping by various sort orders
-$group_field = $_GET['sortby'];
-if ( ! (($group_field == "title") || ($group_field == "subtitle") || ($group_field == "description") || ($group_field == "programid")) ) {
-    $group_field = "";
-}
-?>
-
 <table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">
 <tr class="menu">
-    <?php
-    if ($group_field != "") {
-        echo "\t<td class=\"list\">&nbsp;</td>\n";
-    }
-    ?>
-    <td><a href="episode/previous_recordings?sortby=title"><?php echo  t('title')?></a></td>
-    <td><a href="episode/previous_recordings?sortby=subtitle"><?php echo t('subtitle')?></a></td>
-    <td><a href="episode/previous_recordings?sortby=category"><?php echo t('programid')?></a></td>
+      <td><?php echo t('Title')?></a></td>
+      <td><?php echo get_sort_link_with_parms('subtitle',t('Subtitle'))?></a></td>
+      <td><?php echo get_sort_link_with_parms('category',t('Programid'))?></a></td>
+      <td><?php echo t('Synopsis')?></a></td>
 
-    <?php
-    if ($_SESSION['previous_recorded_descunder'] != "on")
-        echo "\t<td><a href=\"episode/previous_recordings?sortby=description\">".t('description')."</a></td>\n";
-    ?>
-</tr><?php
+</tr>
 
-    $row = 0;
+<?php
+foreach ($All_Shows as $show) {
+?>
 
-    $prev_group="";
-    $cur_group="";
-
-    foreach ($All_Shows as $show) {
-
-    if ($group_field == "title")
-        $cur_group = $show->title;
-
-    ?><tr class="scheduled">
-    <?php
-    if ($group_field != "")
-        if ($_SESSION['previous_recorded_descunder'] != "on")
-            echo "\t<td class=\"list\">&nbsp;</td>\n";
-        else
-            echo "\t<td class=\"list\" rowspan=\"2\">&nbsp;</td>\n";
-    ?>
-    <td><?php echo $show->title; ?></td>
-    <td><?php echo $show->subtitle?></td>
-    <td><?php echo $show->category?></td>
-    <?php
-    if ($_SESSION['previous_recorded_descunder'] != "on")
-        echo("<td>".$show->description."</td>");
-    ?>
-    
-    <td class="x-commands commands"><a id="delete_<?php echo $row?>" href="episode/previous_recordings?delete=yes&category=<?php echo urlencode($show->category)?>"  title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
-    </td>
-
-    </tr><?php
-        if ($_SESSION['previous_recorded_descunder'] == "on")
-            echo("<tr class=\"recorded\">\n\t<td colspan=\"7\">".$show->description."</td>\n</tr>");
-        $prev_group = $cur_group;
-        $row++;
-    }
-    ?>
+    <tr class="scheduled">
+      <td><?php echo $show->title; ?></td>
+      <td><?php echo $show->subtitle?></td>
+      <td><?php echo $show->category?></td>
+      <td><?php echo $show->description?></td>
+      <td class="x-commands commands"><a id="delete_<?php echo $row?>" href="episode/previous_recordings?delete=yes&category=<?php echo urlencode($show->category)?>"  title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
+    </tr>
+<?php
+}
+?>
 
 </table>
 </form>
