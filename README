@@ -16,13 +16,14 @@ Safari  - very fast on my system
 Chrome  - very fast on my system
 IE      - very slow on my system
 
-- Config setting can be changed in data/episode/config.ini
+- Config settings can be changed in data/episode/config.ini
 
 - I have added a file called override.txt which will reside in 
   data/episode/override.txt.  When you first install mythepisode if the file 
   doesn't exist in data/episode it will be copied from the utils directory and 
   placed in data/episode.  This file is used to overcome issues with shows that 
-  have different recorded titles than those that come from tvrage.com
+  have different recorded titles than those that come from tvrage.com.  You should
+  also add shows that have country name displayed in mythepisode.
 
   A couple of examples that impact me
 
@@ -42,6 +43,9 @@ IE      - very slow on my system
   2010 World Series of Poker:::World Series of Poker
   Hawaii Five-0:::Hawaii Five-0 (2010)
   The Amazing Race 17:::The Amazing Race
+  Dancing With the Stars:::Dancing With the Stars (US)
+  Hell's Kitchen:::Hell's Kitchen (US)
+  Big Brother:::Big Brother (US)
 
   Some shows like Survivor have a different name every year but need to be 
   listed under Survivor within mythepisode.  You can add these by putting --- 
@@ -128,7 +132,7 @@ cd /usr/share/mythtv/mythweb/modules/_shared/lang
 
 Step 6:
 -------
-cd /var/lib/mythtv/episode
+cd /var/www/mythweb/data/episode
 vi country.txt
 Add a line for each country you wish to display shows for.
 example:
