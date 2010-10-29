@@ -481,7 +481,7 @@ if (isset($_SESSION['episodes']['title'])) {
     foreach ($All_Shows as $show) {
         list($startdate, $time) = explode(" ", $show->chanid);
     ?>
-        <tr class="scheduled">
+        <tr class="deactivated">
           <td><?php echo $show->title; ?></td>
           <td><?php echo $show->subtitle ?></td>
           <td><?php echo $startdate ?></td>

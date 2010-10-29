@@ -63,7 +63,7 @@ function get_sort_link_with_parms($field, $string) {
 foreach ($All_Shows as $show) {
 ?>
 
-  <tr class="scheduled">
+  <tr class="deactivated">
     <td><?php echo $show->title; ?></td>
     <td><?php echo $show->subtitle?></td>
     <td><?php echo $show->category?></td>
