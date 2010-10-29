@@ -1,4 +1,0 @@
-#summary User feature request
-#labels Featured
-
-If you would like to see something added in future releases add it to the list or send me the code.
