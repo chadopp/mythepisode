@@ -20,6 +20,11 @@ if ($_GET['state']) {
 
 $state = $_SESSION['show']['state'];
 
+// Files/Directories used for show.php
+$showsTxt     = "$epDir/shows.txt";
+$showsDat     = "$epDir/shows.dat";
+$showsCountry = "$epDir/country.txt";
+
 // Create the episode dir if it doesn't exist
 if (!is_dir($epDir) && !mkdir($epDir, 0775)) {
     custom_error('Error creating '.$epDir.': Please check permissions on the data directory.');

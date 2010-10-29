@@ -182,7 +182,7 @@ if ($showTitle) {
         if (preg_match('/^INFO/', $episodeInfo[0])) {
             list(,$showId,$showStart,$showEnd,$showCtry,$showStatus,
                  $showClass,$showGenre,$showNetwork,$showLink,$showSummary) = explode(":", $episodeInfo[0]);
-            if ($showEnd=="" && (time() - filemtime($showPath)) > $maxFileAgeInSeconds)
+            if ($showEnd=="" && (time() - filemtime($showPath)) > $maxFileAge)
                 $updateFile=true;
         } else {
             $updateFile=true;
