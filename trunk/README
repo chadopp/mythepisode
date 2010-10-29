@@ -16,7 +16,7 @@ Safari  - very fast on my system
 Chrome  - very fast on my system
 IE      - very slow on my system
 
-- If it takes a long time to load the main page try setting $getrecorded to 0 
+- If it takes a long time to load the main page try setting $getRecorded to 0 
   in handler.php. If you do this I think the page will load faster but shows 
   that you have recorded won't show up in green on the main page.
 

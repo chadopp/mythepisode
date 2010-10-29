@@ -18,6 +18,11 @@ if ($_GET['wishstr'] || $_POST['wishstr']) {
     exit;
 }
 
+// Files/Directories used for tvwish
+$listDir    = "$wishDir/episodes";
+$masterFile = "$wishDir/master";
+$tvwishep   = "$dataDir/episode/tvwish/episodes";
+
 // Create the wish dir if it doesn't exist
 if (!is_dir($wishDir) && !mkdir($wishDir, 0775)) {
     custom_error('Error creating '.$wishDir.': Please check permissions on the data directory.');
