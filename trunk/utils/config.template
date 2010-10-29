@@ -1,0 +1,29 @@
+; All configuration options should be set in this file so that reinstalls
+; preserve user configuration options.  config.template is only used for
+; the initial install and is copied to data/episode/config.ini.  All
+; changes should be made to data/episode/config.ini
+; =============================================================================
+
+; If set to 0 the mainpage loads slightly faster but doesn't display
+; recorded shows in green.  1 should be ok in most cases
+getRecorded = 1
+
+; The default view displayed when you load the mainpage.
+; all      - display all TV shows ever aired
+; current  - display TV shows that are currently being aired
+; recorded - display TV shows that you have previously recorded
+defaultView = recorded
+
+; This is used to determine what the percent of matching
+; between mythdb subtitles and tvrage subtitles. i.e Alter Ego Altar Ego
+; Going too low will cause a bunch of bogus matches.  Best results are
+; 80-90. 100 is exact match.
+matchPercent = 85
+
+; This is used to determine when the show data should be updated
+; this value is in seconds.  i.e. 7 days * 24 hours * 60 minutes * 60 seconds
+maxFileAge = 604800
+
+; Hide tvwish options by setting to 1 - 0 displays tvwish options
+tvwishHide = 0 
+
