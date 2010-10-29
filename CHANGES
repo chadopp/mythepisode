@@ -13,6 +13,8 @@
     * Identify and display episodes that are scheduled to record but
       not matched in mythepisode
     * Updated sorting on previous recordings
+    * Added config file to data/episode so user prefs are preserved
+      through upgrades
 
 1.0.6
     * Fix path issues with handler.php
