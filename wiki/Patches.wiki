@@ -3,7 +3,7 @@
 
 = Details =
 
-1.0.7(trunk)
+1.0.7(trunk - soon to be released)
     * Fix to external tvrage links
     * Updated some of the code comments
     * Update the episode listing page to display episodes that are currently available to watch
