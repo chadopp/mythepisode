@@ -24,6 +24,12 @@ $wishDir       = "$epDir/tvwish";
 $configFile    = "$epDir/config.ini";
 $showsOverride = "$epDir/override.txt";
 
+// Create the episode dir if it doesn't exist
+if (!is_dir($epDir) && !mkdir($epDir, 0775)) {
+    custom_error('Error creating '.$epDir.': Please check permissions on the data directory.');
+    exit;
+}
+
 // Copy configuration file to data/episode if it doesn't exist 
 if (!file_exists($configFile)) 
     copy("$scriptDir/config.template", "$configFile");
