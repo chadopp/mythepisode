@@ -25,12 +25,6 @@ $showsTxt     = "$epDir/shows.txt";
 $showsDat     = "$epDir/shows.dat";
 $showsCountry = "$epDir/country.txt";
 
-// Create the episode dir if it doesn't exist
-if (!is_dir($epDir) && !mkdir($epDir, 0775)) {
-    custom_error('Error creating '.$epDir.': Please check permissions on the data directory.');
-    exit;
-}
-
 // Create the shows dir if it doesn't exist
 if (!is_dir($showDir) && !mkdir($showDir, 0775)) {
     custom_error('Error creating '.$showDir.': Please check permissions on the data directory.');

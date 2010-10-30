@@ -10,6 +10,12 @@
 ##
 
 NOTES: 
+After an initial install when you first select TV Episodes mythepisode has to
+go to tvrage.com and grab a list of shows for the first time so there might
+be a slight delay.  The same is true when you click on a show for the first
+time.  All episode information for that show has to be retrieved.  It will be
+much faster the next time you select it.
+
 I have tested mythepisode with the following browsers(although not thoroughly)
 Firefox - very fast on my system
 Safari  - very fast on my system
@@ -119,7 +125,8 @@ ln -s /var/lib/mythtv/episode  episode
 Step 4:
 -------
 This step is optional, but required if you want to use the tvwish funtion in 
-mythepisode
+mythepisode.  If you choose not to use this you can disable and hide all tvwish
+functions by updating the tvwishhide option in data/episode/config.ini
 
 download tvwish from http://www.templetons.com/brad/myt/tvwish.html and install it under /usr/share/mythtv/tvwish
 Add a cronjob to roots crontab

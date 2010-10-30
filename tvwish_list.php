@@ -38,7 +38,7 @@ if (!is_dir($listDir) && !mkdir($listDir, 0775)) {
 // Copy the template file over to data/episode/tvwish/master if one doesn't exist
 if (!file_exists($masterFile)) {
     copy("$scriptDir/master.template", "$masterFile");
-    custom_error('Initial tvwish master file did not exist.  Master wishfile created...Resave your tvwish list for '.$_POST['title'].'');
+    custom_error('Initial tvwish master file did not exist.  Master wishfile created...Resave your tvwish list for show '.$_POST['title'].'');
     exit;
 }
 
