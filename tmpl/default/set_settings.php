@@ -91,7 +91,7 @@
 </tr>
 <tr>
   <td align="center"><input type="reset" value="<?php echo t('Reset') ?>"></td>
-  <?php/*<td align="center"><input type="submit" name="save" value="<?php echo t('Save') ?>"></td>*/?>
+  <td align="center"><input type="submit" name="save" value="<?php echo t('Save') ?>"></td>
 </tr>
 </table>
 
