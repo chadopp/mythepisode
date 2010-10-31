@@ -35,7 +35,6 @@ if (!empty($_GET['delete'])) {
 }
 
 // Parse the program list
-$result = mysql_query('SELECT title,subtitle,description,programid FROM oldrecorded GROUP BY programid');
 $result = mysql_query("SELECT title,subtitle,description,programid
                          FROM oldrecorded
                         WHERE (recstatus = '-2' OR recstatus = '-3')
