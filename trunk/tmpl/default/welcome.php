@@ -2,7 +2,7 @@
 /**
  * Welcome page description of the episode module.
  *
- * @url         $URL$
+ * @url         $URL: https://mythepisode.googlecode.com/svn/trunk/tmpl/default/welcome.php $
  * @date        $Date$
  * @version     $Revision$
  * @author      $Author$

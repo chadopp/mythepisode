@@ -2,7 +2,7 @@
 /**
  * previous recordings
  *
- * @url         $URL$
+ * @url         $URL: https://mythepisode.googlecode.com/svn/trunk/previous_recordings.php $
  * @date        $Date$
  * @version     $Revision$
  * @author      $Author$

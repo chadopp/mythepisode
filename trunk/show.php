@@ -2,7 +2,7 @@
 /**
  * Show listing
  *
- * @url         $URL$
+ * @url         $URL: https://mythepisode.googlecode.com/svn/trunk/show.php $
  * @date        $Date$
  * @version     $Revision$
  * @author      $Author$
