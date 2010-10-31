@@ -23,7 +23,7 @@ $ua->agent('My agent/1.0');
 $ua->timeout(60); # time out after 60 seconds
 
 if ($#ARGV != 2 ) {
-    print "usage: ./grabid.pl \"show in quotes\" <shows.txt path> <imageDir path>\n";
+    print "usage: ./grabid.pl \"show in quotes\" <shows path> <imageDir path>\n";
     print "Ex: ./grabid.pl \"24\" /tmp/24 /var/www/mythweb/data/episodes/images\n"; 
     exit;
 }
@@ -141,6 +141,7 @@ my $showData = $xml->XMLin("$images");
 $showSummary = $showData->{summary};
 $showSummary =~ s/\n/ - /g;
 $showSummary =~ s/://g;
+print "Summary is $showSummary\n" if $debug;
 
 ## Get jpg image from tvrage.com.
 if (! -f "$imagePath/$showId.jpg") {

@@ -84,7 +84,10 @@ $showPath       = "$showDir/$showFilename";
 $toggleSelect   = "false";
 $schedEpisodes  = array();
 $schedDate      = array();
+$maxFileAgeSec  = ($maxFileAge * 24 * 60 * 60);
 $schedEpisodesDetails  = array();
+
+print "maxFileAgeSec is $maxFileAgeSec<BR>";
 
 // Override is used for shows that have names that don't matchup properly
 // For example mythtv records "Survivor" as "Survivor: Nicaragua".  Since
@@ -182,7 +185,7 @@ if ($showTitle) {
         if (preg_match('/^INFO/', $episodeInfo[0])) {
             list(,$showId,$showStart,$showEnd,$showCtry,$showStatus,
                  $showClass,$showGenre,$showNetwork,$showLink,$showSummary) = explode(":", $episodeInfo[0]);
-            if ($showEnd=="" && (time() - filemtime($showPath)) > $maxFileAge)
+            if ($showEnd=="" && (time() - filemtime($showPath)) > $maxFileAgeSec)
                 $updateFile=true;
         } else {
             $updateFile=true;

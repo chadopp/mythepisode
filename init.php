@@ -38,4 +38,11 @@
                                     'name'  => t('TV Episodes'),
                                     'links' => $links
                                     );
+        $Settings['episode'] = array('name'    => t('Mythepisode'),
+                                   'choices' => array('settings' => t('Settings'),
+                                                     ),
+                                   'default' => 'settings',
+                                  );
+
     };
+
