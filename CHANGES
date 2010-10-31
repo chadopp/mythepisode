@@ -17,6 +17,7 @@
       through upgrades
     * Add ability to update mythepisode config options through the mythweb
       settings util
+    * Allow user to change thumbnail size in mythepisode configuration
 
 1.0.6
     * Fix path issues with handler.php

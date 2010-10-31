@@ -27,9 +27,15 @@ function replaceLine($configFile, $pattern, $replacement) {
         for($i = 0; $i < count($f); $i++) {
             if(eregi($pattern, $f[$i])) {
                 $content .= $replacement . "\n";
+                $match = 1;
             } else {
                 $content .= $f[$i];
             }
+        }
+        // If the variable doesn't exist in config.ini we add it.
+        if (!$match) {
+            $replacement = "\n; See wiki for use\n" . $replacement;
+            $content .= $replacement . "\n";
         }
         $fi = fopen($configFile, "w");
         fwrite($fi, $content);
@@ -70,6 +76,13 @@ if ($_POST['save']) {
         $episode_update = $config['maxFileAge'];
     $newLine = "maxFileAge = $episode_update";
     replaceLine($configFile, maxFileAge, $newLine);
+
+    if (isset($_POST['thumbnail_size']))
+        $thumbnail_size = $_POST['thumbnail_size'];
+    else
+        $thumbnail_size = $config['thumbnailSize'];
+    $newLine = "thumbnailSize = $thumbnail_size";
+    replaceLine($configFile, thumbnailSize, $newLine);
 }
 
 // Copy configuration file to data/episode if it doesn't exist
@@ -77,6 +90,8 @@ if (!file_exists($configFile))
     copy("$scriptDir/config.template", "$configFile");
 
 $config = parse_ini_file($configFile, 1);
+
+$thumbnailSize = (empty($config['thumbnailSize'])) ? '170' : $config['thumbnailSize'];
 
 // These settings are limited to Mythepisode itself
 $Settings_Hosts = 'Mythepisode';

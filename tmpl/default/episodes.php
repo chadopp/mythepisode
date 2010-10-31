@@ -136,7 +136,7 @@ function my_select() {
   <table width="100%" border="0" cellpadding="0" cellspacing="0" >
     <tr>
       <img src="data/episode/images/<?php echo $showId?>.jpg" 
-      <?php echo imageResize($imageInfo[0], $imageInfo[1], 170); ?>>
+      <?php echo imageResize($imageInfo[0], $imageInfo[1], $config['thumbnailSize']); ?>>
     </tr>
   </table>
   </td>
