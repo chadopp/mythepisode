@@ -2,7 +2,7 @@
 /**
  * episode listing
  *
- * @url         $URL: https://mythepisode.googlecode.com/svn/trunk/episodes.php $
+ * @url         $URL$
  * @date        $Date$
  * @version     $Revision$
  * @author      $Author$

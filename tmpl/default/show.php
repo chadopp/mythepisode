@@ -2,7 +2,7 @@
 /**
  * Show listing
  *
- * @url         $URL: https://mythepisode.googlecode.com/svn/trunk/tmpl/default/show.php $
+ * @url         $URL$
  * @date        $Date$
  * @version     $Revision$
  * @author      $Author$
