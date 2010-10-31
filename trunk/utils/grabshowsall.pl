@@ -3,7 +3,7 @@
 #
 # File     : grabshowsall.pl
 # Usage    : ./grabshowsall.pl "path to shows.txt"
-# Url      : $URL: https://mythepisode.googlecode.com/svn/trunk/utils/grabshowsall.pl $
+# Url      : $URL$
 # Date     : $Date$
 # Revision : $Revision$
 # Author   : $Author$

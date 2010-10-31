@@ -2,7 +2,7 @@
 /**
  * handler file
  *
- * @url         $URL: https://mythepisode.googlecode.com/svn/trunk/handler.php $
+ * @url         $URL$
  * @date        $Date$
  * @version     $Revision$
  * @author      $Author$

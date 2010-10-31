@@ -2,7 +2,7 @@
 /**
  * Display/save mythepisode default settings
  *
- * @url         $URL: $
+ * @url         $URL$
  * @date        $Date$
  * @version     $Revision$
  * @author      $Author$

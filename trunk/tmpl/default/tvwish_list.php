@@ -2,7 +2,7 @@
 /**
  * tvwish listing
  *
- * @url         $URL: https://mythepisode.googlecode.com/svn/trunk/tmpl/default/tvwish_list.php $
+ * @url         $URL$
  * @date        $Date$
  * @version     $Revision$
  * @author      $Author$

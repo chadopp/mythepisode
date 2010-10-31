@@ -2,7 +2,7 @@
 /**
  * Configure Mythepisode settings info
  *
- * @url         $URL: $
+ * @url         $URL$
  * @date        $Date$
  * @version     $Revision$
  * @author      $Author$
