@@ -87,8 +87,6 @@ $schedDate      = array();
 $maxFileAgeSec  = ($maxFileAge * 24 * 60 * 60);
 $schedEpisodesDetails  = array();
 
-print "maxFileAgeSec is $maxFileAgeSec<BR>";
-
 // Override is used for shows that have names that don't matchup properly
 // For example mythtv records "Survivor" as "Survivor: Nicaragua".  Since
 // the names don't match they won't display properly as recorded and won't
