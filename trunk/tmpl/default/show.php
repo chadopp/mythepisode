@@ -179,7 +179,7 @@ if ($_SESSION['show']['state'] != "recorded") {
                 ?>
                 <tr class="settings" align="left">
                 <?php
-                if (($getRecorded) && (in_array("$datastr", $oldRecorded))) {
+                if (in_array("$datastr", $oldRecorded)) {
                 ?>
 				
                     <td bgcolor="green">
@@ -199,7 +199,7 @@ if ($_SESSION['show']['state'] != "recorded") {
                     $fc1=$firstChar;
                 
                 } else {
-                    if (($getRecorded) && (in_array("$datastr", $oldRecorded))) {
+                    if (in_array("$datastr", $oldRecorded)) {
                     ?>
                         <td bgcolor="green">
                           <a href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>'><?php echo htmlspecialchars($data[2])?></a>
