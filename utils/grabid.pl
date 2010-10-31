@@ -3,7 +3,7 @@
 #
 # File     : grabid.pl
 # Usage    : ./grabid.pl "show name" <path to showfile> <path to imageDir>
-# Url      : $URL$
+# Url      : $URL: https://mythepisode.googlecode.com/svn/trunk/utils/grabid.pl $
 # Date     : $Date$
 # Revision : $Revision$
 # Author   : $Author$

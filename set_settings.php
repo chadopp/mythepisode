@@ -3,9 +3,9 @@
  * Display/save mythepisode default settings
  *
  * @url         $URL: $
- * @date        $Date: $
+ * @date        $Date$
  * @version     $Revision$
- * @author      $Author: $
+ * @author      $Author$
  * @license     GPL
  *
 /**/
