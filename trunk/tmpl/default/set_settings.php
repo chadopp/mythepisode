@@ -72,7 +72,7 @@
     </select>
   </td>
 </tr>
-<tr class="x-sep">
+<tr>
   <th><?php echo t('Update episode info if older than (days)') ?></label>:</th>
   <td>
     <select name="episode_update">
@@ -88,6 +88,10 @@
     ?>
     </select>
   </td>
+</tr>
+<tr class="x-sep">
+  <th><?php echo t('Size of episode thumbnail (pixels)') ?>:</th>
+  <td><input type="text" size="5" name="thumbnail_size" value="<?php echo intVal($thumbnailSize) ?>"></td>
 </tr>
 <tr>
   <td align="center"><input type="reset" value="<?php echo t('Reset') ?>"></td>

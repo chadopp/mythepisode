@@ -23,3 +23,5 @@ maxFileAge = 7
 ; Hide tvwish options by setting to 1 - 0 displays tvwish options
 tvwishHide = 0 
 
+; Size in pixels of the episode thumbnail
+thumbnailSize = 170
