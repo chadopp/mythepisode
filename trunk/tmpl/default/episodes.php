@@ -297,12 +297,13 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
             }
             $classes .= " deactivated";
             $boxCheck = "unchecked";
-        }elseif ($schedMatch = in_array("$data[1]", $schedDate) ) {
-            $schedEpisodesDetails[$schedEpisodes[array_search("$data[1]", $schedDate)]]["matched"] = true;
-            $classes .= " scheduled";
-            $boxCheck = "unchecked";
-        }elseif (($schedMatch = close_match("$datalc", $schedEpisodes, $matchPercent))) {
-            $schedEpisodesDetails["$datalc"]["matched"] = true;
+        }elseif ($schedMatch = $schedMatchDate = in_array("$data[1]", $schedDate) ||
+                 ($schedMatch = close_match("$datalc", $schedEpisodes, $matchPercent))) {
+            if($schedMatchDate) {
+                $schedEpisodesDetails[$schedEpisodes[array_search("$data[1]", $schedDate)]]["matched"] = true;
+            } else {
+                $schedEpisodesDetails["$datalc"]["matched"] = true;
+            }
             $classes .= " scheduled";
             $boxCheck = "unchecked";
         } else {

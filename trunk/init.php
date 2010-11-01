@@ -40,6 +40,7 @@
                                     );
         $Settings['episode'] = array('name'  => t('Mythepisode'),
                                    'choices' => array('settings' => t('Settings'),
+                                                      'override' => t('Override'),
                                                      ),
                                    'default' => 'settings',
                                   );
