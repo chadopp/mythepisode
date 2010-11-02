@@ -2,17 +2,12 @@
 ############################################################################
 #
 # File     : grabshowsall.pl
-# Usage    : ./grabshowsall.pl "path to shows.txt"
+# Usage    : ./grabshowsall.pl <path to shows.txt> <countries>
 # Url      : $URL$
 # Date     : $Date$
 # Revision : $Revision$
 # Author   : $Author$
 # License  : GPL
-#
-# Change the $aoi(area of interest) to your country
-# Add an entry to data/episode/country.txt for each country you wish to display
-# show/episode information on.  If the country.txt file has no entries or doesn't
-# exist, "US" will be the default country displayed.
 #
 # Status Codes:
 # 0 - Never aired
@@ -46,8 +41,8 @@ my @array2      = ();
 my $count       = 0;
 
 if ($#ARGV != 1) {
-    print "usage: ./grabshowsall.pl <path to shows.txt> <path to countries.txt\n";
-    print "Ex: ./grabidshowsall.pl /tmp/shows.txt /tmp/countries.txt\n";
+    print "usage: ./grabshowsall.pl <path to shows.txt> <countries>\n";
+    print "Ex: ./grabidshowsall.pl /tmp/shows.txt \"US CA\"\n";
     exit 1;
 }
 
