@@ -25,3 +25,7 @@ tvwishHide = 0
 
 ; Size in pixels of the episode thumbnail
 thumbnailSize = 170
+
+; List of countries to grab seperated by a single space (2 Characters)
+; example: US CA UK
+countryList = US

@@ -23,7 +23,6 @@ $state = $_SESSION['show']['state'];
 // Files/Directories used for show.php
 $showsTxt     = "$epDir/shows.txt";
 $showsDat     = "$epDir/shows.dat";
-$showsCountry = "$epDir/country.txt";
 
 // Create the shows dir if it doesn't exist
 if (!is_dir($showDir) && !mkdir($showDir, 0775)) {
@@ -34,7 +33,7 @@ if (!is_dir($showDir) && !mkdir($showDir, 0775)) {
 // If a shows.txt file doesn't exist or you select update a new list of
 // shows will be grabbed from tvrage.com
 if (!file_exists($showsTxt) || $state == "update") {
-    exec("modules/episode/utils/grabshowsall.pl $showsTxt $showsCountry");
+    exec("modules/episode/utils/grabshowsall.pl $showsTxt \"$countryList\"");
     unset($_SESSION['show']['state']);
     $_SESSION['show']['state'] = "current";
     $state = $_SESSION['show']['state'];

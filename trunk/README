@@ -137,20 +137,6 @@ Step 5:
 cd /usr/share/mythtv/mythweb/modules/_shared/lang
 ./build_translation.pl
 
-Step 6:
--------
-cd /var/www/mythweb/data/episode
-vi country.txt
-Add a line for each country you wish to display shows for.
-example:
-US
-CA
-UK
-
-This would display shows for all 3 countries after you perform an "Update Show
-Listing".  If you decide not to create a country.txt file the display will 
-default to "US" only show.
-
 *Note:*
 If your paths differ from mine above then you will have to make a few changes 
 to paths in the cronjob and the scripts below.  I plan to fix this in the 

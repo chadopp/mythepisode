@@ -138,9 +138,13 @@ if ($debug) {
 my $images = get "http://services.tvrage.com/myfeeds/showinfo.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
 my $xml = new XML::Simple;
 my $showData = $xml->XMLin("$images");
-$showSummary = $showData->{summary};
-$showSummary =~ s/\n/ - /g;
-$showSummary =~ s/://g;
+if ($showData) {
+    $showSummary = $showData->{summary};
+    $showSummary =~ s/\n/ - /g;
+    $showSummary =~ s/://g;
+}else{
+    $showSummary = "No summary available";
+}
 print "Summary is $showSummary\n" if $debug;
 
 ## Get jpg image from tvrage.com.

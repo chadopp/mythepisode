@@ -100,12 +100,12 @@ foreach ($overrideFile as $overrideShow) {
     $rageName  = trim($rageName);
     $mythName  = trim($mythName);
     $rageName  = str_replace(' ', '', strtolower($rageName));
-    $mythName  = str_replace(' ', '', strtolower($mythName));
     $mythTitle = explode("---", "$mythName");
     // Determine each new show title and add it to oldRecorded array
     foreach ($mythTitle as $tempTitle) {
-        if (array_key_exists($mythName, $oldRecorded))
-            unset($oldRecorded[$mythName]); 
+        $tempTitle  = str_replace(' ', '', strtolower($tempTitle));
+        if (array_key_exists($tempTitle, $oldRecorded))
+            unset($oldRecorded[$tempTitle]);
     }
 }
 
