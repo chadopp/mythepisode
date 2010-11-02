@@ -18,6 +18,9 @@
     * Updated sorting on previous recordings
     * Added config file to data/episode so user prefs are preserved through upgrades
     * Add ability to update mythepisode config options through the mythweb settings util
+    * Allow user to change thumbnail size in mythepisode configuration
+    * Removal of country.txt - added to config.ini and configured through mythweb
+    * Added ability to configure override.txt from mythweb settings
 
 1.0.6
     * Fix path issues with handler.php
