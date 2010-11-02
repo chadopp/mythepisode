@@ -83,6 +83,13 @@ if ($_POST['save']) {
         $thumbnail_size = $config['thumbnailSize'];
     $newLine = "thumbnailSize = $thumbnail_size";
     replaceLine($configFile, thumbnailSize, $newLine);
+
+    if (isset($_POST['country_list']))
+        $country_list = strtoupper($_POST['country_list']);
+    else
+        $country_list = strtoupper($config['countryList']);
+    $newLine = "countryList = $country_list";
+    replaceLine($configFile, countryList, $newLine);
 }
 
 // Copy configuration file to data/episode if it doesn't exist
@@ -92,6 +99,7 @@ if (!file_exists($configFile))
 $config = parse_ini_file($configFile, 1);
 
 $thumbnailSize = (empty($config['thumbnailSize'])) ? '170' : $config['thumbnailSize'];
+$countryList   = (empty($config['countryList'])) ? 'US' : $config['countryList'];
 
 // These settings are limited to Mythepisode itself
 $Settings_Hosts = 'Mythepisode';

@@ -34,7 +34,7 @@ use strict;
 
 my $outFile     = $ARGV[0];
 my $countryFile = $ARGV[1];
-my @aoi         = ("US");
+my @aoi         = "";
 my $current     = 0;
 my $stripshow   = "";
 my $shortshow   = "";
@@ -58,12 +58,11 @@ if (!$shows) {
     exit 1;
 }
 
-## If a country.txt file exists and is greater than 0 bytes use it
-## to get a list of aoi's
-if ((open(my $COUNTRY,"<:encoding(UTF-8)", $countryFile)) && (-s $countryFile)) {
-    @aoi=<$COUNTRY>;
-    close($COUNTRY);
-    chomp(@aoi);
+## If aoi from config.ini is defined then use it else set to US
+if (@aoi) {
+    @aoi = split /\s+/, "$ARGV[1]";
+}else{
+    @aoi = ("US");
 }
 
 foreach my $show (split("\n",$shows) ) {

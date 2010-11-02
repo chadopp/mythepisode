@@ -18,6 +18,10 @@
   <td colspan="2"><?php echo t('General Settings') ?>:</th>
 </tr>
 <tr>
+  <th><?php echo t('Countries (space seperated)') ?>:</th>
+  <td><input type="text" size="8" name="country_list" value="<?php echo ($countryList) ?>"></td>
+</tr>
+<tr>
   <th><?php echo t('Default page view') ?></label>:</th>
   <td>
     <select name="default_page">
