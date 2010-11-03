@@ -39,6 +39,7 @@ if (!file_exists($showsTxt) || $state == "update") {
     $state = $_SESSION['show']['state'];
     if (file_exists($showsDat))
         unlink($showsDat);
+    $updateDat = true;
 }
 
 // If state is not recorded get a count of all and current shows from tvrage
@@ -56,7 +57,7 @@ if ($state != "recorded") {
 }
 
 // If state is set to recorded we need to look at showsDat
-if ($state == "recorded") {
+if ($state == "recorded" || $updateDat == "true") {
     $recordedShows = array();
 
     // Remove whitespace and make lowercase
@@ -92,8 +93,9 @@ if ($state == "recorded") {
 }
 
 // Get a list of previous recordings from the DB
-$recordings = mysql_query("SELECT distinct title FROM oldrecorded") 
-                                  or trigger_error('SQL Error: ' . mysql_error(), FATAL);
+$recordings = mysql_query("SELECT distinct title 
+                             FROM oldrecorded") 
+              or trigger_error('SQL Error: ' . mysql_error(), FATAL);
 
 // Put previously recorded shows in an array
 $oldRecorded = array();

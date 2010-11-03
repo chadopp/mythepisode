@@ -15,7 +15,14 @@ $rootDir    = getcwd();
 $scriptDir  = "$rootDir/modules/episode/utils";
 $dataDir    = "$rootDir/data";
 $epDir      = "$dataDir/episode";
+$showsDat   = "$epDir/shows.dat";
 $configFile = "$epDir/config.ini";
+
+// Exit if data files don't exist
+if (!file_exists($showsDat)) {
+    custom_error(' Please select TV Episodes first, and then return to configuration.');
+    exit;
+}
 
 // Function for replacing line in text file.
 function replaceLine($configFile, $pattern, $replacement) {
