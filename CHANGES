@@ -1,4 +1,5 @@
 1.0.7
+    * Numerous bug fixes
     * Fix to external tvrage links
     * Updated some of the code comments
     * Update the episode listing page to display episodes that are
@@ -18,6 +19,9 @@
     * Add ability to update mythepisode config options through the mythweb
       settings util
     * Allow user to change thumbnail size in mythepisode configuration
+    * Removal of country.txt - added to config.ini and configured through
+      mythweb
+    * Added ability to configure override.txt from mythweb settings
 
 1.0.6
     * Fix path issues with handler.php

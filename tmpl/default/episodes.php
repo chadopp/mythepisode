@@ -297,7 +297,7 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
             }
             $classes .= " deactivated";
             $boxCheck = "unchecked";
-        }elseif ($schedMatch = $schedMatchDate = in_array("$data[1]", $schedDate) ||
+        }elseif (($schedMatch = ($schedMatchDate = in_array("$data[1]", $schedDate))) ||
                  ($schedMatch = close_match("$datalc", $schedEpisodes, $matchPercent))) {
             if($schedMatchDate) {
                 $schedEpisodesDetails[$schedEpisodes[array_search("$data[1]", $schedDate)]]["matched"] = true;
