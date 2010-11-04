@@ -43,11 +43,11 @@ if (!file_exists($masterFile)) {
 }
 
 // If check boxes are selected create a show file
-$cbSelected     = $_POST["f"];
-$longTitle      = $_POST['title'];
-$seriesHeading  = "Series: $longTitle";
-$showTitle      = str_replace(" ", "", $_POST["title"]);
-$listFile       = "$listDir/$showTitle";
+$cbSelected    = $_POST["f"];
+$longTitle     = $_POST['title'];
+$seriesHeading = "Series: $longTitle";
+$showTitle     = str_replace(" ", "", $_POST["title"]);
+$listFile      = "$listDir/$showTitle";
 
 if (count($cbSelected) > 0) {
     $listOut = fopen("$listFile", "w");
@@ -64,7 +64,7 @@ $wishFiles = array();
 
 while (($showFile = readdir($fileDir)) != false) {
     if ($showFile != "." && $showFile != "..") {
-        $showFile = trim($showFile);
+        $showFile    = trim($showFile);
         $wishFiles[] = $showFile;
     }
 }

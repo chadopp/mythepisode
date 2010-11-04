@@ -84,17 +84,17 @@ if ($_POST['save']) {
     $newLine = "maxFileAge = $episode_update";
     replaceLine($configFile, maxFileAge, $newLine);
 
-    if (isset($_POST['thumbnail_size']))
+    if ($_POST['thumbnail_size'] != "")
         $thumbnail_size = $_POST['thumbnail_size'];
     else
-        $thumbnail_size = $config['thumbnailSize'];
+        $thumbnail_size = "170";
     $newLine = "thumbnailSize = $thumbnail_size";
     replaceLine($configFile, thumbnailSize, $newLine);
 
-    if (isset($_POST['country_list']))
+    if ($_POST['country_list'] != "")
         $country_list = strtoupper($_POST['country_list']);
     else
-        $country_list = strtoupper($config['countryList']);
+        $country_list = "US";
     $newLine = "countryList = $country_list";
     replaceLine($configFile, countryList, $newLine);
 }

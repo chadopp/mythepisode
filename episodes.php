@@ -16,6 +16,12 @@ require_once 'classes/Channel.php';
 require_once 'classes/Program.php';
 require_once 'includes/recording_schedules.php';
 
+// If you are running mythweb .24 or trunk change the above lines to look like this
+//require_once 'includes/recording_schedules.php';
+//require_once 'classes/Channel.php';
+//require_once 'classes/Program.php';
+//require_once 'classes/Schedule.php';
+
 // Load the sorting routines
 require_once 'includes/sorting.php';
 
@@ -113,6 +119,7 @@ if ($showTitle) {
     global $Scheduled_Recordings;
     $all_shows = array();
     foreach ($Scheduled_Recordings as $callsign => $shows) {
+    // If you are running mythweb .24 or trunk change the above line to look like this 
     //foreach (Schedule::findScheduled() as $callsign => $shows) {
         foreach ($shows as $starttime => $show_group) {
             // Skip things we've already recorded
@@ -260,6 +267,7 @@ if ($showTitle) {
 
     $unwatchedEpisodes = array();
     $unwatchedDate     = array();
+
     while ($row = mysql_fetch_assoc($getSubtitles)) {
         $unwatchedDate[]     = date('Y-m-d', strtotime($row['starttime']));
         $unwatchedEpisodes[] = strtolower($row['subtitle']);
