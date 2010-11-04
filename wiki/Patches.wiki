@@ -4,6 +4,7 @@
 = Details =
 
 1.0.7(trunk - soon to be released)
+    * Many bug fixes
     * Fix to external tvrage links
     * Updated some of the code comments
     * Update the episode listing page to display episodes that are currently available to watch
@@ -21,6 +22,7 @@
     * Allow user to change thumbnail size in mythepisode configuration
     * Removal of country.txt - added to config.ini and configured through mythweb
     * Added ability to configure override.txt from mythweb settings
+    * Updated installation instructions
 
 1.0.6
     * Fix path issues with handler.php
