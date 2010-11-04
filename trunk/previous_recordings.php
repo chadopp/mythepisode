@@ -10,10 +10,6 @@
  *
  /**/
 
-/***                                                                        ***\
-view and delete previously recorded programs from the database.
-\***                                                                        ***/
-
 // Classes from modules/tv
 require_once 'classes/Program.php';
 require_once 'includes/sorting.php';
@@ -24,8 +20,10 @@ isset($_GET['title']) or $_GET['title'] = $_SESSION['previous_recorded_title'];
 
 // Delete a record from the DB
 if (!empty($_GET['delete'])) {
-    $dbCheck = $db->query('SELECT programid FROM recorded
+    $dbCheck = $db->query('SELECT programid 
+                             FROM recorded
                             WHERE programid=?', $_GET['category']);
+
     if ($dbCheck->num_rows() == 1) {
         $Warnings[] = 'Title still exists in Recorded Programs Table';
     }else{

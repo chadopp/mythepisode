@@ -22,6 +22,7 @@
     * Removal of country.txt - added to config.ini and configured through
       mythweb
     * Added ability to configure override.txt from mythweb settings
+    * Updated installation instructions
 
 1.0.6
     * Fix path issues with handler.php

@@ -22,65 +22,17 @@ Safari  - very fast on my system
 Chrome  - very fast on my system
 IE      - very slow on my system
 
-- Config settings can be changed in data/episode/config.ini
+- All Configuration settings are set through the mythweb settings menu.  Listed 
+  under the installation instructions is all of the configuration options and
+  ther purpose.
 
-- I have added a file called override.txt which will reside in 
-  data/episode/override.txt.  When you first install mythepisode if the file 
-  doesn't exist in data/episode it will be copied from the utils directory and 
-  placed in data/episode.  This file is used to overcome issues with shows that 
-  have different recorded titles than those that come from tvrage.com.  You should
-  also add shows that have country name displayed in mythepisode.
-
-  A couple of examples that impact me
-
-  recorded by mythtv as:          listed in mythepisode as:
-  ----------------------          -------------------------
-  Survivor: Nicaragua             Survivor
-  2010 MTV Video Music Awards     MTV Video Music Awards
-  Hawaii Five-0                   Hawaii Five-0 (2010)
-  The Amazing Race 17             The Amazing Race
-
-  To overcome this issue you can add them to override.txt using the following 
-  format - recorded title:::tvrage title
-
-  Survivor: Nicaragua:::Survivor
-  62nd Primetime Emmy Awards:::The Emmy Awards
-  2010 MTV Video Music Awards:::MTV Video Music Awards
-  2010 World Series of Poker:::World Series of Poker
-  Hawaii Five-0:::Hawaii Five-0 (2010)
-  The Amazing Race 17:::The Amazing Race
-  Dancing With the Stars:::Dancing With the Stars (US)
-  Hell's Kitchen:::Hell's Kitchen (US)
-  Big Brother:::Big Brother (US)
-
-  Some shows like Survivor have a different name every year but need to be 
-  listed under Survivor within mythepisode.  You can add these by putting --- 
-  inbetween each one.
-
-  Survivor: Nicaragua---Survivor: Pearl Island:::Survivor
-  2010 World Series of Poker---2011 World Series of Poker:::World Series of Poker
+- If you are running mythweb trunk or greater you will need to make a couple of 
+  changes to episodes.php since .24/trunk has changed some of the mythweb 
+  classes/includes.  I've only had feedback from others and haven't tested this 
+  with trunk.  The two areas that need to be changed are commented with the
+  required changes in the episodes.php file.
 
 ################################################################################
-I'm interested in feedback from anyone running trunk or the soon to be
-release .24.  I don't plan on upgrading my system anytime soon.
-
-If you are running mythweb trunk or greater you will need to make a couple of 
-changes to episodes.php since trunk has changed some of the mythweb 
-classes/includes.  I've only had feedback from others and haven't tested this 
-with trunk.
-
-- require_once 'classes/Schedule.php';
-- require_once 'classes/Channel.php';
-- require_once 'classes/Program.php';
-- require_once 'includes/recording_schedules.php';
-
-+ require_once 'includes/recording_schedules.php';
-+ require_once 'classes/Channel.php';
-+ require_once 'classes/Program.php';
-+ require_once 'classes/Schedule.php';
-
-- foreach ($Scheduled_Recordings as $callsign => $shows) {
-+ foreach (Schedule::findScheduled() as $callsign => $shows) {
 ################################################################################
 
 -------------------------
@@ -102,7 +54,8 @@ Step 2:
 cd /usr/share/mythtv/mythweb/modules/_shared/tmpl/default
 Add a line like the following to header.php  
 
-NOTE: If you have installed mythepisode in the past you need to update the line below as it has changed.
+NOTE: If you have installed mythepisode in the past you need to update the line 
+      below as it has changed.
 
 EXISTING LINE: <a href="tv/recorded"><?php echo t('Recorded Programs') ?></a>
 EXISTING LINE: &nbsp; | &nbsp;
@@ -126,9 +79,11 @@ Step 4:
 -------
 This step is optional, but required if you want to use the tvwish funtion in 
 mythepisode.  If you choose not to use this you can disable and hide all tvwish
-functions by updating the tvwishhide option in data/episode/config.ini
+functions by updating the tvwishhide configuration option in the mythweb settings
 
-download tvwish from http://www.templetons.com/brad/myt/tvwish.html and install it under /usr/share/mythtv/tvwish
+download tvwish from http://www.templetons.com/brad/myt/tvwish.html and install it 
+under /usr/share/mythtv/tvwish
+
 Add a cronjob to roots crontab
 00 12 * * * /usr/share/mythtv/mythweb/modules/episode/utils/runwish > /dev/null 2>&1
 
@@ -142,3 +97,110 @@ If your paths differ from mine above then you will have to make a few changes
 to paths in the cronjob and the scripts below.  I plan to fix this in the 
 future.
 - runwish
+
+-----------------------------------------------------------------------------------
+Configuration options:
+-----------------------------------------------------------------------------------
+All of these configuation options should be changed from mythweb settings utility
+
+#############
+Settings Tab:
+#############
+
+Countries (space seperated):
+----------------------------
+This option is used to set the country or countries shows that will be retrieved
+from tvrage and displayed in mythepisode.  The default is set to "US".  Each
+country should only be 2 characters and seperated by a space if more than one
+country is selected.
+
+examples:
+US
+US CA
+US UK CA 
+
+After making a change to this setting you will need to do an "Update Shows" from
+the main mythepisode page.
+
+
+Default page view:
+------------------
+This option is used to determine which page is displayed by default when you select
+"TV Episodes".  The default setting is "recorded".  
+
+options:
+recorded - Only display shows that have previously recorded
+current  - Display shows that are currently running tv shows
+all      - Display every(I'm sure some are missing) TV series that has ever aired
+
+
+Display tvwish options:
+-----------------------
+This option is used to turn on/off the display of tvwish options and menus.  Some
+mythepisode users don't want to use tvwish and don't want it displayed.  The
+default is set "yes" to display tvwish options
+
+
+Episode matching accuracy (%):
+------------------------------
+This option is used to help improve episode matching.  Because of spelling differences
+from different sources there are times when episodes fail to be marked as previously
+recorded or scheduled for recording.  To overcome this we compare the episode name 
+from tvrage against the episode name from mythtv and label as a match if the character
+match between the two is equal to or greater than the episode matching percentage.  The
+default setting is 85% which means the two must match 85% or higher to get labeled as
+a match. 
+
+example:  A King of Queens episode called "Alter Ego"
+
+mythtv listing:		tvrage listing:
+---------------         ---------------
+Altar Ego	 	Alter Ego
+
+87.5% of the characters match so the default setting of 85% would mark these as a match.
+
+Setting this setting too low can result in many false matches.  Setting it too high can
+result in missed matches.  A setting of 100% is used for exact matches.  85% is a good
+balance.
+
+
+Update episode info if older than (days):
+-----------------------------------------
+This option is used to set how often episode information is automatically grabbed from
+tvrage.com.  The default setting is 7 days.  When you click on a TV show, mythepisode
+will verify that you have downloaded episode information and that it is not older
+than 7 days.  If it is older than 7 days mythepisode will go to tvrage.com and get
+updated information.
+
+
+Size of episode thumbnail (pixels):
+-----------------------------------
+This option is used to set the size of the thumbnail displayed on the episode listing
+page.  The default settings is "170" pixels.
+
+
+#############
+Override Tab:
+#############
+This tab is used to configure shows to display properly in mythepisode that have names
+that don't match.  When mythtv records a show it has a specific title that may not
+match exactly with what is listed in tvrage.  As a result mythepisode doesn't know
+how to display that show on the recorded page.
+
+Examples:
+recorded by mythtv as:          listed in mythepisode as:
+----------------------          -------------------------
+Survivor: Nicaragua             Survivor
+2010 MTV Video Music Awards     MTV Video Music Awards
+Hawaii Five-0                   Hawaii Five-0 (2010)
+The Amazing Race 17             The Amazing Race
+Big Brother			Big Brother (US)
+Hell's Kitchen			Hell's Kitchen (UK)
+
+This problem can be overcome by adding them in the override tab.  By default if 
+mythepisode finds an issue with a show that can't be matched it will add it to the
+override tab.  It is up to you to fill in the missing show title as displayed in
+mythepisode and save the configuration.  You can easily find it in mythepisode by
+selecting "All Shows" on the mainpage and finding the show title as displayed in
+mythepisode.  Now add the mythepisode show title next to the show title in the
+override tab and save the configuration.

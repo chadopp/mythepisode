@@ -21,8 +21,8 @@ if ($_GET['state']) {
 $state = $_SESSION['show']['state'];
 
 // Files/Directories used for show.php
-$showsTxt     = "$epDir/shows.txt";
-$showsDat     = "$epDir/shows.dat";
+$showsTxt = "$epDir/shows.txt";
+$showsDat = "$epDir/shows.dat";
 
 // Create the shows dir if it doesn't exist
 if (!is_dir($showDir) && !mkdir($showDir, 0775)) {
