@@ -24,6 +24,7 @@ Chris K.:
   * Add check for out of date episode information
   * Add option to hide tvwish menus/options
   * Identify and display episodes that are scheduled to record but not matched in mythepisode
+  * Created override configuration menu
 
 Doug H.:
   * Fix to handler.php to improve performance
