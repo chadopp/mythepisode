@@ -21,7 +21,7 @@ IE      - very slow on my system
 
 - All Configuration settings are set through the mythweb settings menu.  Listed
   under the installation instructions is all of the configuration options and
-  ther purpose.
+  their purpose.
 
 - If you are running mythweb trunk or greater you will need to make a couple of
   changes to episodes.php since .24/trunk has changed some of the mythweb
