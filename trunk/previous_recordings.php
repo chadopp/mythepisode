@@ -26,7 +26,7 @@
 
         if ($dbCheck->num_rows() == 1) {
             $Warnings[] = 'Title still exists in Recorded Programs Table';
-        }else{
+        } else {
             $deleteRecorded = $db->query('DELETE FROM oldrecorded
                                            WHERE programid=?', $_GET['category']);
         }
@@ -37,7 +37,6 @@
                              FROM oldrecorded
                             WHERE (recstatus = '-2' OR recstatus = '-3')
                          GROUP BY programid");
-
 
     $Total_Programs = 0;
     $All_Shows      = array();
@@ -70,7 +69,7 @@
         if ($_GET['title'] && !count($Programs)) {
             $Warnings[] = 'No matching programs found.  Showing all programs.';
             unset($_GET['title']);
-            $_GET['title'] = $record[0];
+            //$_GET['title'] = $record[0];
         } else {
             break;
         }
