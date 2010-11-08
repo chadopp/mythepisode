@@ -17,10 +17,10 @@
     require_once 'includes/recording_schedules.php';
 
 // If you are running mythweb .24 or trunk change the above lines to look like this
-//require_once 'includes/recording_schedules.php';
-//require_once 'classes/Channel.php';
-//require_once 'classes/Program.php';
-//require_once 'classes/Schedule.php';
+    //require_once 'includes/recording_schedules.php';
+    //require_once 'classes/Channel.php';
+    //require_once 'classes/Program.php';
+    //require_once 'classes/Schedule.php';
 
 // Load the sorting routines
     require_once 'includes/sorting.php';
@@ -69,7 +69,7 @@
                                 WHERE programid=?', $_GET['category']);
         if ($dbCheck->num_rows() == 1) {
             $Warnings[] = 'Title still exists in Recorded Programs Table';
-        }else{
+        } else {
             $deleteRecorded = $db->query('DELETE FROM oldrecorded
                                            WHERE programid=?', $_GET['category']);
         }
@@ -182,8 +182,8 @@
         $totalSched = count($schedEpisodes);
 
     // check to see if the data should be refreshed from tvrage.
-    // if the file doesnècontain INFO, and the show is still current
-    // and the data is over 7 days old get the new file
+    // if the file doesn't contain INFO, and the show is still current
+    // and the data is over $maxFileAgeSec days old get the new file
         $updateFile=false;
         if (file_exists($showPath)) {
             $episodeInfo = file($showPath);
@@ -204,7 +204,7 @@
             $allEpisodes = "all";
         }
 
-    // Setup the title query string bases off of mythName array.
+    // Setup the title query string based off of mythName array.
         foreach ($mythName as $queryString) {
             $queryString = mysql_real_escape_string($queryString);
             if (!$titleQuery) {

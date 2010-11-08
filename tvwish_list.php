@@ -10,6 +10,7 @@
  *
 /**/
 
+// Read in a string
     if ($_GET['wishstr'] || $_POST['wishstr']) {
         unset($_SESSION['wish']);
         $_SESSION['wish']['wishstr'] = _or($_GET['wishstr'], $_POST['wishstr']);
