@@ -11,63 +11,55 @@
 /**/
 
 // Set the desired page title
-$page_title = 'MythWeb - '.t('TV Episodes');
+    $page_title = 'MythWeb - '.t('TV Episodes');
 
 // Mythweb headers
-$headers[] = '<link rel="stylesheet" type="text/css"      href="'.skin_url.'/tv_upcoming.css">';
+    $headers[] = '<link rel="stylesheet" type="text/css"      href="'.skin_url.'/tv_upcoming.css">';
 
 // Print the page header
-require 'modules/_shared/tmpl/'.tmpl.'/header.php';
+    require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 
-global $All_Shows, $Total_Programs;
-global $show, $allEpisodes, $schedDate;
-global $showEpisodes, $recEpisodes, $watchedEpisodes, $unwatchedEpisodes, $schedEpisodesDetails;
-global $schedEpisodes, $recDate, $watchedDate, $unwatchedDate, $schedEpisodesDetails;
-global $toggleSelect, $showTitle, $matchPercent;
-global $totalRecorded, $totalSched, $totalEpisodes;
-$remainingEpisodes = $totalEpisodes-$totalRecorded;
-$fixedTitle = stripslashes($fixedTitle);
-$showTitle = stripslashes($showTitle);
+    $remainingEpisodes = $totalEpisodes-$totalRecorded;
+    $fixedTitle        = stripslashes($fixedTitle);
+    $showTitle         = stripslashes($showTitle);
 
-function get_sort_link_with_parms($field, $string, $parms) {
-     $link = get_sort_link($field,$string);
-     $pos = strpos($link, '?') + 1;
-      
-     return substr($link,0,$pos).$parms.'&'.substr($link,$pos);;
- }
+    function get_sort_link_with_parms($field, $string, $parms) {
+        $link = get_sort_link($field,$string);
+        $pos = strpos($link, '?') + 1;
+        return substr($link,0,$pos).$parms.'&'.substr($link,$pos);
+    }
 
-function imageResize($width, $height, $target) {
+    function imageResize($width, $height, $target) {
 
-// Takes the larger size of the width and height and applies the  
-// formula accordingly...this is so this script will work  
-// dynamically with any size image
+    // Takes the larger size of the width and height and applies the  
+    // formula accordingly...this is so this script will work  
+    // dynamically with any size image
 
-if ($width > $height) {
-    $percentage = ($target / $width);
-} else {
-    $percentage = ($target / $height);
-}
+        if ($width > $height)
+            $percentage = ($target / $width);
+        else 
+            $percentage = ($target / $height);
 
-// Gets the new value and applies the percentage, then rounds the value
-$width  = round($width * $percentage);
-$height = round($height * $percentage);
+    // Gets the new value and applies the percentage, then rounds the value
+        $width  = round($width * $percentage);
+        $height = round($height * $percentage);
 
-// Returns the new sizes in html image tag format...this is so you
-// can plug this function inside an image tag and just get the
+    // Returns the new sizes in html image tag format...this is so you
+    // can plug this function inside an image tag and just get the
 
-return "width=\"$width\" height=\"$height\"";
+        return "width=\"$width\" height=\"$height\"";
 
-} 
+    } 
 
 // Get the image size of the picture and load it into an array
-if (file_exists("$imageDir/$showId.jpg")) {
-    $imageInfo = getimagesize("$imageDir/$showId.jpg"); 
-} else {
-    if (!file_exists("$imageDir/noImage.jpg"))
-        copy("$scriptDir/noImage.jpg", "$imageDir/noImage.jpg");
-    $showId = "noImage";
-    $imageInfo = getimagesize("$imageDir/noImage.jpg");
-}
+    if (file_exists("$imageDir/$showId.jpg")) {
+        $imageInfo = getimagesize("$imageDir/$showId.jpg"); 
+    } else {
+        if (!file_exists("$imageDir/noImage.jpg"))
+            copy("$scriptDir/noImage.jpg", "$imageDir/noImage.jpg");
+        $showId = "noImage";
+        $imageInfo = getimagesize("$imageDir/noImage.jpg");
+    }
 
 ?>
 
@@ -245,78 +237,78 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
     $close_matchPosition = -1;
     //The purpose of this function is to match shows that have a very
     //similar subtitle. Ex. Altar Ego - Alter Ego
-    function close_match($key, $arrayvalue, $matchPercent) {
-        global $close_matchPosition;
-        $close_matchPosition=0;
-        foreach ($arrayvalue as $match) {
-            similar_text($match, $key, $p);
-            if ($p >= $matchPercent) return TRUE;
-                $close_matchPosition = $close_matchPosition + 1;
-       }
-    }
+        function close_match($key, $arrayvalue, $matchPercent) {
+            global $close_matchPosition;
+            $close_matchPosition=0;
+            foreach ($arrayvalue as $match) {
+                similar_text($match, $key, $p);
+                if ($p >= $matchPercent) return TRUE;
+                    $close_matchPosition = $close_matchPosition + 1;
+           }
+        }
 
-    foreach ($showEpisodes as $Log) {
-        if (preg_match('/^INFO/', $Log)) continue;
-        $Log = rtrim($Log);
-        $data = explode("\t", $Log);
-        $dat = preg_replace('/\([1-9]\)/', '', $data[2]);
-        $dat = trim($dat);
-        $data[4] = preg_replace('/<.+?>/', '', $data[4]);
-        $datalc = strtolower($dat);
-        $datalc = preg_replace('/[^0-9a-z ]+/i', '', $datalc);
-        $datalc = preg_replace('/[^\w\d\s]+­/i', '', $datalc);
-        $datalc = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $datalc);
-        $datalc = preg_replace('/\s+/', '', $datalc);
-        $datalc = preg_replace('/[\/\;]/', '', $datalc);
+        foreach ($showEpisodes as $Log) {
+            if (preg_match('/^INFO/', $Log)) continue;
+            $Log = rtrim($Log);
+            $data = explode("\t", $Log);
+            $dat = preg_replace('/\([1-9]\)/', '', $data[2]);
+            $dat = trim($dat);
+            $data[4] = preg_replace('/<.+?>/', '', $data[4]);
+            $datalc = strtolower($dat);
+            $datalc = preg_replace('/[^0-9a-z ]+/i', '', $datalc);
+            $datalc = preg_replace('/[^\w\d\s]+­/i', '', $datalc);
+            $datalc = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $datalc);
+            $datalc = preg_replace('/\s+/', '', $datalc);
+            $datalc = preg_replace('/[\/\;]/', '', $datalc);
 
-        $classes = "";
+            $classes = "";
 
         // Check for date matches first and then subtitle.  I do this since some
         // episodes have bogus subtitles or no subtitle. 
-        if ($watchedMatch = in_array("$data[1]", $watchedDate) || 
-           ($watchedMatch = close_match("$datalc", $watchedEpisodes, $matchPercent))) {
-            if ($allEpisodes != "all") {
+            if ($watchedMatch = in_array("$data[1]", $watchedDate) || 
+               ($watchedMatch = close_match("$datalc", $watchedEpisodes, $matchPercent))) {
+                if ($allEpisodes != "all") {
+                    $boxCheck = "unchecked";
+                    continue;
+                }
+                $classes .= " deactivated";
                 $boxCheck = "unchecked";
-                continue;
-            }
-            $classes .= " deactivated";
-            $boxCheck = "unchecked";
-        }elseif ($unwatchedMatch = in_array("$data[1]", $unwatchedDate) || 
-           ($unwatchedMatch = close_match("$datalc", $unwatchedEpisodes, $matchPercent))) {
-            if ($allEpisodes != "all") {
+            }elseif ($unwatchedMatch = in_array("$data[1]", $unwatchedDate) || 
+               ($unwatchedMatch = close_match("$datalc", $unwatchedEpisodes, $matchPercent))) {
+                if ($allEpisodes != "all") {
+                    $boxCheck = "unchecked";
+                    continue;
+                }
+                $classes .= " cat_Sports will_record";
                 $boxCheck = "unchecked";
-                continue;
-            }
-            $classes .= " cat_Sports will_record";
-            $boxCheck = "unchecked";
-        }elseif ($prevMatch = in_array("$data[1]", $recDate) || 
-           ($prevMatch = close_match("$datalc", $recEpisodes, $matchPercent))) {
-            if ($allEpisodes != "all") {
+            }elseif ($prevMatch = in_array("$data[1]", $recDate) || 
+               ($prevMatch = close_match("$datalc", $recEpisodes, $matchPercent))) {
+                if ($allEpisodes != "all") {
+                    $boxCheck = "unchecked";
+                    continue;
+                }
+                $classes .= " deactivated";
                 $boxCheck = "unchecked";
-                continue;
-            }
-            $classes .= " deactivated";
-            $boxCheck = "unchecked";
-        }elseif (($schedMatch = ($schedMatchDate = in_array("$data[1]", $schedDate))) ||
-                 ($schedMatch = close_match("$datalc", $schedEpisodes, $matchPercent))) {
-            if($schedMatchDate) {
-                $schedEpisodesDetails[$schedEpisodes[array_search("$data[1]", $schedDate)]]["matched"] = true;
+            }elseif (($schedMatch = ($schedMatchDate = in_array("$data[1]", $schedDate))) ||
+                     ($schedMatch = close_match("$datalc", $schedEpisodes, $matchPercent))) {
+                if($schedMatchDate) {
+                    $schedEpisodesDetails[$schedEpisodes[array_search("$data[1]", $schedDate)]]["matched"] = true;
+                } else {
+                    $schedEpisodesDetails["$datalc"]["matched"] = true;
+                }
+                $classes .= " scheduled";
+                $boxCheck = "unchecked";
             } else {
-                $schedEpisodesDetails["$datalc"]["matched"] = true;
+                if ($_SESSION['episodes']['allepisodes'] == "sched") continue;
+                $classes .= " duplicate";
+                $boxCheck = "checked";
             }
-            $classes .= " scheduled";
-            $boxCheck = "unchecked";
-        } else {
-            if ($_SESSION['episodes']['allepisodes'] == "sched") continue;
-            $classes .= " duplicate";
-            $boxCheck = "checked";
-        }
         ?>
 
         <?php
 
-        if ((preg_match('/^Season/', $data[0])) && (!$special)) {
-            $special = 1;
+            if ((preg_match('/^Season/', $data[0])) && (!$special)) {
+                $special = 1;
         ?>
             <tr class="menu" align="left">
               <td>Special Episodes</td>
@@ -342,13 +334,13 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
 
             <tr class="<?php echo $classes ?>" align="left">
               <?php 
-              if(!$tvwishHide) {
+                  if(!$tvwishHide) {
               ?>
               <td class="<?php echo $classes ?>">
                 <input type="checkbox" <?php echo $boxCheck?> name="f[]" value="<?php echo htmlspecialchars($data[2])?>">
               </td>
               <?php 
-              }
+                  }
               ?>
      
         <td class="<?php echo $classes ?>">
@@ -360,21 +352,21 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
         </td>
  
         <?php
-        if ($data[3] != "") {
+            if ($data[3] != "") {
         ?>
             <td class="<?php echo $classes ?>">
               <a href=<?php echo $data[3]?> target="_blank"><?php echo htmlspecialchars($data[2])?></a>
             </td>
 
         <?php
-        } else {
+            } else {
         ?>
             <td class="<?php echo $classes ?>">
               <?php echo htmlspecialchars($data[2])?>
             </td>
 
         <?php
-        }
+            }
         ?>
 
         <td width="60%" class="<?php echo $classes ?>">
@@ -384,15 +376,15 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
         <td class="<?php echo $classes?>">
           <?php
             if ($unwatchedMatch)
-              echo "Unwatched!";
+                echo "Unwatched!";
             elseif ($watchedMatch)
-              echo "Watched";
+                echo "Watched";
             elseif ($prevMatch)
-              echo "Previously Recorded";
+                echo "Previously Recorded";
             elseif ($schedMatch)
-              echo "Scheduled to Record";
+                echo "Scheduled to Record";
             else
-              echo "Not Recorded";
+                echo "Not Recorded";
           ?>
           <?php /*if ($prevMatch) echo "Previously Recorded"?>
           <?php if ($schedMatch) echo "Scheduled to Record"?>
@@ -401,21 +393,21 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
         </tr></tr>
 
     <?php
-    } 
-$_SESSION['episodes']['allepisodes'] = "all";
-    $classes = " record_duplicate scheduled";
-    foreach ($schedEpisodesDetails as $logKey => $Log) {
-         if (!$Log["matched"] && !in_array($logKey, $recEpisodes)) {
+        } 
+        $_SESSION['episodes']['allepisodes'] = "all";
+        $classes = " record_duplicate scheduled";
+        foreach ($schedEpisodesDetails as $logKey => $Log) {
+            if (!$Log["matched"] && !in_array($logKey, $recEpisodes)) {
     ?>
     <tr class="<?php echo $classes ?>" align="left">
              <?php 
-             if(!$tvwishHide) {
+                 if(!$tvwishHide) {
              ?>
       <td class="<?php echo $classes ?>">
         &nbsp;
       </td>
              <?php 
-             }
+                 }
              ?>
        
       <td class="<?php echo $classes ?>">
@@ -442,7 +434,7 @@ $_SESSION['episodes']['allepisodes'] = "all";
       }
   ?>
   <?php
-  if(!$tvwishHide) {
+      if(!$tvwishHide) {
   ?>
     <tr class="menu">
       <td>
@@ -454,13 +446,13 @@ $_SESSION['episodes']['allepisodes'] = "all";
       </td>
     </tr>
   <?php 
-  }
+      }
   ?>
   </table>	
 </form>
 
 <?php
-}
+    }
 
 if (isset($_SESSION['episodes']['title'])) {
 ?>
@@ -477,10 +469,10 @@ if (isset($_SESSION['episodes']['title'])) {
 
     <?php
 
-    $row = 0;
+        $row = 0;
 
-    foreach ($All_Shows as $show) {
-        list($startdate, $time) = explode(" ", $show->chanid);
+        foreach ($All_Shows as $show) {
+            list($startdate, $time) = explode(" ", $show->chanid);
     ?>
         <tr class="deactivated">
           <td><?php echo $show->title; ?></td>
@@ -493,15 +485,15 @@ if (isset($_SESSION['episodes']['title'])) {
  
         </tr>
     <?php
-        $row++;
-    }
+            $row++;
+        }
     ?>
 
     </table>
 
 <?php
-}
+    }
 
 // Print the page footer
-require 'modules/_shared/tmpl/'.tmpl.'/footer.php';
+    require 'modules/_shared/tmpl/'.tmpl.'/footer.php';
 ?>

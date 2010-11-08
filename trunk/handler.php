@@ -11,53 +11,53 @@
 /**/
 
 // Update include path to include modules/tv classes/includes
-ini_set('include_path', ini_get('include_path').':modules/tv');
+    ini_set('include_path', ini_get('include_path').':modules/tv');
 
 // Setup some paths
-$rootDir       = getcwd();
-$scriptDir     = "$rootDir/modules/episode/utils";
-$dataDir       = "$rootDir/data";
-$epDir         = "$dataDir/episode";
-$showDir       = "$epDir/shows";
-$imageDir      = "$epDir/images";
-$wishDir       = "$epDir/tvwish";
-$configFile    = "$epDir/config.ini";
-$showsOverride = "$epDir/override.txt";
+    $rootDir       = getcwd();
+    $scriptDir     = "$rootDir/modules/episode/utils";
+    $dataDir       = "$rootDir/data";
+    $epDir         = "$dataDir/episode";
+    $showDir       = "$epDir/shows";
+    $imageDir      = "$epDir/images";
+    $wishDir       = "$epDir/tvwish";
+    $configFile    = "$epDir/config.ini";
+    $showsOverride = "$epDir/override.txt";
 
 // Create the episode dir if it doesn't exist
-if (!is_dir($epDir) && !mkdir($epDir, 0775)) {
-    custom_error('Error creating '.$epDir.': Please check permissions on the data directory.');
-    exit;
-}
+    if (!is_dir($epDir) && !mkdir($epDir, 0775)) {
+        custom_error('Error creating '.$epDir.': Please check permissions on the data directory.');
+        exit;
+    }
 
 // Copy configuration file to data/episode if it doesn't exist 
-if (!file_exists($configFile)) 
-    copy("$scriptDir/config.template", "$configFile");
+    if (!file_exists($configFile)) 
+        copy("$scriptDir/config.template", "$configFile");
 
-$config = parse_ini_file($configFile, 1);
+    $config = parse_ini_file($configFile, 1);
 
-$defaultView   = (empty($config['defaultView'])) ? 'recorded' : $config['defaultView'];
-$matchPercent  = (empty($config['matchPercent'])) ? '85' : $config['matchPercent'];
-$maxFileAge    = (empty($config['maxFileAge'])) ? '7' : $config['maxFileAge'];
-$tvwishHide    = (empty($config['tvwishHide'])) ? '0' : $config['tvwishHide'];
-$thumbnailSize = (empty($config['thumbnailSize'])) ? '170' : $config['thumbnailSize'];
-$countryList   = (empty($config['countryList'])) ? 'US' : $config['countryList'];
+    $defaultView   = (empty($config['defaultView'])) ? 'recorded' : $config['defaultView'];
+    $matchPercent  = (empty($config['matchPercent'])) ? '85' : $config['matchPercent'];
+    $maxFileAge    = (empty($config['maxFileAge'])) ? '7' : $config['maxFileAge'];
+    $tvwishHide    = (empty($config['tvwishHide'])) ? '0' : $config['tvwishHide'];
+    $thumbnailSize = (empty($config['thumbnailSize'])) ? '170' : $config['thumbnailSize'];
+    $countryList   = (empty($config['countryList'])) ? 'US' : $config['countryList'];
 
 // Load a custom page
-switch ($Path[1]) {
-    case 'show';
-        require_once 'modules/episode/show.php';
-        exit;
-    case 'episodes';
-        require_once 'modules/episode/episodes.php';
-        exit;
-    case 'tvwish_list';
-        require_once 'modules/episode/tvwish_list.php';
-        exit;
-    case 'previous_recordings';
-        require_once 'modules/episode/previous_recordings.php';
-        exit;
-    default;
-        require_once 'modules/episode/show.php';
-        exit;
-}
+    switch ($Path[1]) {
+        case 'show';
+            require_once 'modules/episode/show.php';
+            exit;
+        case 'episodes';
+            require_once 'modules/episode/episodes.php';
+            exit;
+        case 'tvwish_list';
+            require_once 'modules/episode/tvwish_list.php';
+            exit;
+        case 'previous_recordings';
+            require_once 'modules/episode/previous_recordings.php';
+            exit;
+        default;
+            require_once 'modules/episode/show.php';
+            exit;
+    }

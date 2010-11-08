@@ -11,17 +11,13 @@
 /**/
 
 // Set the desired page title
-$page_title = 'MythWeb - '.t('TV Shows');
+    $page_title = 'MythWeb - '.t('TV Shows');
 
 // Headers from mythweb
-$headers[] = '<link rel="stylesheet" type="text/css"      href="'.skin_url.'/tv_upcoming.css">';
+    $headers[] = '<link rel="stylesheet" type="text/css"      href="'.skin_url.'/tv_upcoming.css">';
 
 // Print the page header
-require 'modules/_shared/tmpl/'.tmpl.'/header.php';
-
-global $oldRecorded, $allShows, $state;
-global $allCount, $currentCount;
-
+    require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 ?>
 
 <style type="text/css">
@@ -138,31 +134,31 @@ if ($_SESSION['show']['state'] != "recorded") {
     $j=1;
 
     // Go through list of shows from tvrage.com and place theme on the page
-    foreach ($allShows as $Log) { 
-        $Log = rtrim($Log);
-        $Log = preg_replace('/<.+?>/', '', $Log);
-        $data = explode("\t", $Log);
-        $data[0] = ucfirst($data[0]);
-        $firstChar = $data[0]{0}; // Get first character
-        $datastr = str_replace(' ', '', strtolower($data[1]));
-        if ($state == "all") {
-            $j=0;
-        }
+        foreach ($allShows as $Log) { 
+            $Log = rtrim($Log);
+            $Log = preg_replace('/<.+?>/', '', $Log);
+            $data = explode("\t", $Log);
+            $data[0] = ucfirst($data[0]);
+            $firstChar = $data[0]{0}; // Get first character
+            $datastr = str_replace(' ', '', strtolower($data[1]));
+            if ($state == "all") {
+                $j=0;
+            }
 
-        if ($data[3] >= $j) {
-            if ($firstChar != $fc1) {
-                if (!preg_match('/[^0-9]/', $firstChar)) {
-                    if ($a == 0) {
-                        $a=1;
+            if ($data[3] >= $j) {
+                if ($firstChar != $fc1) {
+                    if (!preg_match('/[^0-9]/', $firstChar)) {
+                        if ($a == 0) {
+                            $a=1;
 ?>			
                         <tr class="menu" align="center">
                           <td colspan="1">- <?php echo "0-9"?> -</td>
 
                     <?php
-                    }
-                } else {
-                    $a=0;                        
-                    $i=0;
+                        }
+                    } else {
+                        $a=0;                        
+                        $i=0;
                     ?>
 
                         </tr><tr></tr><tr></tr>
@@ -172,14 +168,14 @@ if ($_SESSION['show']['state'] != "recorded") {
                           </td>
                         </tr>
                 <?php
+                    }
                 }
-            }
 
-            if ($i == 0) {
+                if ($i == 0) {
                 ?>
                 <tr class="settings" align="left">
                 <?php
-                if (in_array("$datastr", $oldRecorded)) {
+                    if (in_array("$datastr", $oldRecorded)) {
                 ?>
 				
                     <td bgcolor="green">
@@ -187,26 +183,26 @@ if ($_SESSION['show']['state'] != "recorded") {
                     </td>
 
                     <?php
-                    } else {
+                        } else {
                     ?>
                     <td>
                       <a href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>'><?php echo htmlspecialchars($data[2])?></a>
                     </td>
 
                     <?php
-                    }
-                    $i = $i + 1;
-                    $fc1=$firstChar;
+                        }
+                        $i = $i + 1;
+                        $fc1=$firstChar;
                 
-                } else {
-                    if (in_array("$datastr", $oldRecorded)) {
+                    } else {
+                        if (in_array("$datastr", $oldRecorded)) {
                     ?>
                         <td bgcolor="green">
                           <a href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>'><?php echo htmlspecialchars($data[2])?></a>
                         </td>
 
                     <?php
-                    } else {
+                        } else {
                     ?>
                     
                         <td>
@@ -214,47 +210,47 @@ if ($_SESSION['show']['state'] != "recorded") {
                         </td>
 
                     <?php
-                    }
-                    $i = $i + 1;
-                    $fc1=$firstChar;
-                } 
-                if ($i == 5) {
-                    $i=0;
+                        }
+                        $i = $i + 1;
+                        $fc1=$firstChar;
+                    } 
+                    if ($i == 5) {
+                        $i=0;
                     ?>
                 </tr>
 
                 <?php
+                    }
                 }
             }
-        }
-}
+    }
                 ?>    
 
 <?php
-if ($_SESSION['show']['state'] == "recorded") {
-    $i=0;
-    $stillNums = false;
+    if ($_SESSION['show']['state'] == "recorded") {
+        $i=0;
+        $stillNums = false;
 
     // Go through list of shows from tvrage.com and place theme on the page
-    foreach ($oldRecorded as $show) {
-        $data = $recordedShows[$show];
-        if (! $data ) {
-            continue;
-        }
-        $firstChar = strtoupper($data[1]{0});
+        foreach ($oldRecorded as $show) {
+            $data = $recordedShows[$show];
+            if (! $data ) {
+                continue;
+            }
+            $firstChar = strtoupper($data[1]{0});
 
-        if ($firstChar != $fc1) {
-            if (!preg_match('/[^0-9\']/', $firstChar)) {
-                if (!$stillNums) {
-                    $stillNums = true;
+            if ($firstChar != $fc1) {
+                if (!preg_match('/[^0-9\']/', $firstChar)) {
+                    if (!$stillNums) {
+                        $stillNums = true;
 ?>
 <tr class="menu" align="center">
   <td colspan="1">- <?php echo "0-9"?> -</td>
 
                 <?php
-                }
-            } else {
-                $i=0;
+                    }
+                } else {
+                    $i=0;
                 ?>
 
 </tr><tr></tr><tr></tr>
@@ -264,30 +260,30 @@ if ($_SESSION['show']['state'] == "recorded") {
     </td>
 </tr>
             <?php
+                }
             }
-        }
 
-        if ($i == 0) {
+            if ($i == 0) {
             ?>
 <tr class="settings" align="left">
         <?php
-        }
+            }
         ?>
 
    <td onmouseover="changeCell(this)" onmouseout="changeCell(this)"><a href="episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>"><?php echo htmlspecialchars($data[2])?>
    </td>
 
         <?php
-        $i = $i + 1;
-        $fc1=$firstChar;
-        if ($i == 5) {
-            $i=0;
+            $i = $i + 1;
+            $fc1=$firstChar;
+            if ($i == 5) {
+                $i=0;
        ?>
 </tr>
 <?php
-                }
-        }
-}
+                    }
+            }
+    }
 ?>
 
 
