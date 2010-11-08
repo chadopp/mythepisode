@@ -11,18 +11,16 @@
 /**/
 
 // Set the desired page title
-$page_title = 'MythWeb - '.t('TV Previously Recorded');
+    $page_title = 'MythWeb - '.t('TV Previously Recorded');
 
 // Print the page header
-require 'modules/_shared/tmpl/'.tmpl.'/header.php';
+    require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 
-global $All_Shows, $Total_Programs;
-
-function get_sort_link_with_parms($field, $string) {
-    $link = get_sort_link($field,$string);
-    $pos = strpos($link, '?') + 1;
-    return substr($link,0,$pos).'&'.substr($link,$pos);;
-}
+    function get_sort_link_with_parms($field, $string) {
+        $link = get_sort_link($field,$string);
+        $pos = strpos($link, '?') + 1;
+        return substr($link,0,$pos).'&'.substr($link,$pos);;
+    }
 
 ?>
 
@@ -80,5 +78,5 @@ foreach ($All_Shows as $show) {
 
 <?php
 // Print the page footer
-require 'modules/_shared/tmpl/'.tmpl.'/footer.php';
+    require 'modules/_shared/tmpl/'.tmpl.'/footer.php';
 ?>

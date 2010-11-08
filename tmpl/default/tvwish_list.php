@@ -11,13 +11,10 @@
 /**/
 
 // Set the desired page title
-$page_title = 'MythWeb - '.t('TV Wish');
+    $page_title = 'MythWeb - '.t('TV Wish');
 
 // Print the page header
-require 'modules/_shared/tmpl/'.tmpl.'/header.php';
-
-global $activatedShow, $deactivatedShow, $wishFiles;
-
+    require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 ?>
 
 <form name="tvwish" class="form" method="post" action="tvwish_list">
@@ -29,9 +26,9 @@ global $activatedShow, $deactivatedShow, $wishFiles;
 
 <table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">    
 <?php
-foreach ($activatedShow as $activeShow) {
-    if (eregi("^(Include)", $activeShow)) {
-        $activeShow = ltrim($activeShow, "Include: $tvwishep/");
+    foreach ($activatedShow as $activeShow) {
+        if (eregi("^(Include)", $activeShow)) {
+            $activeShow = ltrim($activeShow, "Include: $tvwishep/");
 ?>
 <tr class="settings" align="left">
    <td width=15%><a href="episode/tvwish_list?wishstr=deactivate&setting=<?php echo $activeShow ?>"><?php echo Deactivate?></a></td>
@@ -39,8 +36,8 @@ foreach ($activatedShow as $activeShow) {
 </tr>
 
     <?php
+        }
     }
-}
     ?>
 </table>
 
@@ -52,8 +49,8 @@ foreach ($activatedShow as $activeShow) {
 
 <table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">
 <?php
-foreach ($wishFiles as $deactiveShow) {
-    if (!in_array($deactiveShow, $deactivatedShow)) {
+    foreach ($wishFiles as $deactiveShow) {
+        if (!in_array($deactiveShow, $deactivatedShow)) {
 ?>
 
 <tr class="settings" align="left">
@@ -62,8 +59,8 @@ foreach ($wishFiles as $deactiveShow) {
 </tr>
 
     <?php
+        }
     }
-}
     ?>
 
 </table>
