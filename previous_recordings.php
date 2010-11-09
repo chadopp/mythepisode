@@ -36,11 +36,11 @@
     $result = mysql_query("SELECT title,subtitle,description,programid
                              FROM oldrecorded
                             WHERE (recstatus = '-2' OR recstatus = '-3')
-                         GROUP BY programid");
+                         GROUP BY programid
+                         ORDER BY title");
 
-    $Total_Programs = 0;
-    $All_Shows      = array();
-    $Programs       = array();
+    $All_Shows = array();
+    $Programs  = array();
 
     while (true) {
         $Program_Titles = array();
@@ -48,14 +48,12 @@
         // Create a new program object
             $show = new Program($record);
         // Assign a reference to this show to the various arrays
-            $Total_Programs++;
             $Program_Titles[$record[0]]++;
-            $Groups[$record[30]]++;
+            if ($_GET['title']  != $record[0] && !$firstRecord)
+                $firstRecord = $record[0];
             if ($_GET['title'] && $_GET['title'] != $record[0])
                 continue;
-            if ($_GET['recgroup'] && $_GET['recgroup'] != $record[30])
-                continue;
-        
+
         // Make sure that everything we're dealing with is an array
             if (!is_array($Programs[$show->title]))
                 $Programs[$show->title] = array();
@@ -63,13 +61,12 @@
             $Programs[$show->title][] =& $show;
             unset($show);
         }
-    
+
     // Did we try to view a program that we don't have recorded?
     // Revert to showing all programs
         if ($_GET['title'] && !count($Programs)) {
-            $Warnings[] = 'No matching programs found.  Showing all programs.';
+            $Warnings[] = 'No matching programs found.';
             unset($_GET['title']);
-            //$_GET['title'] = $record[0];
         } else {
             break;
         }
@@ -80,7 +77,6 @@
 
 // Keep track of the program/title the user wants to view
     $_SESSION['previous_recorded_title'] = $_GET['title'];
-
 
 // Sort the programs
     if (count($All_Shows))
