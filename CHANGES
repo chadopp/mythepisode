@@ -1,3 +1,7 @@
+1.0.8
+    * Format code comments
+    * Fix to previous recording deletion
+
 1.0.7
     * Numerous bug fixes
     * Fix to external tvrage links

@@ -76,7 +76,6 @@
     }
 
 // Set some variables
-    $Total_Programs = 0;
     $All_Shows      = array();
     $Programs       = array();
     $showTitle      = $_SESSION['search']['showstr'];
@@ -91,7 +90,7 @@
     $schedEpisodes  = array();
     $schedDate      = array();
     $maxFileAgeSec  = ($maxFileAge * 24 * 60 * 60);
-    $schedEpisodesDetails  = array();
+    $schedEpisodesDetails = array();
 
 // Override is used for shows that have names that don't matchup properly
 // For example mythtv records "Survivor" as "Survivor: Nicaragua".  Since
@@ -302,13 +301,9 @@
                              GROUP BY programid");
 
         while (true) {
-            $Program_Titles = array();
             while ($record = mysql_fetch_row($result)) {
             // Create a new program object
                 $show = new Program($record);
-            // Assign a reference to this show to the various arrays
-                $Total_Programs++;
-                $Program_Titles[$record[0]]++;
             
             // Make sure that everything we're dealing with is an array
                 if (!is_array($Programs[$show->title]))
@@ -327,9 +322,6 @@
                 break;
             }
         }
-    
-    // Sort the program titles
-        ksort($Program_Titles);
     
     // Sort the programs
         if (count($All_Shows))
