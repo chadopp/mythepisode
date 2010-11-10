@@ -49,8 +49,6 @@
             $show = new Program($record);
         // Assign a reference to this show to the various arrays
             $Program_Titles[$record[0]]++;
-            if ($_GET['title']  != $record[0] && !$firstRecord)
-                $firstRecord = $record[0];
             if ($_GET['title'] && $_GET['title'] != $record[0])
                 continue;
 
@@ -63,10 +61,13 @@
         }
 
     // Did we try to view a program that we don't have recorded?
-    // Revert to showing all programs
+    // Revert to a selection option
         if ($_GET['title'] && !count($Programs)) {
             $Warnings[] = 'No matching programs found.';
             unset($_GET['title']);
+            $Program_Titles['- Select a Show']++;
+            uksort($Program_Titles, "strnatcasecmp");
+            require_once tmpl_dir . 'previous_recordings.php';
         } else {
             break;
         }
