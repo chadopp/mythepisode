@@ -278,6 +278,31 @@
         $unwatchedEpisodes = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $unwatchedEpisodes);
         $unwatchedEpisodes = preg_replace('/\s+/', '', $unwatchedEpisodes);
 
+    // Check the DB for any videos of the show available
+        $getSubtitles = mysql_query("SELECT subtitle,releasedate,season,episode
+                                       FROM videometadata 
+                                      WHERE ($titleQuery) 
+                                   Group BY filename");
+
+        $videoEpisodes  = array();
+        $videoDate      = array();
+        $videoSE        = array();
+
+    // If we find videos in the DB
+        if ($getSubtitles) {
+            while ($row = mysql_fetch_assoc($getSubtitles)) {
+                $videoDate[]        = date('Y-m-d', strtotime($row['releasedate']));
+                $videoEpisodes[]    = strtolower($row['subtitle']);
+                $videoSE[]          = (string) ($row['season']."-".str_pad($row['episode'], 2, "0", STR_PAD_LEFT));
+            }
+
+            mysql_free_result($getSubtitles);
+            $videoEpisodes = preg_replace('/[^0-9a-z ]+/i', '', $videoEpisodes);
+            $videoEpisodes = preg_replace('/[^\w\d\s]+­/i', '', $videoEpisodes);
+            $videoEpisodes = preg_replace('/(?: and | the | i | or | of |the | a | in )/i', '', $videoEpisodes);
+            $videoEpisodes = preg_replace('/\s+/', '', $videoEpisodes);
+        }
+
     // Get information about shows to display on the top right
     // of the episode listing page
         $episodeInfo = file($showPath);

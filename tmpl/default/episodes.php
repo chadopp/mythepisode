@@ -265,15 +265,7 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
 
         // Check for date matches first and then subtitle.  I do this since some
         // episodes have bogus subtitles or no subtitle. 
-            if ($watchedMatch = in_array("$data[1]", $watchedDate) || 
-               ($watchedMatch = close_match("$datalc", $watchedEpisodes, $matchPercent))) {
-                if ($allEpisodes != "all") {
-                    $boxCheck = "unchecked";
-                    continue;
-                }
-                $classes .= " deactivated";
-                $boxCheck = "unchecked";
-            }elseif ($unwatchedMatch = in_array("$data[1]", $unwatchedDate) || 
+            if ($unwatchedMatch = in_array("$data[1]", $unwatchedDate) || 
                ($unwatchedMatch = close_match("$datalc", $unwatchedEpisodes, $matchPercent))) {
                 if ($allEpisodes != "all") {
                     $boxCheck = "unchecked";
@@ -281,8 +273,19 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
                 }
                 $classes .= " cat_Sports will_record";
                 $boxCheck = "unchecked";
-            }elseif ($prevMatch = in_array("$data[1]", $recDate) || 
-               ($prevMatch = close_match("$datalc", $recEpisodes, $matchPercent))) {
+            }elseif ($watchedMatch = in_array("$data[1]", $watchedDate) || 
+               ($watchedMatch = close_match("$datalc", $watchedEpisodes, $matchPercent))) {
+                if ($allEpisodes != "all") {
+                    $boxCheck = "unchecked";
+                    continue;
+                }
+                $classes .= " deactivated";
+                $boxCheck = "unchecked";
+            }elseif ($videoMatch = in_array("$data[0]", $videoSE) || 
+               ($videoMatch = in_array("$data[1]", $videoDate) || 
+               ($videoMatch = close_match("$datalc", $videoEpisodes, $matchPercent)))) {
+        // Check MythVideo files for matches first using Season/Episode, then
+        // date matches and then subtitle
                 if ($allEpisodes != "all") {
                     $boxCheck = "unchecked";
                     continue;
@@ -297,6 +300,14 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
                     $schedEpisodesDetails["$datalc"]["matched"] = true;
                 }
                 $classes .= " scheduled";
+                $boxCheck = "unchecked";
+            }elseif ($prevMatch = in_array("$data[1]", $recDate) || 
+               ($prevMatch = close_match("$datalc", $recEpisodes, $matchPercent))) {
+                if ($allEpisodes != "all") {
+                    $boxCheck = "unchecked";
+                    continue;
+                }
+                $classes .= " deactivated";
                 $boxCheck = "unchecked";
             } else {
                 if ($_SESSION['episodes']['allepisodes'] == "sched") continue;
@@ -376,13 +387,15 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
         <td class="<?php echo $classes?>">
           <?php
             if ($unwatchedMatch)
-                echo "Unwatched!";
+                echo "Recorded - Unwatched!";
             elseif ($watchedMatch)
-                echo "Watched";
-            elseif ($prevMatch)
-                echo "Previously Recorded";
+                echo "Recorded - Watched";
+            elseif ($videoMatch)
+                echo "Video File";
             elseif ($schedMatch)
                 echo "Scheduled to Record";
+            elseif ($prevMatch)
+                echo "Previously Recorded";
             else
                 echo "Not Recorded";
           ?>
