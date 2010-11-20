@@ -3,6 +3,12 @@
 
 = Details =
 
+1.0.8(trunk)
+    * Format code comments
+    * Fix to previous recording deletion
+    * Add episode check against mythvideo
+    * Improve "Scheduled to Record but no match" matching
+
 1.0.7
     * Many bug fixes
     * Fix to external tvrage links
