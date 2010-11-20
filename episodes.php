@@ -156,9 +156,11 @@
                         ))) {
                             continue;
                         }
+                     
                     // print "Sched Episode is $show->subtitle - at $show->airdate - $show->recstatus<BR>";
                     // Assign a reference for this show to the various arrays
-                        $schedDate[]        = $show->airdate;
+                        $startTime = date('Y-m-d', $show->starttime);
+                        $schedDate[]        = $startTime;
                         $schedEpisodesTitle = strtolower($show->subtitle);
                         $schedEpisodesTitle = preg_replace('/[^0-9a-z ]+/i', '', $schedEpisodesTitle);
                         $schedEpisodesTitle = preg_replace('/[^\w\d\s]+­/i', '', $schedEpisodesTitle);
@@ -166,10 +168,10 @@
                         $schedEpisodesTitle = preg_replace('/\s+/', '', $schedEpisodesTitle);
                         $schedEpisodesTitle = preg_replace('/[\/\;]/', '', $schedEpisodesTitle);
                         $schedEpisodes[]    = $schedEpisodesTitle;
-                        if(!array_key_exists($schedEpisodesTitle, $schedEpisodesDetails) && $show->subtitle!="") {
+                        if(!array_key_exists($schedEpisodesTitle, $schedEpisodesDetails)) {
                             $schedEpisodesDetails[$schedEpisodesTitle]=array(
                             "syndicatedepisodenumber" => substr($show->syndicatedepisodenumber,0,1)."-".substr($show->syndicatedepisodenumber,1),
-                            "airdate"     => $show->airdate,
+                            "airdate"     => $startTime,
                             "subtitle"    => $show->subtitle,
                             "description" => $show->description,
                             "matched"     => false);
@@ -213,7 +215,7 @@
             }
         }
 
-    // Check the DB for any episodes of the show previously recorded
+    // Check the DB for any episodes of the show previously recordeo
         $getSubtitles = mysql_query("SELECT subtitle,starttime 
                                        FROM oldrecorded 
                                       WHERE ($titleQuery) 
