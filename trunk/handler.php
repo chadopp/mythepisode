@@ -36,12 +36,12 @@
 
     $config = parse_ini_file($configFile, 1);
 
-    $defaultView   = (empty($config['defaultView'])) ? 'recorded' : $config['defaultView'];
-    $matchPercent  = (empty($config['matchPercent'])) ? '85' : $config['matchPercent'];
-    $maxFileAge    = (empty($config['maxFileAge'])) ? '7' : $config['maxFileAge'];
-    $tvwishHide    = (empty($config['tvwishHide'])) ? '0' : $config['tvwishHide'];
-    $thumbnailSize = (empty($config['thumbnailSize'])) ? '170' : $config['thumbnailSize'];
-    $countryList   = (empty($config['countryList'])) ? 'US' : $config['countryList'];
+    $defaultView   = (empty($config['defaultView']))   ? 'recorded' : $config['defaultView'];
+    $matchPercent  = (empty($config['matchPercent']))  ? '85'       : $config['matchPercent'];
+    $maxFileAge    = (empty($config['maxFileAge']))    ? '7'        : $config['maxFileAge'];
+    $tvwishHide    = (empty($config['tvwishHide']))    ? '0'        : $config['tvwishHide'];
+    $thumbnailSize = (empty($config['thumbnailSize'])) ? '170'      : $config['thumbnailSize'];
+    $countryList   = (empty($config['countryList']))   ? 'US'       : $config['countryList'];
 
 // Load a custom page
     switch ($Path[1]) {

@@ -154,7 +154,7 @@ function my_select() {
           <?php echo t('Listing Source: www.tvrage.com') ?>
           </a>
           &nbsp;&nbsp; - &nbsp;&nbsp;
-          <a href="episode/episodes?state=update">
+          <a onclick="ajax_add_request()" href="episode/episodes?state=update">
           <?php echo t('Update Episode Listing') ?></a>
         </td>
       </tr>
@@ -172,22 +172,22 @@ function my_select() {
         <td class="x-title"><?php echo t('Display') ?>:</td>
           <?php if ($_SESSION['episodes']['allepisodes'] == "all") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
         <td class=<?php echo "$bgcolor"?>>
-          <a href="episode/episodes/?allepisodes=all"> 
+          <a onclick="ajax_add_request()" href="episode/episodes/?allepisodes=all"> 
           <?php echo t('All Episodes') ?>:<?php echo " $totalEpisodes"?>
         </td>
         <?php if ($_SESSION['episodes']['title']) { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
         <td class=<?php echo "$bgcolor"?>>
-          <a href="episode/episodes/?title=<?php echo $showTitle?>">
+          <a onclick="ajax_add_request()" href="episode/episodes/?title=<?php echo $showTitle?>">
           <?php echo t('Recorded') ?>:<?php echo " $totalRecorded"?>
         </td>
         <?php if ($_SESSION['episodes']['allepisodes'] == "none") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
         <td class=<?php echo "$bgcolor"?>>
-          <a href="episode/episodes/?allepisodes=none">
+          <a onclick="ajax_add_request()" href="episode/episodes/?allepisodes=none">
           <?php echo t('Not Recorded') ?>:<?php echo " $remainingEpisodes"?>
         </td>
         <?php if ($_SESSION['episodes']['allepisodes'] == "sched") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
         <td class=<?php echo "$bgcolor"?>>
-          <a href="episode/episodes/?allepisodes=sched">
+          <a onclick="ajax_add_request()" href="episode/episodes/?allepisodes=sched">
           <?php echo t('Scheduled') ?>:<?php echo " $totalSched"?>
         </td>
       </tr>
@@ -494,7 +494,7 @@ if (isset($_SESSION['episodes']['title'])) {
           <td><?php echo $show->category ?></td>
           <td><?php echo $show->description ?></td>
 
-          <td class="x-commands commands"><a id="delete_<?php echo $row?>" href="episode/episodes/?delete=yes&category=<?php echo urlencode($show->category)?>&title=<?php echo urlencode($show->title)?>" title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
+          <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/episodes/?delete=yes&category=<?php echo urlencode($show->category)?>&title=<?php echo urlencode($show->title)?>" title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
  
         </tr>
     <?php

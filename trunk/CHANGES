@@ -1,6 +1,9 @@
 1.0.8
     * Format code comments
     * Fix to previous recording deletion
+    * Add episode check against mythvideo
+    * Improve "Scheduled to Record but no match" matching 
+    * Add ajax pending request at bottom left of screen
 
 1.0.7
     * Numerous bug fixes
