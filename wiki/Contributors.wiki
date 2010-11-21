@@ -12,6 +12,7 @@ Alec C.:
   * Update to welcome page
   * Fix default mainpage link
   * Fix for shows that are set to never record
+  * Added episode check against mythvideo
 
 Chris K.:
   * DB query update
