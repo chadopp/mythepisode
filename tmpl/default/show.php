@@ -69,7 +69,7 @@ if ($_SESSION['show']['state'] != "recorded") {
       <?php echo t('Listing Source: www.tvrage.com') ?>
     </a>
     &nbsp;&nbsp; - &nbsp;&nbsp;
-    <a href="episode/show?state=update">
+    <a onclick="ajax_add_request()" href="episode/show?state=update">
       <?php echo t('Update Show Listing') ?>
     </a>
   </td>
@@ -84,28 +84,28 @@ if ($_SESSION['show']['state'] != "recorded") {
   <td class="x-title"><?php echo t('Display') ?>:</td>
     <?php if ($_SESSION['show']['state'] == "all") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
   <td class=<?php echo "$bgcolor"?>>
-    <a href="episode/show?state=all">
+    <a onclick="ajax_add_request()" href="episode/show?state=all">
       <?php echo t('All TV Shows') ?>
   </td>
     <?php if ($_SESSION['show']['state'] == "current") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
   <td class=<?php echo "$bgcolor"?>>
-    <a href="episode/show?state=current">
+    <a onclick="ajax_add_request()" href="episode/show?state=current">
       <?php echo t('Current TV Shows') ?>
   </td>
     <?php if ($_SESSION['show']['state'] == "recorded") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
   <td class=<?php echo "$bgcolor"?>>
-    <a href="episode/show?state=recorded">
+    <a onclick="ajax_add_request()" href="episode/show?state=recorded">
       <?php echo t('Recorded TV Shows') ?>
   </td>
   <td class="x-check">
-    <a href="episode/previous_recordings">
+    <a onclick="ajax_add_request()" href="episode/previous_recordings">
       <?php echo t('Previous Recordings') ?>
   </td>
   <?php 
   if(!$tvwishHide) {
   ?>
   <td class="x-check">
-    <a href="episode/tvwish_list">
+    <a onclick="ajax_add_request()" href="episode/tvwish_list">
       <?php echo t('TVwish') ?>
   </td>
   <?php 
@@ -179,14 +179,14 @@ if ($_SESSION['show']['state'] != "recorded") {
                 ?>
 				
                     <td bgcolor="green">
-                      <a href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>'><?php echo  htmlspecialchars($data[2])?></a>
+                      <a onclick="ajax_add_request()" href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>'><?php echo  htmlspecialchars($data[2])?></a>
                     </td>
 
                     <?php
                         } else {
                     ?>
                     <td>
-                      <a href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>'><?php echo htmlspecialchars($data[2])?></a>
+                      <a onclick="ajax_add_request()" href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>'><?php echo htmlspecialchars($data[2])?></a>
                     </td>
 
                     <?php
@@ -198,7 +198,7 @@ if ($_SESSION['show']['state'] != "recorded") {
                         if (in_array("$datastr", $oldRecorded)) {
                     ?>
                         <td bgcolor="green">
-                          <a href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>'><?php echo htmlspecialchars($data[2])?></a>
+                          <a onclick="ajax_add_request()" href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>'><?php echo htmlspecialchars($data[2])?></a>
                         </td>
 
                     <?php
@@ -206,7 +206,7 @@ if ($_SESSION['show']['state'] != "recorded") {
                     ?>
                     
                         <td>
-                          <a href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo $data[0]?>&allepisodes=<?php echo all?>'><?php echo htmlspecialchars($data[2])?></a>
+                          <a onclick="ajax_add_request()" href='episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo $data[0]?>&allepisodes=<?php echo all?>'><?php echo htmlspecialchars($data[2])?></a>
                         </td>
 
                     <?php
@@ -270,7 +270,7 @@ if ($_SESSION['show']['state'] != "recorded") {
             }
         ?>
 
-   <td onmouseover="changeCell(this)" onmouseout="changeCell(this)"><a href="episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>"><?php echo htmlspecialchars($data[2])?>
+   <td onmouseover="changeCell(this)" onmouseout="changeCell(this)"><a onclick="ajax_add_request()" href="episode/episodes/?showstr=<?php echo urlencode($data[1])?>&longshow=<?php echo urlencode($data[2])?>&showname=<?php echo urlencode($data[0])?>"><?php echo htmlspecialchars($data[2])?>
    </td>
 
         <?php

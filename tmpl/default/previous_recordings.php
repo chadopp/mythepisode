@@ -29,7 +29,7 @@
 <table class="command command_border_l command_border_t command_border_b command_border_r" border="0" cellspacing="0" cellpadding="4" align="center">
   <tr>
     <td><?php echo t('Show Previous Recordings') ?>:</td>
-    <td><select name="title" onchange="$('program_titles').submit()">
+    <td><select name="title" onchange="ajax_add_request(); $('program_titles').submit()">
         <?php
         global $Program_Titles;
         foreach($Program_Titles as $title => $count) {
@@ -66,7 +66,7 @@ foreach ($All_Shows as $show) {
     <td><?php echo $show->subtitle?></td>
     <td><?php echo $show->category?></td>
     <td><?php echo $show->description?></td>
-    <td class="x-commands commands"><a id="delete_<?php echo $row?>" href="episode/previous_recordings?delete=yes&category=<?php echo urlencode($show->category)?>"  title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
+    <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/previous_recordings?delete=yes&category=<?php echo urlencode($show->category)?>"  title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
   </tr>
 
 <?php

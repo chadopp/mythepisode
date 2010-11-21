@@ -26,10 +26,10 @@ IE      - very slow on my system
   under the installation instructions is all of the configuration options and
   ther purpose.
 
-- If you are running mythweb trunk or greater you will need to make a couple of 
-  changes to episodes.php since .24/trunk has changed some of the mythweb 
+- If you are running mythweb .24 or greater you will need to make a couple of 
+  changes to episode.php since .24/trunk has changed some of the mythweb 
   classes/includes.  I've only had feedback from others and haven't tested this 
-  with trunk.  The two areas that need to be changed are commented with the
+  with .24/trunk.  The two areas that need to be changed are commented with the
   required changes in the episodes.php file.
 
 ################################################################################
