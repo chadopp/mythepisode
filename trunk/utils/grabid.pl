@@ -36,40 +36,41 @@ if ($#ARGV != 2 ) {
 }
 
 ## variables
-my $debug       = 0;
-my $show        = $ARGV[0];
-my $showfile    = $ARGV[1];
-my $imagePath   = $ARGV[2];
-my $showId      = "";
-my $showName    = "";
-my $showUrl     = "";
-my $showPrem    = "";
-my $showStart   = "";
-my $showEnd     = "";
-my $showCtry    = "";
-my $showStatus  = "";
-my $showClass   = "";
-my $showGenre   = "";
-my $showNetwork = "";
-my $showAirtime = "";
-my $showLatest  = "";
-my $showNext    = "";
-my $episodeInfo = "";
-my $episodeUrl  = "";
-my $seasonnum   = "";
-my $line        = "";
-my $epnum       = "";
-my $title       = "";
-my $airdate     = "";
-my $link        = "";
-my $junk        = "";
-my $summary     = "";
-my $showSummary = "";
-my $tvdbInfo    = "";
-my $tvdbEpnum   = "";
-my $tvdbSeason  = "";
-my $tvdbepnum   = "";
-my $tvdbaired   = "";
+my $debug        = 0;
+my $show         = $ARGV[0];
+my $showfile     = $ARGV[1];
+my $imagePath    = $ARGV[2];
+my $showId       = "";
+my $showName     = "";
+my $showUrl      = "";
+my $showPrem     = "";
+my $showStart    = "";
+my $showEnd      = "";
+my $showCtry     = "";
+my $showStatus   = "";
+my $showClass    = "";
+my $showGenre    = "";
+my $showNetwork  = "";
+my $showAirtime  = "";
+my $showLatest   = "";
+my $showNext     = "";
+my $episodeInfo  = "";
+my $episodeUrl   = "";
+my $seasonnum    = "";
+my $line         = "";
+my $epnum        = "";
+my $title        = "";
+my $airdate      = "";
+my $link         = "";
+my $junk         = "";
+my $summary      = "";
+my $showSummary  = "";
+my $tvdbInfo     = "";
+my $tvdbEpnum    = "";
+my $tvdbSeason   = "";
+my $tvdbepnum    = "";
+my $tvdbaired    = "";
+my $tvdbEpisodes = "";
 
 ## Get information from tvrage.com using their quickinfo script
 ## The quickinfo script has some issues that I have reported, but
@@ -174,7 +175,9 @@ if ($tvdbID) {
     $tvdbShowID = $tvdbID->{Series}->{seriesid};
 }
 
-my $tvdbEpisodes = get "http://thetvdb.com/api/8209AD0FC5FE8945/series/$tvdbShowID/all/en.xml";
+if ($tvdbShowID) {
+    $tvdbEpisodes = get "http://thetvdb.com/api/8209AD0FC5FE8945/series/$tvdbShowID/all/en.xml";
+}
 
 if ($tvdbEpisodes) {
     $tvdbInfo  = XMLin($tvdbEpisodes,
