@@ -9,10 +9,15 @@
 # Author   : $Author$
 # License  : GPL
 #
-## The API key used in this script was explicitly requested and assigned by 
-## tvrage.com for use with mythepisode.  If you create an application that is 
-## not associated with mythepisode that requires access to the tvrage API 
-## key you need to request a key through tvrage.com
+## The API keys used in this script were explicitly requested and assigned by 
+## tvrage.com and TheTVDB.com for use with mythepisode.  If you create an 
+## application that is not associated with mythepisode that requires access 
+## to the tvrage or thetvdb API key you need to request a key through 
+## tvrage.com and/or TheTVDB.com
+## Since these two information providers rely on input from the community
+## they appreciate contributions from the users of their information.  You
+## can contribute by requesting an account on their websites and updating
+## show/episode information.
 ############################################################################
 
 use LWP::Simple;
@@ -59,6 +64,11 @@ my $link        = "";
 my $junk        = "";
 my $summary     = "";
 my $showSummary = "";
+my $tvdbInfo    = "";
+my $tvdbEpnum   = "";
+my $tvdbSeason  = "";
+my $tvdbepnum   = "";
+my $tvdbaired   = "";
 
 ## Get information from tvrage.com using their quickinfo script
 ## The quickinfo script has some issues that I have reported, but
@@ -68,14 +78,14 @@ $show =~ s/\#//g;
 $show =~ s/ with//g; 
 $show =~ s/ With//g; 
 
-my $site = get "http://services.tvrage.com/tools/quickinfo.php?show=$show";
+my $tvragesite = get "http://services.tvrage.com/tools/quickinfo.php?show=$show";
 
-if (!$site) {
+if (!$tvragesite) {
     print "Show id for $show not found. Could be temporary issues accessing tvrage.com\n";
     exit 1;
 }
 
-foreach $line (split("\n",$site) ) {
+foreach $line (split("\n",$tvragesite) ) {
     ## Parse the results from tvrage.com to get showid 
     my ($sec,$val) = split('\@',$line);
     if ($sec =~ "Show ID" ) {
@@ -154,6 +164,24 @@ if (! -f "$imagePath/$showId.jpg") {
     getstore("$showImage", "$imagePath/$showId.jpg");
 }
 
+my $tvdbShowID = "";
+my $tvdbsite   = get "http://www.thetvdb.com/api/GetSeries.php?seriesname=$show";
+my $tvdbxml    = new XML::Simple;
+my $tvdbID     = $tvdbxml->XMLin("$tvdbsite");
+
+if ($tvdbID) {
+    $tvdbShowID = $tvdbID->{Series}->{seriesid};
+}
+
+my $tvdbEpisodes = get "http://thetvdb.com/api/8209AD0FC5FE8945/series/$tvdbShowID/all/en.xml";
+
+if ($tvdbEpisodes) {
+    $tvdbInfo  = XMLin($tvdbEpisodes,
+    ForceArray => 1,
+    KeyAttr    => {},
+    );
+}
+
 open FILE, ">$showfile" or die $!;
 binmode FILE, ":utf8";
 
@@ -162,6 +190,7 @@ print FILE "INFO:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$s
 ## Get a list of episodes based on the showid
 ## Need to update this using xml::simple
 my $episodes = get "http://services.tvrage.com/myfeeds/episode_list.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
+
 foreach my $episode (split("\n",$episodes)) {
     if ($episode =~ /^\<Season no/) {
         ($junk,$seasonnum) = split("\"", $episode); 
@@ -196,9 +225,27 @@ foreach my $episode (split("\n",$episodes)) {
             print "Link          : $2\n" if $debug;
         }
         if ($episode =~ m#<(summary)>(.*)</\1>#) {
-            $summary = $2;
+            $summary = "$2 - TVRage.com";
         }
-        if ($summary eq "") {
+
+        if (($summary =~ /^ -/ || $summary eq "") && ($tvdbInfo)) {
+            foreach my $tvdbEpisode (@{$tvdbInfo->{Episode}}) {
+                $tvdbSeason = $tvdbEpisode->{Combined_season}->[0]; 
+                $tvdbEpnum = $tvdbEpisode->{Combined_episodenumber}->[0];
+                $tvdbEpnum = sprintf("%2d", $tvdbEpnum);
+                $tvdbEpnum =~ tr/ /0/;
+                $tvdbepnum = "$tvdbSeason-$tvdbEpnum";
+                $tvdbaired = $tvdbEpisode->{FirstAired}->[0];
+                if (($tvdbepnum eq $epnum) && 
+                    ($tvdbEpisode->{Overview}->[0] !~ /^HASH/) && ($airdate eq $tvdbaired)) {
+                    $summary = "$tvdbEpisode->{Overview}->[0] - TheTVDB.com";
+                    chomp $summary;
+                    $summary =~ s/\n/ - /g;
+                    last;
+                }
+            }
+        }
+        if ($summary =~ /^ -/ || $summary eq "") {
             $summary = "No summary data available";
         }
         print "Summary       : $summary\n" if $debug;

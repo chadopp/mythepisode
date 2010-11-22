@@ -3,7 +3,7 @@
     * Fix to previous recording deletion
     * Add episode check against mythvideo
     * Improve "Scheduled to Record but no match" matching 
-    * Add ajax pending request at bottom left of screen
+    * Update to grab information from TheTVDB.com
 
 1.0.7
     * Numerous bug fixes
