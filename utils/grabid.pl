@@ -23,6 +23,7 @@
 use LWP::Simple;
 use LWP::Simple qw(get $ua);
 use XML::Simple;
+use Encode;
 use strict;
 
 $ua->agent('My agent/1.0');
@@ -227,8 +228,7 @@ foreach my $episode (split("\n",$episodes)) {
         if ($episode =~ m#<(summary)>(.*)</\1>#) {
             $summary = "$2 - TVRage.com";
         }
-
-        if (($summary =~ /^ -/ || $summary eq "") && ($tvdbInfo)) {
+        if (($summary =~ /^ / || $summary eq "") && ($tvdbInfo)) {
             foreach my $tvdbEpisode (@{$tvdbInfo->{Episode}}) {
                 $tvdbSeason = $tvdbEpisode->{Combined_season}->[0]; 
                 $tvdbEpnum = $tvdbEpisode->{Combined_episodenumber}->[0];
@@ -245,9 +245,10 @@ foreach my $episode (split("\n",$episodes)) {
                 }
             }
         }
-        if ($summary =~ /^ -/ || $summary eq "") {
+        if (($summary =~ /^ /) || ($summary eq "")) {
             $summary = "No summary data available";
         }
+        $summary = decode_utf8( $summary );
         print "Summary       : $summary\n" if $debug;
         ##print "$epnum\t$airdate\t$title\t$link\t$summary\n";
         print FILE "$epnum\t$airdate\t$title\t$link\t$summary\n";
