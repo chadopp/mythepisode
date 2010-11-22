@@ -157,7 +157,7 @@ function my_select() {
           <a href="http://www.thetvdb.com" target="_blank">
             <?php echo t('TheTVDB.com') ?>
           </a>
-          &nbsp;&nbsp; - &nbsp;&nbsp;
+          &nbsp;&nbsp; | &nbsp;&nbsp;
           <a onclick="ajax_add_request()" href="episode/episodes?state=update">
           <?php echo t('Update Episode Listing') ?></a>
         </td>
