@@ -11,10 +11,12 @@
 
 NOTES: 
 After an initial install when you first select TV Episodes mythepisode has to
-go to tvrage.com and grab a list of shows for the first time so there might
+go to TVRage.com and grab a list of shows for the first time so there might
 be a slight delay.  The same is true when you click on a show for the first
 time.  All episode information for that show has to be retrieved.  It will be
-much faster the next time you select it.
+much faster the next time you select it.  If summary information doesn't 
+exist at TVRage.com for a pariticular episode an attempt will be made to get it
+from TheTVDB.com 
 
 I have tested mythepisode with the following browsers(although not thoroughly)
 Firefox - very fast on my system
@@ -110,7 +112,7 @@ Settings Tab:
 Countries (space seperated):
 ----------------------------
 This option is used to set the country or countries shows that will be retrieved
-from tvrage and displayed in mythepisode.  The default is set to "US".  Each
+from TVRage.com and displayed in mythepisode.  The default is set to "US".  Each
 country should only be 2 characters and seperated by a space if more than one
 country is selected.
 
@@ -146,14 +148,14 @@ Episode matching accuracy (%):
 This option is used to help improve episode matching.  Because of spelling differences
 from different sources there are times when episodes fail to be marked as previously
 recorded or scheduled for recording.  To overcome this we compare the episode name 
-from tvrage against the episode name from mythtv and label as a match if the character
+from TVRage.com against the episode name from mythtv and label as a match if the character
 match between the two is equal to or greater than the episode matching percentage.  The
 default setting is 85% which means the two must match 85% or higher to get labeled as
 a match. 
 
 example:  A King of Queens episode called "Alter Ego"
 
-mythtv listing:		tvrage listing:
+mythtv listing:		TVRage.com listing:
 ---------------         ---------------
 Altar Ego	 	Alter Ego
 
@@ -167,9 +169,9 @@ balance.
 Update episode info if older than (days):
 -----------------------------------------
 This option is used to set how often episode information is automatically grabbed from
-tvrage.com.  The default setting is 7 days.  When you click on a TV show, mythepisode
+TVRage.com.  The default setting is 7 days.  When you click on a TV show, mythepisode
 will verify that you have downloaded episode information and that it is not older
-than 7 days.  If it is older than 7 days mythepisode will go to tvrage.com and get
+than 7 days.  If it is older than 7 days mythepisode will go to TVRage.com and get
 updated information.
 
 
@@ -184,7 +186,7 @@ Override Tab:
 #############
 This tab is used to configure shows to display properly in mythepisode that have names
 that don't match.  When mythtv records a show it has a specific title that may not
-match exactly with what is listed in tvrage.  As a result mythepisode doesn't know
+match exactly with what is listed in TVRage.com.  As a result mythepisode doesn't know
 how to display that show on the recorded page.
 
 Examples:

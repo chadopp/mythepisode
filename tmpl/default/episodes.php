@@ -151,7 +151,11 @@ function my_select() {
       <tr align="center">
         <td>
           <a href="http://www.tvrage.com" target="_blank">
-          <?php echo t('Listing Source: www.tvrage.com') ?>
+            <?php echo t('TVRage.com') ?>
+          </a>
+          &nbsp;&nbsp; - &nbsp;&nbsp;
+          <a href="http://www.thetvdb.com" target="_blank">
+            <?php echo t('TheTVDB.com') ?>
           </a>
           &nbsp;&nbsp; - &nbsp;&nbsp;
           <a onclick="ajax_add_request()" href="episode/episodes?state=update">
