@@ -153,7 +153,7 @@ function my_select() {
           <a href="http://www.tvrage.com" target="_blank">
             <?php echo t('TVRage.com') ?>
           </a>
-          &nbsp;&nbsp; - &nbsp;&nbsp;
+          &nbsp;&nbsp; | &nbsp;&nbsp;
           <a href="http://www.thetvdb.com" target="_blank">
             <?php echo t('TheTVDB.com') ?>
           </a>
