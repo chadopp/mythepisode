@@ -24,7 +24,7 @@ use LWP::Simple;
 use LWP::Simple qw(get $ua);
 use XML::Simple;
 use Encode;
-use strict;
+#use strict;
 
 $ua->agent('My agent/1.0');
 $ua->timeout(60); # time out after 60 seconds
@@ -148,8 +148,11 @@ if ($debug) {
     print "episodeUrl  is $episodeUrl\n";
 }
 
+## Get show info from TVRage.com
 my $images = get "http://services.tvrage.com/myfeeds/showinfo.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
 my $xml = new XML::Simple;
+
+## Get summary info from TVRage.com
 my $showData = $xml->XMLin("$images");
 if ($showData) {
     $showSummary = $showData->{summary};
@@ -166,6 +169,7 @@ if (! -f "$imagePath/$showId.jpg") {
     getstore("$showImage", "$imagePath/$showId.jpg");
 }
 
+## Get show info from TheTVDB.com
 my $tvdbShowID = "";
 my $tvdbsite   = get "http://www.thetvdb.com/api/GetSeries.php?seriesname=$show";
 my $tvdbxml    = new XML::Simple;
@@ -180,10 +184,7 @@ if ($tvdbShowID) {
 }
 
 if ($tvdbEpisodes) {
-    $tvdbInfo  = XMLin($tvdbEpisodes,
-    ForceArray => 1,
-    KeyAttr    => {},
-    );
+    $tvdbInfo  = XMLin($tvdbEpisodes, SuppressEmpty => '', ForceArray => 1, KeyAttr => {},);
 }
 
 open FILE, ">$showfile" or die $!;
@@ -194,56 +195,40 @@ print FILE "INFO:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$s
 ## Get a list of episodes based on the showid
 ## Need to update this using xml::simple
 my $episodes = get "http://services.tvrage.com/myfeeds/episode_list.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
+my $tvrageInfo = XMLin($episodes, SuppressEmpty => '', ForceArray => 1, KeyAttr => {},);
 
-foreach my $episode (split("\n",$episodes)) {
-    if ($episode =~ /^\<Season no/) {
-        ($junk,$seasonnum) = split("\"", $episode); 
-        print "Season is $seasonnum\n" if $debug;
-    }
-    if ($episode =~ /^\<Special/) {
-        $seasonnum = "Season";
-        print "Season is $seasonnum\n" if $debug;
-    }
-    if ($episode =~ /^\<episode/) {
-        if ($episode =~ m#<(seasonnum)>(.*)</\1>#) {
-            $epnum = "$seasonnum-$2";
-            print "Episode Number: $2\n"if $debug;
-        }
-        if ($episode =~ m#<(season)>(.*)</\1>#) {
-            $epnum = "$seasonnum-$2";
-            print "Episode Number: $2\n" if $debug;
-        }
-        if ($episode =~ m#<(title)>(.*)</\1>#) {
-            $title = $2;
-            $title =~ s/\&\#39\;/\'/g;
-            $title =~ s/\&amp\;quot\;/\"/g;
-            $title =~ s/\&amp\;/\&/g;
-            print "Title         : $2\n" if $debug;
-        }
-        if ($episode =~ m#<(airdate)>(.*)</\1>#) {
-            $airdate = $2;
-            print "Airdate       : $2\n" if $debug;
-        }
-        if ($episode =~ m#<(link)>(.*)</\1>#) {
-            $link = $2;
-            print "Link          : $2\n" if $debug;
-        }
-        if ($episode =~ m#<(summary)>(.*)</\1>#) {
-            $summary = "$2 - TVRage.com";
-        }
-        if (($summary =~ /^ / || $summary eq "") && ($tvdbInfo)) {
+## Parse each season and episode
+foreach my $tvrageEpisodes (@{$tvrageInfo->{Episodelist}->[0]->{Season}}) {
+    $season = $tvrageEpisodes->{no};
+    foreach my $ep (@{$tvrageEpisodes->{episode}}) {
+        $epnum = "$season-$ep->{seasonnum}->[0]";
+        print "Episode : $epnum\n" if $debug;
+        $title = $ep->{title}->[0];
+        print "Subtitle: $title\n" if $debug;
+        $airdate = $ep->{airdate}->[0];
+        print "Airdate : $airdate\n" if $debug;
+        $link = $ep->{link}->[0];
+        print "Link    : $link\n" if $debug;
+        if (defined $ep->{summary}->[0]) {
+            $summary = "$ep->{summary}->[0]";
+            $summary =~ s/\n/ /g;
+            chomp $summary;
+            $summary = "$summary - TVRage.com";
+        } else {
+            # If summary not found at tvrage look at thetvdb
             foreach my $tvdbEpisode (@{$tvdbInfo->{Episode}}) {
-                $tvdbSeason = $tvdbEpisode->{Combined_season}->[0]; 
+                $tvdbSeason = $tvdbEpisode->{Combined_season}->[0];
                 $tvdbEpnum = $tvdbEpisode->{Combined_episodenumber}->[0];
                 $tvdbEpnum = sprintf("%2d", $tvdbEpnum);
                 $tvdbEpnum =~ tr/ /0/;
                 $tvdbepnum = "$tvdbSeason-$tvdbEpnum";
                 $tvdbaired = $tvdbEpisode->{FirstAired}->[0];
-                if (($tvdbepnum eq $epnum) && 
+                if (($tvdbepnum eq $epnum) &&
                     ($tvdbEpisode->{Overview}->[0] !~ /^HASH/) && ($airdate eq $tvdbaired)) {
-                    $summary = "$tvdbEpisode->{Overview}->[0] - TheTVDB.com";
+                    $summary = "$tvdbEpisode->{Overview}->[0]";
+                    $summary =~ s/\n/ /g;
                     chomp $summary;
-                    $summary =~ s/\n/ - /g;
+                    $summary = "$summary - TheTVDB.com";
                     last;
                 }
             }
@@ -251,12 +236,50 @@ foreach my $episode (split("\n",$episodes)) {
         if (($summary =~ /^ /) || ($summary eq "")) {
             $summary = "No summary data available";
         }
-        $summary = decode_utf8( $summary );
-        print "Summary       : $summary\n" if $debug;
-        ##print "$epnum\t$airdate\t$title\t$link\t$summary\n";
+        print "Summary : $summary\n\n" if $debug;
         print FILE "$epnum\t$airdate\t$title\t$link\t$summary\n";
         $summary = "";
     }
 }
 
+## Get the special episodes if they exist
+foreach my $tvrageEpisodes (@{$tvrageInfo->{Episodelist}->[0]->{Special}->[0]->{episode}}) {
+    $epnum = "Season-$tvrageEpisodes->{season}->[0]";
+    print "Episode : $epnum\n" if $debug;
+    $title = $tvrageEpisodes->{title}->[0];
+    print "Subtitle: $title\n" if $debug;
+    $airdate = $tvrageEpisodes->{airdate}->[0];
+    print "Airdate : $airdate\n" if $debug;
+    $link = $tvrageEpisodes->{link}->[0];
+    print "Link    : $link\n" if $debug;
+    if (defined $tvrageEpisodes->{summary}->[0]) {
+        $summary = $tvrageEpisodes->{summary}->[0];
+        $summary =~ s/\n/ /g;
+        chomp $summary;
+        $summary = "$summary - TVRage.com";
+    } else {
+        $summary = "No summary data available";
+    }
+    if (($summary =~ /^ /) || ($summary eq "")) {
+        $summary = "No summary data available";
+    }
+    print "Summary : $summary\n\n" if $debug;
+    print FILE "$epnum\t$airdate\t$title\t$link\t$summary\n";
+    $summary = "";
+}
+
+## I'm going to allow the choice of tvrage and tvdb
+#foreach my $tvdbEpisode (@{$tvdbInfo->{Episode}}) {
+#    $tvdbSeason = $tvdbEpisode->{Combined_season}->[0];
+#    $tvdbEpnum = $tvdbEpisode->{Combined_episodenumber}->[0];
+#    $tvdbEpnum = sprintf("%2d", $tvdbEpnum);
+#    $tvdbEpnum =~ tr/ /0/;
+#    $tvdbepnum = "$tvdbSeason-$tvdbEpnum";
+#    $tvdbsubtitle = $tvdbEpisode->{EpisodeName}->[0];
+#    $tvdbaired = $tvdbEpisode->{FirstAired}->[0];
+#    $summary = "$tvdbEpisode->{Overview}->[0] - TheTVDB.com";
+#    chomp $summary;
+#    $summary =~ s/\n/ - /g;
+#    print "$tvdbepnum\t$tvdbaired\t$tvdbsubtitle\t$summary\n";
+#}
 close(FILE);
