@@ -322,7 +322,7 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
 
         <?php
 
-            if ((preg_match('/^Season/', $data[0])) && (!$special)) {
+            if (((preg_match('/^Season/', $data[0])) || (preg_match('/^Special/', $data[0]))) && (!$special)) {
                 $special = 1;
         ?>
             <tr class="menu" align="left">
