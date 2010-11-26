@@ -59,6 +59,13 @@
         $newLine = "defaultView = $default_page";
         replaceLine($configFile, defaultView, $newLine);
 
+        if (isset($_POST['display_site']))
+            $default_site = $_POST['display_site'];
+        else
+            $default_site = $config['defaultSite'];
+        $newLine = "defaultSite = $default_site";
+        replaceLine($configFile, defaultSite, $newLine);
+
         if (isset($_POST['display_tvwish'])) 
             $display_tvwish = $_POST['display_tvwish'];
         else
