@@ -39,6 +39,23 @@
   </td>
 </tr>
 <tr>
+  <th><?php echo t('Default Query Site') ?></label>:</th>
+  <td>
+    <select name="display_site">
+    <?php
+    foreach(array('TVRage.com', 'TheTVDB.com') as $value) {
+        echo '<option value="'.$value.'" ';
+        if ($value == $config['defaultSite'])
+            echo ' SELECTED ';
+        if ($value == 'null')
+            $value = t('TVRage.com');
+        echo '>'.$value.'</option>';
+    }
+    ?>
+    </select>
+  </td>
+</tr>
+<tr>
   <th><?php echo t('Display tvwish options') ?></label>:</th>
   <td>
     <select name="display_tvwish">

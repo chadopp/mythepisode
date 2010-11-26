@@ -123,6 +123,8 @@ function my_select() {
 }
 </script> 
 
+<form class="form" action="episode/episodes?state=update" method="post">
+
 <table width="100%" border="0" cellpadding="0" cellspacing="0" >
   <td width="20%" align="center">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" >
@@ -158,16 +160,24 @@ function my_select() {
             <?php echo t('TheTVDB.com') ?>
           </a>
           &nbsp;&nbsp; | &nbsp;&nbsp;
-          <a onclick="ajax_add_request()" href="episode/episodes?state=update">
-          <?php echo t('Update Episode Listing') ?></a>
+          <select name="display_site">
+          <?php
+          foreach(array('TVRage.com', 'TheTVDB.com') as $value) {
+              echo '<option value="'.$value.'" ';
+              if ($value == $config['siteSelect'])
+                  echo ' SELECTED ';
+              if ($value == 'null')
+                  $value = t('TVRage.com');
+              echo '>'.$value.'</option>';
+          }
+          ?>
+          </select>
+<input type="submit" onclick="ajax_add_request()" name="update" value="<?php echo t('Update') ?>">
         </td>
       </tr>
     </table>
     </td>
   </tr>
-
-<form id="change_display" action="episode/episodes" method="post">
-<div><input type="hidden" name="change_display" value="1"></div>
 
   <tr>
     <td>

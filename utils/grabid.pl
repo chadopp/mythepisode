@@ -2,7 +2,7 @@
 ############################################################################
 #
 # File     : grabid.pl
-# Usage    : ./grabid.pl "show name" <path to showfile> <path to imageDir>
+# Usage    : ./grabid.pl "show name" <path to showfile> <path to imageDir> <data site>
 # Url      : $URL$
 # Date     : $Date$
 # Revision : $Revision$
@@ -24,14 +24,14 @@ use LWP::Simple;
 use LWP::Simple qw(get $ua);
 use XML::Simple;
 use Encode;
-#use strict;
+use strict;
 
 $ua->agent('My agent/1.0');
 $ua->timeout(60); # time out after 60 seconds
 
-if ($#ARGV != 2 ) {
-    print "usage: ./grabid.pl \"show in quotes\" <shows path> <imageDir path>\n";
-    print "Ex: ./grabid.pl \"24\" /tmp/24 /var/www/mythweb/data/episodes/images\n"; 
+if ($#ARGV != 3 ) {
+    print "usage: ./grabid.pl \"show in quotes\" <shows path> <imageDir path> <data site>\n";
+    print "Ex: ./grabid.pl \"24\" /tmp/24 /var/www/mythweb/data/episodes/images TVRage.com\n"; 
     exit;
 }
 
@@ -40,38 +40,18 @@ my $debug        = 0;
 my $show         = $ARGV[0];
 my $showfile     = $ARGV[1];
 my $imagePath    = $ARGV[2];
-my $showId       = "";
-my $showName     = "";
-my $showUrl      = "";
-my $showPrem     = "";
-my $showStart    = "";
-my $showEnd      = "";
-my $showCtry     = "";
-my $showStatus   = "";
-my $showClass    = "";
-my $showGenre    = "";
-my $showNetwork  = "";
-my $showAirtime  = "";
-my $showLatest   = "";
-my $showNext     = "";
-my $episodeInfo  = "";
-my $episodeUrl   = "";
-my $seasonnum    = "";
-my $line         = "";
-my $epnum        = "";
-my $title        = "";
-my $airdate      = "";
-my $link         = "";
-my $junk         = "";
-my $summary      = "";
-my $showSummary  = "";
-my $tvdbInfo     = "";
-my $tvdbEpnum    = "";
-my $tvdbSeason   = "";
-my $tvdbepnum    = "";
-my $tvdbaired    = "";
-my $tvdbEpisodes = "";
+my $siteSelect   = $ARGV[3];
 my @epArray      = ();
+
+my ($siteInfo,$season,$episodeInfo,$episodeUrl,$seasonnum,$line,$epnum,
+    $title,$airdate,$link,$junk,$summary);
+
+my ($showName,$showUrl,$showPrem,$showAirtime,$showLatest,$showNext,
+    $showId,$showStart,$showCtry,$showStatus,$showGenre,$showNetwork,
+    $showSummary,$showPoster,$showArt,$showClass,$showEnd,$showImage); 
+
+my ($tvdbInfo,$tvdbEpnum,$tvdbSeason,$tvdbepnum,$tvdbaired,$tvdbEpisodes,
+    $tvdbLink,$tvdbSubtitle);
 
 ## Get information from tvrage.com using their quickinfo script
 ## The quickinfo script has some issues that I have reported, but
@@ -157,7 +137,7 @@ my $xml = new XML::Simple;
 my $showData = $xml->XMLin("$images");
 if ($showData) {
     $showSummary = $showData->{summary};
-    $showSummary =~ s/\n/ - /g;
+    $showSummary =~ s/\n/ /g;
     $showSummary =~ s/://g;
 }else{
     $showSummary = "No summary available";
@@ -174,10 +154,23 @@ if (! -f "$imagePath/$showId.jpg") {
 my $tvdbShowID = "";
 my $tvdbsite   = get "http://www.thetvdb.com/api/GetSeries.php?seriesname=$show";
 my $tvdbxml    = new XML::Simple;
-my $tvdbID     = $tvdbxml->XMLin("$tvdbsite");
+my $tvdbID     = $tvdbxml->XMLin($tvdbsite, SuppressEmpty => '', ForceArray => 1, KeyAttr => {},);
 
 if ($tvdbID) {
-    $tvdbShowID = $tvdbID->{Series}->{seriesid};
+    foreach my $tvrageTemp (@{$tvdbID->{Series}}) {
+        my $tvrageShow = $tvrageTemp->{SeriesName}->[0];
+        $tvrageShow =~ s/\.//g; 
+        $tvrageShow =~ s/\://g; 
+        $tvrageShow =~ s/ //g; 
+        $show =~ s/\.//g;
+        $show =~ s/\://g;
+        $show =~ s/ //g;
+        if ($tvrageShow eq $show) {
+            $tvdbShowID = $tvrageTemp->{seriesid}->[0];
+            print "Show Id is $tvdbShowID\n" if $debug;
+            last;
+        }
+    }
 }
 
 if ($tvdbShowID) {
@@ -185,18 +178,15 @@ if ($tvdbShowID) {
 }
 
 if ($tvdbEpisodes) {
-    $tvdbInfo  = XMLin($tvdbEpisodes, SuppressEmpty => '', ForceArray => 1, KeyAttr => {},);
+    $tvdbInfo = XMLin($tvdbEpisodes, SuppressEmpty => '', ForceArray => 1, KeyAttr => {},);
 }
 
-## Get a list of episodes based on the showid
-## Need to update this using xml::simple
-my $episodes = get "http://services.tvrage.com/myfeeds/episode_list.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
-my $tvrageInfo = XMLin($episodes, SuppressEmpty => '', ForceArray => 1, KeyAttr => {},);
-
-## Temp hardcode to tvrage.com
-$tvrage_defined = 1;
-## Parse each season and episode
-if ($tvrage_defined) {
+## If the user chooses then we check TVRage.com
+if ($siteSelect =~ /^TVRage/) {
+    $siteInfo = "INFOTVRAGE";
+    ## Get a list of episodes based on the showid
+    my $episodes = get "http://services.tvrage.com/myfeeds/episode_list.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
+    my $tvrageInfo = XMLin($episodes, SuppressEmpty => '', ForceArray => 1, KeyAttr => {},);
     foreach my $tvrageEpisodes (@{$tvrageInfo->{Episodelist}->[0]->{Season}}) {
         $season = $tvrageEpisodes->{no};
         foreach my $ep (@{$tvrageEpisodes->{episode}}) {
@@ -217,11 +207,11 @@ if ($tvrage_defined) {
                 # If summary not found at tvrage look at thetvdb
                 foreach my $tvdbEpisode (@{$tvdbInfo->{Episode}}) {
                     $tvdbSeason = $tvdbEpisode->{SeasonNumber}->[0];
-                    $tvdbEpnum = $tvdbEpisode->{EpisodeNumber}->[0];
-                    $tvdbEpnum = sprintf("%2d", $tvdbEpnum);
-                    $tvdbEpnum =~ tr/ /0/;
-                    $tvdbepnum = "$tvdbSeason-$tvdbEpnum";
-                    $tvdbaired = $tvdbEpisode->{FirstAired}->[0];
+                    $tvdbEpnum  = $tvdbEpisode->{EpisodeNumber}->[0];
+                    $tvdbEpnum  = sprintf("%2d", $tvdbEpnum);
+                    $tvdbEpnum  =~ tr/ /0/;
+                    $tvdbepnum  = "$tvdbSeason-$tvdbEpnum";
+                    $tvdbaired  = $tvdbEpisode->{FirstAired}->[0];
                     if (($tvdbepnum eq $epnum) &&
                         ($tvdbEpisode->{Overview}->[0] !~ /^HASH/) && ($airdate eq $tvdbaired)) {
                         $summary = "$tvdbEpisode->{Overview}->[0]";
@@ -270,17 +260,31 @@ if ($tvrage_defined) {
     }
 }
 
-## I'm going to allow the choice of tvrage and tvdb
-if ($tvdb_defined) {
+## If the user chooses then we check TheTVDB.com
+if ($siteSelect =~ /^TheTVDB/) {
+    $siteInfo = "INFOTVDB";
     foreach my $tvdbData (@{$tvdbInfo->{Series}}) {
-        $showId = $tvdbData->{SeriesID}->[0];
-        $showStart = $tvdbData->{FirstAired}->[0];
-        $showCtry = $tvdbData->{Language}->[0];
-        $showStatus = $tvdbData->{Status}->[0];
-        $showGenre = $tvdbData->{Genre}->[0];
+        $showId      = $tvdbData->{id}->[0];
+        $showStart   = $tvdbData->{FirstAired}->[0];
+        $showCtry    = $tvdbData->{Language}->[0];
+        $showStatus  = $tvdbData->{Status}->[0];
+        $showGenre   = $tvdbData->{Genre}->[0];
         $showNetwork = $tvdbData->{Network}->[0];
         $showSummary = $tvdbData->{Overview}->[0];
+        $showPoster  = $tvdbData->{poster}->[0]; 
+        $showArt     = $tvdbData->{fanart}->[0]; 
         $showSummary =~ s/\n/ /g;
+        $showClass   = "Unknown";
+        $showEnd     = "Unknown";
+    }
+    if ($showArt) {
+        $showImage   = "http://thetvdb.com/banners/$showArt";
+    } elsif ($showPoster) {
+        $showImage   = "http://thetvdb.com/banners/$showPoster";
+    }
+
+    if (($showImage) && (! -f "$imagePath/$showId.jpg")) {
+        getstore("$showImage", "$imagePath/$showId.jpg");
     }
     foreach my $tvdbEpisode (@{$tvdbInfo->{Episode}}) {
         $tvdbSeason = $tvdbEpisode->{SeasonNumber}->[0];
@@ -291,25 +295,26 @@ if ($tvdb_defined) {
         $tvdbEpnum = sprintf("%2d", $tvdbEpnum);
         $tvdbEpnum =~ tr/ /0/;
         $tvdbepnum = "$tvdbSeason-$tvdbEpnum";
-        $tvdbsubtitle = $tvdbEpisode->{EpisodeName}->[0];
+        $tvdbSubtitle = $tvdbEpisode->{EpisodeName}->[0];
         $tvdbaired = $tvdbEpisode->{FirstAired}->[0];
-        $tvdblink = "http://thetvdb.com";
+        $tvdbLink = "http://thetvdb.com";
         $summary = "$tvdbEpisode->{Overview}->[0] - TheTVDB.com";
         chomp $summary;
         $summary =~ s/\n/ /g;
         if (($summary =~ /^ /) || ($summary eq "")) {
             $summary = "No summary data available";
         }
-        #print "$tvdbepnum\t$tvdbaired\t$tvdbsubtitle\t$link\t$summary\n";
-        #print FILE "$tvdbepnum\t$tvdbaired\t$tvdbsubtitle\t$tvdblink\t$summary\n";
-        push @epArray, "$tvdbepnum\t$tvdbaired\t$tvdbsubtitle\t$tvdblink\t$summary\n";
+        #print "$tvdbepnum\t$tvdbaired\t$tvdbSubtitle\t$link\t$summary\n";
+        #print FILE "$tvdbepnum\t$tvdbaired\t$tvdbSubtitle\t$tvdbLink\t$summary\n";
+        push @epArray, "$tvdbepnum\t$tvdbaired\t$tvdbSubtitle\t$tvdbLink\t$summary\n";
     }
 }
 
+## Write the results to a file
 open FILE, ">$showfile" or die $!;
 binmode FILE, ":utf8";
 
-print FILE "INFO:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$showGenre:$showNetwork:$showUrl:$showSummary\n";
+print FILE "$siteInfo:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$showGenre:$showNetwork:$showUrl:$showSummary\n";
 
 @epArray = sort(@epArray);
 

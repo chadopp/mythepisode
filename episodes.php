@@ -57,6 +57,13 @@
         $recordedTitle = $_GET['title'];
     }
 
+// Get Query site name
+if ($_POST['display_site']) {
+    $sitePage = $_POST['display_site'];
+} else {
+    $sitePage = $config['defaultSite'];
+}
+
 // Create the images dir if it doesn't exist
     if (!is_dir($imageDir) && !mkdir($imageDir, 0775)) {
         custom_error('Error creating '.$imageDir.': Please check permissions on the data directory.');
@@ -189,8 +196,13 @@
         if (file_exists($showPath)) {
             $episodeInfo = file($showPath);
             if (preg_match('/^INFO/', $episodeInfo[0])) {
-                list(,$showId,$showStart,$showEnd,$showCtry,$showStatus,
+                list($showInfo,$showId,$showStart,$showEnd,$showCtry,$showStatus,
                      $showClass,$showGenre,$showNetwork,$showLink,$showSummary) = explode(":", $episodeInfo[0]);
+                if ($showInfo == "INFOTVDB") {
+                    $config['siteSelect'] = "TheTVDB.com";
+                } else {
+                    $config['siteSelect'] = "TVRage.com";
+                } 
                 if ($showEnd=="" && (time() - filemtime($showPath)) > $maxFileAgeSec)
                     $updateFile=true;
             } else {
@@ -200,7 +212,7 @@
  	
     // Update the episodes list for passed in title by grabbing episodes from tvrage
         if (!file_exists($showPath) || $state == "update" || $updateFile) {
-            exec("modules/episode/utils/grabid.pl \"$longTitle\" \"$showPath\" \"$imageDir\"");
+            exec("modules/episode/utils/grabid.pl \"$longTitle\" \"$showPath\" \"$imageDir\" \"$sitePage\"");
             unset($_SESSION['search']['state']);
             $allEpisodes = "all";
         }
@@ -309,8 +321,13 @@
     // of the episode listing page
         $episodeInfo = file($showPath);
         if (preg_match('/^INFO/', $episodeInfo[0])) {
-            list(,$showId,$showStart,$showEnd,$showCtry,$showStatus,
+            list($showInfo,$showId,$showStart,$showEnd,$showCtry,$showStatus,
                   $showClass,$showGenre,$showNetwork,$showLink,$showSummary) = explode(":", $episodeInfo[0]);
+            if ($showInfo == "INFOTVDB") {
+                $config['siteSelect'] = "TheTVDB.com";
+            } else {
+                $config['siteSelect'] = "TVRage.com";
+            } 
             $showData = "<p align=left><strong>$longTitle</strong><br><br>$showSummary</p>";
             if (!$showLink) $showLink = "//www.tvrage.com";
             $totalEpisodes = count($showEpisodes) - 1;
