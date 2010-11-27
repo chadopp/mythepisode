@@ -61,7 +61,7 @@
 if ($_POST['display_site']) {
     $sitePage = $_POST['display_site'];
 } else {
-    $sitePage = $config['defaultSite'];
+    $sitePage = $defaultSite;
 }
 
 // Create the images dir if it doesn't exist
