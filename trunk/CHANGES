@@ -4,6 +4,7 @@
     * Add episode check against mythvideo
     * Improve "Scheduled to Record but no match" matching 
     * Update to grab information from TheTVDB.com
+    * Allow user to select data from TheTVDB.com or TVRage.com
 
 1.0.7
     * Numerous bug fixes
