@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 ############################################################################
 #
 # File     : grabid.pl
@@ -36,12 +36,14 @@ if ($#ARGV != 3 ) {
 }
 
 ## variables
-my $debug        = 0;
-my $show         = $ARGV[0];
-my $showfile     = $ARGV[1];
-my $imagePath    = $ARGV[2];
-my $siteSelect   = $ARGV[3];
-my @epArray      = ();
+my $debug      = 0;
+my $show       = $ARGV[0];
+my $showfile   = $ARGV[1];
+my $imagePath  = $ARGV[2];
+my $siteSelect = $ARGV[3];
+my @epArray    = ();
+my @specArray  = ();
+my @normArray  = ();
 
 my ($siteInfo,$season,$episodeInfo,$episodeUrl,$seasonnum,$line,$epnum,
     $title,$airdate,$link,$junk,$summary);
@@ -306,7 +308,12 @@ if ($siteSelect =~ /^TheTVDB/) {
         }
         #print "$tvdbepnum\t$tvdbaired\t$tvdbSubtitle\t$link\t$summary\n";
         #print FILE "$tvdbepnum\t$tvdbaired\t$tvdbSubtitle\t$tvdbLink\t$summary\n";
-        push @epArray, "$tvdbepnum\t$tvdbaired\t$tvdbSubtitle\t$tvdbLink\t$summary\n";
+        if ($tvdbSeason == "Special") {
+            push @specArray, "$tvdbepnum\t$tvdbaired\t$tvdbSubtitle\t$tvdbLink\t$summary\n"; 
+        } else {
+            push @normArray, "$tvdbepnum\t$tvdbaired\t$tvdbSubtitle\t$tvdbLink\t$summary\n";
+        }
+        @epArray = (@normArray,@specArray);
     }
 }
 
@@ -315,8 +322,6 @@ open FILE, ">$showfile" or die $!;
 binmode FILE, ":utf8";
 
 print FILE "$siteInfo:$showId:$showStart:$showEnd:$showCtry:$showStatus:$showClass:$showGenre:$showNetwork:$showUrl:$showSummary\n";
-
-@epArray = sort(@epArray);
 
 foreach my $line (@epArray) {
     print FILE $line;
