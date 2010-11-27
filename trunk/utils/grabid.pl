@@ -18,6 +18,10 @@
 ## they appreciate contributions from the users of their information.  You
 ## can contribute by requesting an account on their websites and updating
 ## show/episode information.
+##
+## Data sites are in the following form:
+## TVRage.com
+## TheTVDB.com
 ############################################################################
 
 use LWP::Simple;
@@ -45,15 +49,23 @@ my @epArray    = ();
 my @specArray  = ();
 my @normArray  = ();
 
+my $showId      = "Unknown";
+my $showStart   = "Unknown";
+my $showEnd     = "Unknown";
+my $showCtry    = "Unknown";
+my $showStatus  = "Unknown";
+my $showClass   = "Unknown";
+my $showGenre   = "Unknown";
+my $showNetwork = "Unknown";
+
 my ($siteInfo,$season,$episodeInfo,$episodeUrl,$seasonnum,$line,$epnum,
     $title,$airdate,$link,$junk,$summary);
 
 my ($showName,$showUrl,$showPrem,$showAirtime,$showLatest,$showNext,
-    $showId,$showStart,$showCtry,$showStatus,$showGenre,$showNetwork,
-    $showSummary,$showPoster,$showArt,$showClass,$showEnd,$showImage); 
+    $showSummary,$showPoster,$showArt,$showImage); 
 
 my ($tvdbInfo,$tvdbEpnum,$tvdbSeason,$tvdbepnum,$tvdbaired,$tvdbEpisodes,
-    $tvdbLink,$tvdbSubtitle);
+    $tvdbLink,$tvdbSubtitle,$tvdbShowID,$tvdbShow,$tvdbLoaded);
 
 ## Get information from tvrage.com using their quickinfo script
 ## The quickinfo script has some issues that I have reported, but
@@ -63,129 +75,140 @@ $show =~ s/\#//g;
 $show =~ s/ with//g; 
 $show =~ s/ With//g; 
 
-my $tvragesite = get "http://services.tvrage.com/tools/quickinfo.php?show=$show";
-
-if (!$tvragesite) {
-    print "Show id for $show not found. Could be temporary issues accessing tvrage.com\n";
-    exit 1;
-}
-
-foreach $line (split("\n",$tvragesite) ) {
-    ## Parse the results from tvrage.com to get showid 
-    my ($sec,$val) = split('\@',$line);
-    if ($sec =~ "Show ID" ) {
-        $showId = $val;
-    } elsif ($sec eq "Show Name" ) {
-        $showName = $val;
-    } elsif ( $sec eq "Show URL" ) {
-        $showUrl = $val;
-        ($junk, $showUrl) = split(":", $showUrl);
-    } elsif ( $sec eq "Premiered" ) {
-        $showPrem = $val;
-    } elsif ( $sec eq "Started" ) {
-        $showStart = $val;
-    } elsif ( $sec eq "Ended" ) {
-        $showEnd = $val;
-    } elsif ($sec eq "Country" ) {
-        $showCtry = $val;
-    } elsif ( $sec eq "Status" ) {
-        $showStatus = $val;
-    } elsif ( $sec eq "Classification" ) {
-        $showClass = $val;
-    } elsif ( $sec eq "Genres" ) {
-        $showGenre = $val;
-    } elsif ( $sec eq "Network" ) {
-        $showNetwork = $val;
-    } elsif ( $sec eq "Airtime" ) {
-        $showAirtime = $val;
-    } elsif ( $sec eq "Latest Episode" ) {
-        my($ep,$title,$airdate) = split('\^',$val);
-        $showLatest = $ep.", \"".$title."\" aired on ".$airdate;
-    } elsif ( $sec eq "Next Episode" ) {
-        my($ep,$title,$airdate) = split('\^',$val);
-        $showNext = $ep.", \"".$title."\" airs on ".$airdate;
-    } elsif ( $sec eq "Episode Info" ) {
-        my($ep,$title,$airdate) = split('\^',$val);
-        $episodeInfo = $ep.", \"".$title."\" aired on ".$airdate;
-    } elsif ( $sec eq "Episode URL" ) {
-        $episodeUrl = $val;
+## Get data from TheTVDB.com if needed
+sub TVDB_Info {
+    ## Get show info from TheTVDB.com
+    my $tvdbsite = get "http://www.thetvdb.com/api/GetSeries.php?seriesname=$show";
+    if (!$tvdbsite) {
+        print "Show id for $show not found. Could be temporary issues accessing thetvdb.com\n";
+        exit 1;
     }
-}
+    my $tvdbxml  = new XML::Simple;
+    my $tvdbID   = $tvdbxml->XMLin($tvdbsite, SuppressEmpty => '', ForceArray => 1, KeyAttr => {},);
 
-if ($debug) {
-    print "showId      is $showId\n";
-    print "showName    is $showName\n";
-    print "showUrl     is $showUrl\n";
-    print "showPrem    is $showPrem\n";
-    print "showStart   is $showStart\n";
-    print "showEnd     is $showEnd\n";
-    print "showCtry    is $showCtry\n";
-    print "showStatus  is $showStatus\n";
-    print "showClass   is $showClass\n";
-    print "showGenre   is $showGenre\n";
-    print "showNetwork is $showNetwork\n";
-    print "showAirtime is $showAirtime\n";
-    print "showLatest  is $showLatest\n";
-    print "showNext    is $showNext\n";
-    print "episodeInfo is $episodeInfo\n";
-    print "episodeUrl  is $episodeUrl\n";
-}
-
-## Get show info from TVRage.com
-my $images = get "http://services.tvrage.com/myfeeds/showinfo.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
-my $xml = new XML::Simple;
-
-## Get summary info from TVRage.com
-my $showData = $xml->XMLin("$images");
-if ($showData) {
-    $showSummary = $showData->{summary};
-    $showSummary =~ s/\n/ /g;
-    $showSummary =~ s/://g;
-}else{
-    $showSummary = "No summary available";
-}
-print "Summary is $showSummary\n" if $debug;
-
-## Get jpg image from tvrage.com.
-if (! -f "$imagePath/$showId.jpg") {
-    my $showImage = $showData->{image};
-    getstore("$showImage", "$imagePath/$showId.jpg");
-}
-
-## Get show info from TheTVDB.com
-my $tvdbShowID = "";
-my $tvdbsite   = get "http://www.thetvdb.com/api/GetSeries.php?seriesname=$show";
-my $tvdbxml    = new XML::Simple;
-my $tvdbID     = $tvdbxml->XMLin($tvdbsite, SuppressEmpty => '', ForceArray => 1, KeyAttr => {},);
-
-if ($tvdbID) {
-    foreach my $tvrageTemp (@{$tvdbID->{Series}}) {
-        my $tvrageShow = $tvrageTemp->{SeriesName}->[0];
-        $tvrageShow =~ s/\.//g; 
-        $tvrageShow =~ s/\://g; 
-        $tvrageShow =~ s/ //g; 
-        $show =~ s/\.//g;
-        $show =~ s/\://g;
-        $show =~ s/ //g;
-        if ($tvrageShow eq $show) {
-            $tvdbShowID = $tvrageTemp->{seriesid}->[0];
-            print "Show Id is $tvdbShowID\n" if $debug;
-            last;
+    if ($tvdbID) {
+        foreach my $tvdbTemp (@{$tvdbID->{Series}}) {
+            $tvdbShow = $tvdbTemp->{SeriesName}->[0];
+            $tvdbShow =~ s/\.//g; 
+            $tvdbShow =~ s/\://g; 
+            $tvdbShow =~ s/ //g; 
+            $show =~ s/\.//g;
+            $show =~ s/\://g;
+            $show =~ s/ //g;
+            if ($tvdbShow eq $show) {
+                $tvdbShowID = $tvdbTemp->{seriesid}->[0];
+                print "Show Id is $tvdbShowID\n" if $debug;
+                last;
+            }
         }
     }
-}
 
-if ($tvdbShowID) {
-    $tvdbEpisodes = get "http://thetvdb.com/api/8209AD0FC5FE8945/series/$tvdbShowID/all/en.xml";
-}
+    if ($tvdbShowID) {
+        $tvdbEpisodes = get "http://thetvdb.com/api/8209AD0FC5FE8945/series/$tvdbShowID/all/en.xml";
+    }
 
-if ($tvdbEpisodes) {
-    $tvdbInfo = XMLin($tvdbEpisodes, SuppressEmpty => '', ForceArray => 1, KeyAttr => {},);
+    if ($tvdbEpisodes) {
+        $tvdbInfo = XMLin($tvdbEpisodes, SuppressEmpty => '', ForceArray => 1, KeyAttr => {},);
+        $tvdbLoaded = 1;
+        return $tvdbInfo;
+    }
+    $tvdbLoaded = 1;
 }
 
 ## If the user chooses then we check TVRage.com
 if ($siteSelect =~ /^TVRage/) {
     $siteInfo = "INFOTVRAGE";
+
+    ## Get show info from TVRage.com
+    my $tvragesite = get "http://services.tvrage.com/tools/quickinfo.php?show=$show";
+
+    if (!$tvragesite) {
+        print "Show id for $show not found. Could be temporary issues accessing tvrage.com\n";
+        exit 1;
+    }
+
+    ## Parse the results from tvrage.com to get showid
+    foreach $line (split("\n",$tvragesite) ) {
+        my ($sec,$val) = split('\@',$line);
+        if ($sec =~ "Show ID" ) {
+            $showId = $val;
+        } elsif ($sec eq "Show Name" ) {
+            $showName = $val;
+        } elsif ( $sec eq "Show URL" ) {
+            $showUrl = $val;
+            ($junk, $showUrl) = split(":", $showUrl);
+        } elsif ( $sec eq "Premiered" ) {
+            $showPrem = $val;
+        } elsif ( $sec eq "Started" ) {
+            $showStart = $val;
+        } elsif ( $sec eq "Ended" ) {
+            $showEnd = $val;
+        } elsif ($sec eq "Country" ) {
+            $showCtry = $val;
+        } elsif ( $sec eq "Status" ) {
+            $showStatus = $val;
+        } elsif ( $sec eq "Classification" ) {
+            $showClass = $val;
+        } elsif ( $sec eq "Genres" ) {
+            $showGenre = $val;
+        } elsif ( $sec eq "Network" ) {
+            $showNetwork = $val;
+        } elsif ( $sec eq "Airtime" ) {
+            $showAirtime = $val;
+        } elsif ( $sec eq "Latest Episode" ) {
+            my($ep,$title,$airdate) = split('\^',$val);
+            $showLatest = $ep.", \"".$title."\" aired on ".$airdate;
+        } elsif ( $sec eq "Next Episode" ) {
+            my($ep,$title,$airdate) = split('\^',$val);
+            $showNext = $ep.", \"".$title."\" airs on ".$airdate;
+        } elsif ( $sec eq "Episode Info" ) {
+            my($ep,$title,$airdate) = split('\^',$val);
+            $episodeInfo = $ep.", \"".$title."\" aired on ".$airdate;
+        } elsif ( $sec eq "Episode URL" ) {
+            $episodeUrl = $val;
+        }
+    }
+
+    if ($debug) {
+        print "showId      is $showId\n";
+        print "showName    is $showName\n";
+        print "showUrl     is $showUrl\n";
+        print "showPrem    is $showPrem\n";
+        print "showStart   is $showStart\n";
+        print "showEnd     is $showEnd\n";
+        print "showCtry    is $showCtry\n";
+        print "showStatus  is $showStatus\n";
+        print "showClass   is $showClass\n";
+        print "showGenre   is $showGenre\n";
+        print "showNetwork is $showNetwork\n";
+        print "showAirtime is $showAirtime\n";
+        print "showLatest  is $showLatest\n";
+        print "showNext    is $showNext\n";
+        print "episodeInfo is $episodeInfo\n";
+        print "episodeUrl  is $episodeUrl\n";
+    }
+
+    ## Get show info from TVRage.com
+    my $images = get "http://services.tvrage.com/myfeeds/showinfo.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
+    my $xml = new XML::Simple;
+
+    ## Get summary info from TVRage.com
+    my $showData = $xml->XMLin("$images");
+    if ($showData) {
+        $showSummary = $showData->{summary};
+        $showSummary =~ s/\n/ /g;
+        $showSummary =~ s/://g;
+    }else{
+        $showSummary = "No summary available";
+    }
+    print "Summary is $showSummary\n" if $debug;
+
+    ## Get jpg image from tvrage.com.
+    if (! -f "$imagePath/$showId.jpg") {
+        my $showImage = $showData->{image};
+        getstore("$showImage", "$imagePath/$showId.jpg");
+    }
+
     ## Get a list of episodes based on the showid
     my $episodes = get "http://services.tvrage.com/myfeeds/episode_list.php?key=b8rxoRXCByj0g0V3fWgu&sid=$showId";
     my $tvrageInfo = XMLin($episodes, SuppressEmpty => '', ForceArray => 1, KeyAttr => {},);
@@ -207,6 +230,9 @@ if ($siteSelect =~ /^TVRage/) {
                 $summary = "$summary - TVRage.com";
             } else {
                 # If summary not found at tvrage look at thetvdb
+                if (!$tvdbLoaded) {
+                    &TVDB_Info;
+                }
                 foreach my $tvdbEpisode (@{$tvdbInfo->{Episode}}) {
                     $tvdbSeason = $tvdbEpisode->{SeasonNumber}->[0];
                     $tvdbEpnum  = $tvdbEpisode->{EpisodeNumber}->[0];
@@ -264,6 +290,7 @@ if ($siteSelect =~ /^TVRage/) {
 
 ## If the user chooses then we check TheTVDB.com
 if ($siteSelect =~ /^TheTVDB/) {
+    &TVDB_Info;
     $siteInfo = "INFOTVDB";
     foreach my $tvdbData (@{$tvdbInfo->{Series}}) {
         $showId      = $tvdbData->{id}->[0];
