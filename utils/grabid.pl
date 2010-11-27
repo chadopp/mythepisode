@@ -295,7 +295,6 @@ if ($siteSelect =~ /^TheTVDB/) {
     foreach my $tvdbData (@{$tvdbInfo->{Series}}) {
         $showId      = $tvdbData->{id}->[0];
         $showStart   = $tvdbData->{FirstAired}->[0];
-        $showCtry    = $tvdbData->{Language}->[0];
         $showStatus  = $tvdbData->{Status}->[0];
         $showGenre   = $tvdbData->{Genre}->[0];
         $showNetwork = $tvdbData->{Network}->[0];
