@@ -139,7 +139,7 @@ current  - Display shows that are currently running tv shows
 all      - Display every(I'm sure some are missing) TV series that has ever aired
 
 
-Default Query Site:
+Default data site:
 -------------------
 This option is used to choose the query site used for grabbing episode information.
 The default setting is TVRage.com

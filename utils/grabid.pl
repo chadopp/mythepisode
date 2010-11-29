@@ -51,7 +51,6 @@ my @normArray  = ();
 
 my $showId      = "Unknown";
 my $showStart   = "Unknown";
-my $showEnd     = "Unknown";
 my $showCtry    = "Unknown";
 my $showStatus  = "Unknown";
 my $showClass   = "Unknown";
@@ -62,7 +61,7 @@ my ($siteInfo,$season,$episodeInfo,$episodeUrl,$seasonnum,$line,$epnum,
     $title,$airdate,$link,$junk,$summary);
 
 my ($showName,$showUrl,$showPrem,$showAirtime,$showLatest,$showNext,
-    $showSummary,$showPoster,$showArt,$showImage); 
+    $showSummary,$showPoster,$showArt,$showImage,$showEnd); 
 
 my ($tvdbInfo,$tvdbEpnum,$tvdbSeason,$tvdbepnum,$tvdbaired,$tvdbEpisodes,
     $tvdbLink,$tvdbSubtitle,$tvdbShowID,$tvdbShow,$tvdbLoaded);
@@ -197,7 +196,7 @@ if ($siteSelect =~ /^TVRage/) {
     if ($showData) {
         $showSummary = $showData->{summary};
         $showSummary =~ s/\n/ /g;
-        $showSummary =~ s/://g;
+        $showSummary =~ s/:/ /g;
     }else{
         $showSummary = "No summary available";
     }
@@ -297,13 +296,14 @@ if ($siteSelect =~ /^TheTVDB/) {
         $showStart   = $tvdbData->{FirstAired}->[0];
         $showStatus  = $tvdbData->{Status}->[0];
         $showGenre   = $tvdbData->{Genre}->[0];
+        $showGenre   =~ s/^\|//g; 
+        $showGenre   =~ s/\|$//g; 
         $showNetwork = $tvdbData->{Network}->[0];
         $showSummary = $tvdbData->{Overview}->[0];
         $showPoster  = $tvdbData->{poster}->[0]; 
         $showArt     = $tvdbData->{fanart}->[0]; 
         $showSummary =~ s/\n/ /g;
-        $showClass   = "Unknown";
-        $showEnd     = "Unknown";
+        $showSummary =~ s/:/ /g;
     }
     if ($showArt) {
         $showImage   = "http://thetvdb.com/banners/$showArt";
@@ -325,6 +325,9 @@ if ($siteSelect =~ /^TheTVDB/) {
         $tvdbepnum = "$tvdbSeason-$tvdbEpnum";
         $tvdbSubtitle = $tvdbEpisode->{EpisodeName}->[0];
         $tvdbaired = $tvdbEpisode->{FirstAired}->[0];
+        if (($showStatus eq "Ended") && ($tvdbSeason ne "Special") && ($tvdbaired)) {
+            $showEnd = $tvdbaired;
+        }
         $tvdbLink = "http://thetvdb.com";
         $summary = "$tvdbEpisode->{Overview}->[0] - TheTVDB.com";
         chomp $summary;
@@ -341,6 +344,7 @@ if ($siteSelect =~ /^TheTVDB/) {
         }
         @epArray = (@normArray,@specArray);
     }
+    $showUrl = "//www.thetvdb.com";
 }
 
 ## Write the results to a file

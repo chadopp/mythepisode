@@ -39,7 +39,7 @@
   </td>
 </tr>
 <tr>
-  <th><?php echo t('Default Query Site') ?></label>:</th>
+  <th><?php echo t('Default data site') ?></label>:</th>
   <td>
     <select name="display_site">
     <?php
