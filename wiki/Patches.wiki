@@ -10,7 +10,7 @@
     * Improve "Scheduled to Record but no match" matching
     * Add "Pending Request" popup on bottom left
     * Update to grab information from TheTVDB.com
-    * Allow user to select data from TheTVDB.com or TVRage.co
+    * Allow user to select data from TheTVDB.com or TVRage.com
 
 1.0.7
     * Many bug fixes
