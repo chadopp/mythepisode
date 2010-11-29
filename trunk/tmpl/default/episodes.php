@@ -172,12 +172,13 @@ function my_select() {
           }
           ?>
           </select>
-<input type="submit" onclick="ajax_add_request()" name="update" value="<?php echo t('Update') ?>">
+          <input type="submit" onclick="ajax_add_request()" name="update" value="<?php echo t('Update') ?>">
         </td>
       </tr>
     </table>
     </td>
   </tr>
+</form>
 
   <tr>
     <td>
@@ -222,14 +223,13 @@ function my_select() {
   </table>
   </td>
 </table>
-</form>
 
 <?php
 if (isset($_SESSION['episodes']['allepisodes'])) { 
 
 ?>
 
-    <form name="test" action="episode/tvwish_list" method="post">
+<form name="test" action="episode/tvwish_list" method="post">
     <table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">
       <tr class="menu" align="left">
         <?php 
