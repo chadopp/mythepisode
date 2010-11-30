@@ -74,7 +74,6 @@ foreach ($All_Shows as $show) {
 ?>
 
 </table>
-</form>
 
 <?php
 // Print the page footer
