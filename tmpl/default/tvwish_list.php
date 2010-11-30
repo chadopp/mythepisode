@@ -17,7 +17,6 @@
     require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 ?>
 
-<form name="tvwish" class="form" method="post" action="tvwish_list">
 <table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">
 <tr class="menu" align="center">
    <td>Master TVwish listing file</td>
@@ -64,7 +63,6 @@
     ?>
 
 </table>
-</form>
 
 <?php
 // Print the page footer

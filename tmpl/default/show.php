@@ -80,9 +80,6 @@ if ($_SESSION['show']['state'] != "recorded") {
 </tr>
 </table>
 
-<form id="change_display" action="episode/show" method="post">
-<div><input type="hidden" name="change_display" value="1"></div>
-
 <table id="display_options" class="commandbox commands" border="0" cellspacing="0" cellpadding="0">
 <tr>
   <td class="x-title"><?php echo t('Display') ?>:</td>
