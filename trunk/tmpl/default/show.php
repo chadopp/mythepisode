@@ -69,10 +69,6 @@ if ($_SESSION['show']['state'] != "recorded") {
       <?php echo t('Mythepisode') ?>
     </a>
     &nbsp;&nbsp; | &nbsp;&nbsp;
-    <a href="http://www.tvrage.com" target="_blank">
-      <?php echo t('TVRage.com') ?>
-    </a>
-    &nbsp;&nbsp; | &nbsp;&nbsp;
     <a onclick="ajax_add_request()" href="episode/show?state=update">
       <?php echo t('Update Show Listing') ?>
     </a>
