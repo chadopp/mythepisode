@@ -131,13 +131,8 @@ function my_select() {
   <td width="20%" align="center">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" >
     <tr>
-<td>
-            <div class="showinfo">
-            <a href=<?php echo "http:$showLink"?> target="_blank"><font size=2><span align=left><?php echo "$showData"?>
-      <img src="data/episode/images/<?php echo $showId?>.jpg" 
-      <?php echo imageResize($imageInfo[0], $imageInfo[1], $config['thumbnailSize']); ?>></span></a>
-            </div>
-</td>
+      <img src="data/episode/images/<?php echo $showId?>.jpg"
+      <?php echo imageResize($imageInfo[0], $imageInfo[1], $config['thumbnailSize']); ?>>	
     </tr>
   </table>
   </td>
