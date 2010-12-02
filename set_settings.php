@@ -94,7 +94,7 @@
         if ($_POST['thumbnail_size'] != "")
             $thumbnail_size = $_POST['thumbnail_size'];
         else
-            $thumbnail_size = "170";
+            $thumbnail_size = "250";
         $newLine = "thumbnailSize = $thumbnail_size";
         replaceLine($configFile, thumbnailSize, $newLine);
 
@@ -112,7 +112,7 @@
 
     $config = parse_ini_file($configFile, 1);
 
-    $thumbnailSize = (empty($config['thumbnailSize'])) ? '170' : $config['thumbnailSize'];
+    $thumbnailSize = (empty($config['thumbnailSize'])) ? '250' : $config['thumbnailSize'];
     $countryList   = (empty($config['countryList'])) ? 'US' : $config['countryList'];
 
 // These settings are limited to Mythepisode itself

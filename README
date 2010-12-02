@@ -187,7 +187,7 @@ and get updated information.
 Size of episode thumbnail (pixels):
 -----------------------------------
 This option is used to set the size of the thumbnail displayed on the episode listing
-page.  The default settings is "170" pixels.
+page.  The default settings is "250" pixels.
 
 
 #############

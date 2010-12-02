@@ -41,7 +41,7 @@
     $matchPercent  = (empty($config['matchPercent']))  ? '85'         : $config['matchPercent'];
     $maxFileAge    = (empty($config['maxFileAge']))    ? '7'          : $config['maxFileAge'];
     $tvwishHide    = (empty($config['tvwishHide']))    ? '0'          : $config['tvwishHide'];
-    $thumbnailSize = (empty($config['thumbnailSize'])) ? '170'        : $config['thumbnailSize'];
+    $thumbnailSize = (empty($config['thumbnailSize'])) ? '250'        : $config['thumbnailSize'];
     $countryList   = (empty($config['countryList']))   ? 'US'         : $config['countryList'];
 
 // Load a custom page
