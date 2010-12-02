@@ -13,9 +13,25 @@
 // Set the desired page title
     $page_title = 'MythWeb - '.t('TV Wish');
 
+// Headers from mythweb
+    $headers[] = '<link rel="stylesheet" type="text/css"      href="'.skin_url.'/tv_upcoming.css">';
+
 // Print the page header
     require 'modules/_shared/tmpl/'.tmpl.'/header.php';
+
+    global $activatedShow, $deactivatedShow, $wishFiles;
 ?>
+
+<style type="text/css">
+td.x-active {
+    padding:            .35em .5em;
+    border-left:        1px solid #304943;
+    height:             2em;
+    background-color:   #485;
+}
+</style>
+
+<?php require 'modules/episode/tmpl/'.tmpl.'/menu.php'; ?>
 
 <table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">
 <tr class="menu" align="center">

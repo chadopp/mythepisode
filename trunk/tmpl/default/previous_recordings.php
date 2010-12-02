@@ -13,6 +13,9 @@
 // Set the desired page title
     $page_title = 'MythWeb - '.t('TV Previously Recorded');
 
+// Headers from mythweb
+    $headers[] = '<link rel="stylesheet" type="text/css"      href="'.skin_url.'/tv_upcoming.css">';
+
 // Print the page header
     require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 
@@ -23,6 +26,17 @@
     }
 
 ?>
+
+<style type="text/css">
+td.x-active {
+    padding:            .35em .5em;
+    border-left:        1px solid #304943;
+    height:             2em;
+    background-color:   #485;
+}
+</style>
+
+<?php require 'modules/episode/tmpl/'.tmpl.'/menu.php'; ?>
 
 <p>
 <form id="program_titles" action="episode/previous_recordings" method="get">
