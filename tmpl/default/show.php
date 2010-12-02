@@ -79,18 +79,15 @@ if ($_SESSION['show']['state'] != "recorded") {
 <table id="display_options" class="commandbox commands" border="0" cellspacing="0" cellpadding="0">
 <tr>
   <td class="x-title"><?php echo t('Display') ?>:</td>
-    <?php if ($_SESSION['show']['state'] == "all") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
-  <td class=<?php echo "$bgcolor"?>>
+  <td class="<?php echo ($_SESSION['show']['state'] == "all")?("x-active"):("x-check") ?>">
     <a onclick="ajax_add_request()" href="episode/show?state=all">
       <?php echo t('All TV Shows') ?>
   </td>
-    <?php if ($_SESSION['show']['state'] == "current") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
-  <td class=<?php echo "$bgcolor"?>>
+  <td class="<?php echo ($_SESSION['show']['state'] == "current")?("x-active"):("x-check") ?>">
     <a onclick="ajax_add_request()" href="episode/show?state=current">
       <?php echo t('Current TV Shows') ?>
   </td>
-    <?php if ($_SESSION['show']['state'] == "recorded") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
-  <td class=<?php echo "$bgcolor"?>>
+  <td class="<?php echo ($_SESSION['show']['state'] == "recorded")?("x-active"):("x-check") ?>">
     <a onclick="ajax_add_request()" href="episode/show?state=recorded">
       <?php echo t('Recorded TV Shows') ?>
   </td>

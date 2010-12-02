@@ -105,6 +105,7 @@ div.showinfo a:hover span {
 }
 </style>
 
+
 <script> 
 function my_select() { 
     frm = document.forms.test; 
@@ -123,6 +124,7 @@ function my_select() {
 }
 </script> 
 
+
 <form class="form" action="episode/episodes?state=update" method="post">
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0" >
@@ -139,6 +141,8 @@ function my_select() {
   <table width="100%" border="0" cellpadding="0" cellspacing="0" >
   <tr>
     <td>
+
+<?php require 'modules/episode/tmpl/'.tmpl.'/menu.php'; ?>
     <table width="100%" border="0" cellpadding="0" cellspacing="0" >
       <tr align="center">
         <td>
@@ -185,23 +189,19 @@ function my_select() {
     <table id="display_options" class="commandbox commands" border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td class="x-title"><?php echo t('Display') ?>:</td>
-          <?php if ($_SESSION['episodes']['allepisodes'] == "all") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
-        <td class=<?php echo "$bgcolor"?>>
+        <td class="<?php echo ($_SESSION['episodes']['allepisodes'] == "all")?("x-active"):("x-check") ?>">
           <a onclick="ajax_add_request()" href="episode/episodes/?allepisodes=all"> 
           <?php echo t('All Episodes') ?>:<?php echo " $totalEpisodes"?>
         </td>
-        <?php if ($_SESSION['episodes']['title']) { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
-        <td class=<?php echo "$bgcolor"?>>
+        <td class="<?php echo ($_SESSION['episodes']['title'])?("x-active"):("x-check") ?>">
           <a onclick="ajax_add_request()" href="episode/episodes/?title=<?php echo $showTitle?>">
           <?php echo t('Recorded') ?>:<?php echo " $totalRecorded"?>
         </td>
-        <?php if ($_SESSION['episodes']['allepisodes'] == "none") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
-        <td class=<?php echo "$bgcolor"?>>
+        <td class="<?php echo ($_SESSION['episodes']['allepisodes'] == "none")?("x-active"):("x-check") ?>">
           <a onclick="ajax_add_request()" href="episode/episodes/?allepisodes=none">
           <?php echo t('Not Recorded') ?>:<?php echo " $remainingEpisodes"?>
         </td>
-        <?php if ($_SESSION['episodes']['allepisodes'] == "sched") { $bgcolor="x-active"; } else { $bgcolor="x-check"; } ?>
-        <td class=<?php echo "$bgcolor"?>>
+        <td class="<?php echo ($_SESSION['episodes']['allepisodes'] == "sched")?("x-active"):("x-check") ?>">
           <a onclick="ajax_add_request()" href="episode/episodes/?allepisodes=sched">
           <?php echo t('Scheduled') ?>:<?php echo " $totalSched"?>
         </td>
