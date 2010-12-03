@@ -73,28 +73,21 @@ td.x-active {
 }
 
 div.showinfo a {
-    margin-left: 15%;
-    margin-right: 15%;
-    position:        relative;
     display:         block;
     color:           white;
     text-decoration: none;
     padding:         .2em .8em;
 }
+
 div.showinfo a span {
     display:none;
 }
 
-div.showinfo a:hover {
-    background-color: #204670;
-    border-top:       thin solid #668;
-    border-bottom:    thin solid #668;
-    border-left:      thin solid #668;
-    cursor:           default;
-}
 div.showinfo a:hover span {
     display:          block;
     position:         absolute;
+    left:             30%;
+    right:            30%;
     background-color: white;
     color:            #204670;
     right:            1px;
@@ -131,8 +124,10 @@ function my_select() {
   <td width="20%" align="center">
   <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" >
     <tr>
-      <img src="data/episode/images/<?php echo $showId?>.jpg"
-      <?php echo imageResize($imageInfo[0], $imageInfo[1], $config['thumbnailSize']); ?>>	
+    <div class="showinfo">
+      <a href=<?php echo "http:$showLink"?> target="_blank">
+      <span align=left><?php echo "$showData"?></span><img src="data/episode/images/<?php echo $showId?>.jpg" <?php echo imageResize($imageInfo[0], $imageInfo[1], $config['thumbnailSize']); ?>></a>
+    </div>
     </tr>
   </table>
   </td>
@@ -146,10 +141,8 @@ function my_select() {
       <tr align="center">
         <td>
           <font size=5> 
-            <div class="showinfo">
             <?php if (!$showData) $showData = "Update Episode Listing" ?>
-            <a href=<?php echo "http:$showLink"?> target="_blank"><?php echo "$longTitle"?><font size=2><span align=left><?php echo "$showData"?></span></a>
-            </div>
+            <a href=<?php echo "http:$showLink"?> target="_blank"><?php echo "$longTitle"?></a>
           </font></font>
         </td>
       </tr>
