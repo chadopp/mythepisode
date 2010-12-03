@@ -129,7 +129,7 @@ function my_select() {
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0" >
   <td width="20%" align="center">
-  <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+  <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" >
     <tr>
       <img src="data/episode/images/<?php echo $showId?>.jpg"
       <?php echo imageResize($imageInfo[0], $imageInfo[1], $config['thumbnailSize']); ?>>	
@@ -141,8 +141,7 @@ function my_select() {
   <table width="100%" border="0" cellpadding="0" cellspacing="0" >
   <tr>
     <td>
-
-<?php require 'modules/episode/tmpl/'.tmpl.'/menu.php'; ?>
+    <?php require 'modules/episode/tmpl/'.tmpl.'/menu.php'; ?>
     <table width="100%" border="0" cellpadding="0" cellspacing="0" >
       <tr align="center">
         <td>
@@ -182,7 +181,6 @@ function my_select() {
     </table>
     </td>
   </tr>
-</form>
 
   <tr>
     <td>
@@ -223,10 +221,10 @@ function my_select() {
   </table>
   </td>
 </table>
+</form>
 
 <?php
 if (isset($_SESSION['episodes']['allepisodes'])) { 
-
 ?>
 
 <form name="test" action="episode/tvwish_list" method="post">
