@@ -12,6 +12,7 @@
     * Update to grab information from TheTVDB.com
     * Allow user to select data from TheTVDB.com or TVRage.com
     * Add navigation menu to episodes, previous recordings, and tvwish
+    * Move show information popup active when hovering over thumbnail
 
 1.0.7
     * Many bug fixes
