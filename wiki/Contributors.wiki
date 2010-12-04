@@ -12,8 +12,8 @@ Alec C.:
   * Update to welcome page
   * Fix default mainpage link
   * Fix for shows that are set to never record
-  * Added episode check against mythvideo
-
+  * Added episode check against mythvideo* Add navigation menu to episodes, previous recordings, and tvwish
+  
 Chris K.:
   * DB query update
   * Update to grabshowsall.pl for multiple aoi's
