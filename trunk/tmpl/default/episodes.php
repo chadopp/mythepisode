@@ -86,13 +86,13 @@ div.showinfo a span {
 div.showinfo a:hover span {
     display:          block;
     position:         absolute;
-    left:             30%;
+    left:             26%;
     right:            30%;
     background-color: white;
     color:            #204670;
     right:            1px;
     margin-top:       0px;
-    width:            460px;
+    width:            550px;
     padding:          5px;
     border:           thin dashed #88a;
 }
@@ -122,7 +122,7 @@ function my_select() {
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0" >
   <td width="20%" align="center">
-  <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" >
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" >
     <tr>
     <div class="showinfo">
       <a href=<?php echo "http:$showLink"?> target="_blank">
@@ -143,7 +143,7 @@ function my_select() {
           <font size=5> 
             <?php if (!$showData) $showData = "Update Episode Listing" ?>
             <a href=<?php echo "http:$showLink"?> target="_blank"><?php echo "$longTitle"?></a>
-          </font></font>
+          </font>
         </td>
       </tr>
       <tr align="center">
