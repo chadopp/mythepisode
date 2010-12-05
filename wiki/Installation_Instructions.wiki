@@ -158,6 +158,10 @@ Default data site:
 This option is used to choose the query site used for grabbing episode information.
 The default setting is TVRage.com
 
+options:
+TVRage.com
+TheTVDB.com
+
 
 Display tvwish options:
 -----------------------
