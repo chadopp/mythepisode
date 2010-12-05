@@ -31,4 +31,5 @@ thumbnailSize = 250
 countryList = US
 
 ; Default Site for grabbing show/episode data
+; Options - TVRage.com or TheTVDB.com
 defaultSite = TVRage.com
