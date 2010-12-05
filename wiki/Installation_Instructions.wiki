@@ -5,7 +5,8 @@
 
 {{{
 NOTES:
-Installation of mythepisode is very easy to do and only takes a few minutes.
+Installation of mythepisode only takes a few minutes and can be accomplished
+with the 5 easy steps listed below in the installation section.
 
 After an initial install when you first select TV Episodes mythepisode has to
 go to TVRage.com/TheTVDB.com and grab a list of shows for the first time so
@@ -41,8 +42,8 @@ Installation Instructions
 
 As installed on my system
 
-*Step 1:*
-*-------*
+Step 1:
+-------
 cd /usr/share/mythtv/mythweb/modules (path may be slightly different on your system,
                                       but you have to install mythepisode under
                                       mythweb/modules)
