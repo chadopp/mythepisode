@@ -24,10 +24,8 @@
 
 <a href="https://sites.google.com/site/mythepisode/home/images/hawaii_1.PNG?attredirects=0" imageanchor="1"><img border="0" height="145" src="https://sites.google.com/site/mythepisode/home/images/hawaii_1.PNG?height=145&amp;width=400" width="400" /></a>
 
-<a href="https://sites.google.com/site/mythepisode/home/images/mainpage12.PNG?attredirects=0" imageanchor="1"><img border="0" height="237" src="https://sites.google.com/site/mythepisode/_/rsrc/1281242174750/home/images/mainpage12.PNG?height=237&amp;width=400" width="400" /></a>
-
-<a href="https://sites.google.com/site/mythepisode/home/images/mainpage13.PNG?attredirects=0" imageanchor="1"><img border="0" height="222" src="https://sites.google.com/site/mythepisode/_/rsrc/1281242052187/home/images/mainpage13.PNG?height=222&amp;width=400" width="400" /></a>
-
-<a href="https://sites.google.com/site/mythepisode/home/images/mainpage14.PNG?attredirects=0" imageanchor="1"><img border="0" height="145" src="https://sites.google.com/site/mythepisode/_/rsrc/1281242192042/home/images/mainpage14.PNG?height=145&amp;width=400" width="400" /></a>
-
 <a href="https://sites.google.com/site/mythepisode/home/images/mainpage15.PNG?attredirects=0" imageanchor="1"><img border="0" height="237" src="https://sites.google.com/site/mythepisode/_/rsrc/1281242174750/home/images/mainpage15.PNG?height=237&amp;width=400" width="400" /></a>
+
+<a href="https://sites.google.com/site/mythepisode/home/images/config_options_1.PNG?attredirects=0" imageanchor="1"><img border="0" height="237" src="https://sites.google.com/site/mythepisode/home/images/config_options_1.PNG?height=237&amp;width=400" width="400" /></a>
+
+<a href="https://sites.google.com/site/mythepisode/home/images/config_options_2.PNG?attredirects=0" imageanchor="1"><img border="0" height="222" src="https://sites.google.com/site/mythepisode/home/images/config_options_2.PNG?height=222&amp;width=400" width="400" /></a>
