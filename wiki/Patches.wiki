@@ -3,7 +3,7 @@
 
 = Details =
 
-1.0.8(trunk)
+1.0.8
     * Format code comments
     * Fix to previous recording deletion
     * Add episode check against mythvideo
