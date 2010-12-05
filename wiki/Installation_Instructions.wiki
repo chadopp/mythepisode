@@ -41,13 +41,14 @@ Installation Instructions
 
 As installed on my system
 
-Step 1:
--------
+*Step 1:*
+*-------*
 cd /usr/share/mythtv/mythweb/modules (path may be slightly different on your system,
                                       but you have to install mythepisode under
                                       mythweb/modules)
 gunzip /tmp/episode.tar.gz
 tar xvf /tmp/episode.tar
+
 
 Step 2:
 -------
@@ -63,6 +64,7 @@ NEW LINE: <a href="episode"><?php echo t('TV Episodes') ?></a>
 NEW LINE: &nbsp; | &nbsp;
 EXISTING LINE: <?php } ?>
 
+
 Step 3:
 -------
 Create a directory where you want your show/episode information stored.  I use the
@@ -75,22 +77,25 @@ cd /usr/share/mythtv/mythweb/data (The path to the mythweb/data dir may be diffe
                                    for your installation.)
 ln -s /var/lib/mythtv/episode  episode
 
+
 Step 4:
+-------
+cd /usr/share/mythtv/mythweb/modules/_shared/lang
+./build_translation.pl
+
+
+Step 5:
 -------
 This step is optional, but required if you want to use the tvwish funtion in
 mythepisode.  If you choose not to use this you can disable and hide all tvwish
-functions by updating the tvwishhide configuration option in the mythweb settings
+functions by updating the tvwishhide configuration option in the mythweb settings.
+If you don't install tvwish now you can always do it later if you choose
 
 download tvwish from http://www.templetons.com/brad/myt/tvwish.html and install it
 under /usr/share/mythtv/tvwish
 
 Add a cronjob to roots crontab
 00 12 * * * /usr/share/mythtv/mythweb/modules/episode/utils/runwish > /dev/null 2>&1
-
-Step 5:
--------
-cd /usr/share/mythtv/mythweb/modules/_shared/lang
-./build_translation.pl
 
 *Note:*
 If your paths differ from mine above then you will have to make a few changes
