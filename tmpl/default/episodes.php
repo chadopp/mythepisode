@@ -137,7 +137,7 @@ function my_select() {
   <tr>
     <td>
     <?php require 'modules/episode/tmpl/'.tmpl.'/menu.php'; ?>
-    <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+    <table width="100%" border="0" cellpadding="2" cellspacing="0" >
       <tr align="center">
         <td>
           <font size=5> 
