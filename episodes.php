@@ -49,6 +49,12 @@
         $_SESSION['episodes']['allepisodes'] = "all";
     }   
  
+// Get value of subtitle match checkbox
+    if ($_POST['subtitle_match']) {
+        $subMatchDis = 1;
+    } else {
+        $subMatchDis = 0;
+    }
 
 // Get the episode title used to query the DB for previous recordings
     if ($_GET['title'] || $_POST['title']) {

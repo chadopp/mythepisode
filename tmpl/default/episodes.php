@@ -86,8 +86,8 @@ div.showinfo a span {
 div.showinfo a:hover span {
     display:          block;
     position:         absolute;
-    left:             26%;
-    right:            30%;
+    left:             33%;
+    right:            33%;
     background-color: white;
     color:            #204670;
     right:            1px;
@@ -115,6 +115,7 @@ function my_select() {
         ele[i].checked = type;
     }
 }
+
 </script> 
 
 
@@ -168,13 +169,14 @@ function my_select() {
           }
           ?>
           </select>
+
           <input type="submit" onclick="ajax_add_request()" name="update" value="<?php echo t('Update') ?>">
         </td>
       </tr>
     </table>
     </td>
   </tr>
-
+</form>
   <tr>
     <td>
     <table id="display_options" class="commandbox commands" border="0" cellspacing="0" cellpadding="0">
@@ -211,10 +213,14 @@ function my_select() {
     <tr><td>Classification:</td><td><?php echo "$showClass"?></td></tr>
     <tr><td>Genre:</td><td><?php echo "$showGenre"?></td></tr>
     <tr><td>Network:</td><td><?php echo "$showNetwork"?></td></tr>
+
+    <form id="match_subtitle" action="<?php echo root_url ?>episode/episodes?allepisodes=all" method="post">
+    <tr><td><br><?php echo t('Disable Subtitle Matching') ?>:</td>
+        <td><br><input type="checkbox" id="disp_scheduled" name="subtitle_match" class="radio" onclick="$('match_subtitle').submit()"<?php if ($subMatchDis) echo ' CHECKED' ?>></td></tr>
+    </form>
   </table>
   </td>
 </table>
-</form>
 
 <?php
 if (isset($_SESSION['episodes']['allepisodes'])) { 
@@ -298,7 +304,7 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
                 $classes .= " deactivated";
                 $boxCheck = "unchecked";
             }elseif (($schedMatch = ($schedMatchDate = in_array("$data[1]", $schedDate))) ||
-                     ($schedMatch = close_match("$datalc", $schedEpisodes, $matchPercent))) {
+                     ((!$subMatchDis) && ($schedMatch = close_match("$datalc", $schedEpisodes, $matchPercent)))) {
                 if($schedMatchDate) {
                     $schedEpisodesDetails[$schedEpisodes[array_search("$data[1]", $schedDate)]]["matched"] = true;
                 } else {
@@ -307,7 +313,7 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
                 $classes .= " scheduled";
                 $boxCheck = "unchecked";
             }elseif ($prevMatch = in_array("$data[1]", $recDate) || 
-               ($prevMatch = close_match("$datalc", $recEpisodes, $matchPercent))) {
+               ((!$subMatchDis) && ($prevMatch = close_match("$datalc", $recEpisodes, $matchPercent)))) {
                 if ($allEpisodes != "all") {
                     $boxCheck = "unchecked";
                     continue;
