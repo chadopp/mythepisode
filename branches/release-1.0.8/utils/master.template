@@ -1,0 +1,4 @@
+## Template file for tvwish ##
+# This file will be copied over to data/episode/tvwish if one
+# doesn't exist.  It will be automatically updated when you create
+# tvwish lists from an episode listing
