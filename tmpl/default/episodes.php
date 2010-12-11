@@ -215,7 +215,7 @@ function my_select() {
     <tr><td>Network:</td><td><?php echo "$showNetwork"?></td></tr>
 
     <form id="match_subtitle" action="<?php echo root_url ?>episode/episodes?allepisodes=all" method="post">
-    <tr><td><br><?php echo t('Disable Subtitle Matching') ?>:</td>
+    <tr><td><br><?php echo t('Subtitle Match Off') ?>:</td>
         <td><br><input type="checkbox" id="disp_scheduled" name="subtitle_match" class="radio" onclick="$('match_subtitle').submit()"<?php if ($subMatchDis) echo ' CHECKED' ?>></td></tr>
     </form>
   </table>
