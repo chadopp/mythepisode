@@ -119,8 +119,6 @@ function my_select() {
 </script> 
 
 
-<form class="form" action="episode/episodes?state=update" method="post">
-
 <table width="100%" border="0" cellpadding="0" cellspacing="0" >
   <td width="20%" align="center">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" >
@@ -149,14 +147,11 @@ function my_select() {
       </tr>
       <tr align="center">
         <td>
-          <a href="http://www.tvrage.com" target="_blank">
-            <?php echo t('TVRage.com') ?>
-          </a>
+        <form id="match_subtitle" action="<?php echo root_url ?>episode/episodes?allepisodes=all" method="post">
+          <?php echo t('Subtitle Matching Off') ?>: <input type="checkbox" name="subtitle_match" class="radio" onclick="ajax_add_request(); $('match_subtitle').submit()"<?php if ($subMatchDis) echo ' CHECKED' ?>>
+</form>
           &nbsp;&nbsp; | &nbsp;&nbsp;
-          <a href="http://www.thetvdb.com" target="_blank">
-            <?php echo t('TheTVDB.com') ?>
-          </a>
-          &nbsp;&nbsp; | &nbsp;&nbsp;
+        <form class="form" action="episode/episodes?state=update" method="post">
           <select name="display_site">
           <?php
           foreach(array('TVRage.com', 'TheTVDB.com') as $value) {
@@ -171,12 +166,13 @@ function my_select() {
           </select>
 
           <input type="submit" onclick="ajax_add_request()" name="update" value="<?php echo t('Update') ?>">
+        </form>
         </td>
       </tr>
     </table>
     </td>
   </tr>
-</form>
+
   <tr>
     <td>
     <table id="display_options" class="commandbox commands" border="0" cellspacing="0" cellpadding="0">
@@ -206,18 +202,13 @@ function my_select() {
   </td>
   <td width="20%" align="center">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" >
-    <tr><td>Start Date:</td><td><?php echo "$showStart"?></td></tr>
-    <tr><td>End Date:</td><td><?php echo "$showEnd"?></td></tr>
-    <tr><td>Country:</td><td><?php echo "$showCtry"?></td></tr>
-    <tr><td>Status:</td><td><?php echo "$showStatus"?></td></tr>
-    <tr><td>Classification:</td><td><?php echo "$showClass"?></td></tr>
-    <tr><td>Genre:</td><td><?php echo "$showGenre"?></td></tr>
-    <tr><td>Network:</td><td><?php echo "$showNetwork"?></td></tr>
-
-    <form id="match_subtitle" action="<?php echo root_url ?>episode/episodes?allepisodes=all" method="post">
-    <tr><td><br><?php echo t('Subtitle Match Off') ?>:</td>
-        <td><br><input type="checkbox" id="disp_scheduled" name="subtitle_match" class="radio" onclick="$('match_subtitle').submit()"<?php if ($subMatchDis) echo ' CHECKED' ?>></td></tr>
-    </form>
+    <tr><td align="left">Start Date:</td><td align="left"><?php echo "$showStart"?></td></tr>
+    <tr><td align="left">End Date:</td><td align="left"><?php echo "$showEnd"?></td></tr>
+    <tr><td align="left">Country:</td><td align="left"><?php echo "$showCtry"?></td></tr>
+    <tr><td align="left">Status:</td><td align="left"><?php echo "$showStatus"?></td></tr>
+    <tr><td align="left">Classification:</td><td align="left"><?php echo "$showClass"?></td></tr>
+    <tr><td align="left">Genre:</td><td align="left"><?php echo "$showGenre"?></td></tr>
+    <tr><td align="left">Network:</td><td align="left"><?php echo "$showNetwork"?></td></tr>
   </table>
   </td>
 </table>
