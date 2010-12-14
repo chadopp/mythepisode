@@ -20,6 +20,7 @@
     $epDir         = "$dataDir/episode";
     $showDir       = "$epDir/shows";
     $imageDir      = "$epDir/images";
+    $cacheDir      = "$epDir/cache";
     $wishDir       = "$epDir/tvwish";
     $configFile    = "$epDir/config.ini";
     $showsOverride = "$epDir/override.txt";

@@ -147,9 +147,9 @@ function my_select() {
       </tr>
       <tr align="center">
         <td>
-        <form id="match_subtitle" action="<?php echo root_url ?>episode/episodes?allepisodes=all" method="post">
-          <?php echo t('Disable Subtitle Matching') ?>: <input type="checkbox" name="subtitle_match" class="radio" onclick="ajax_add_request(); $('match_subtitle').submit()"<?php if ($subMatchDis) echo ' CHECKED' ?>>
-</form>
+        <form id="match_subtitle" action="<?php echo root_url ?>episode/episodes?allepisodes=all&subMatch=yes" method="post">
+          <?php echo t('Disable Subtitle Matching') ?>: <input type="checkbox" name="subtitle_match" class="radio" onclick="ajax_add_request(); $('match_subtitle').submit()"<?php if ($subMatchDis) echo ' CHECKED'?>>
+        </form>
           &nbsp;&nbsp; | &nbsp;&nbsp;
         <form class="form" action="episode/episodes?state=update" method="post">
           <select name="display_site">

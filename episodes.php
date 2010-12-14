@@ -49,13 +49,6 @@
         $_SESSION['episodes']['allepisodes'] = "all";
     }   
  
-// Get value of subtitle match checkbox
-    if ($_POST['subtitle_match']) {
-        $subMatchDis = 1;
-    } else {
-        $subMatchDis = 0;
-    }
-
 // Get the episode title used to query the DB for previous recordings
     if ($_GET['title'] || $_POST['title']) {
         $_SESSION['episodes']['title'] = _or($_GET['title'], $_POST['title']);
@@ -69,6 +62,12 @@ if ($_POST['display_site']) {
 } else {
     $sitePage = $defaultSite;
 }
+
+// Create the cache dir if it doesn't exist
+    if (!is_dir($cacheDir) && !mkdir($cacheDir, 0775)) {
+        custom_error('Error creating '.$cacheDir.': Please check permissions on the data directory.');
+        exit;
+    }
 
 // Create the images dir if it doesn't exist
     if (!is_dir($imageDir) && !mkdir($imageDir, 0775)) {
@@ -99,11 +98,22 @@ if ($_POST['display_site']) {
     $showFilename   = preg_replace('/\s+/', '', $_SESSION['search']['showname']);
     $showFilename   = trim($showFilename);
     $showPath       = "$showDir/$showFilename";
+    $cacheShowname  = "$cacheDir/$showFilename";
     $toggleSelect   = "false";
     $schedEpisodes  = array();
     $schedDate      = array();
     $maxFileAgeSec  = ($maxFileAge * 24 * 60 * 60);
     $schedEpisodesDetails = array();
+
+// Get value of subtitle match checkbox
+    if (!$_POST['subtitle_match'] && $_GET['subMatch']) {
+        if (file_exists($cacheShowname)) unlink($cacheShowname);
+        $subMatchDis = 0;
+        unset($_GET['subMatch']);
+    } elseif ($_GET['subMatch'] || file_exists($cacheShowname)) {
+        touch($cacheShowname);
+        $subMatchDis = 1;
+    }
 
 // Override is used for shows that have names that don't matchup properly
 // For example mythtv records "Survivor" as "Survivor: Nicaragua".  Since
