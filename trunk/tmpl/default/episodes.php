@@ -208,7 +208,8 @@ function my_select() {
     <tr><td align="left">Status:</td><td align="left"><?php echo "$showStatus"?></td></tr>
     <tr><td align="left">Classification:</td><td align="left"><?php echo "$showClass"?></td></tr>
     <tr><td align="left">Genre:</td><td align="left"><?php echo "$showGenre"?></td></tr>
-    <tr><td align="left">Network:</td><td align="left"><?php echo "$showNetwork"?></td></tr>
+    <tr><td align="left">Network:</td><td align="left"><?php echo "$showNetwork"?><br></td></tr>
+    <tr><td align="left"><br><strong>Last Update:</td><td align="left"><br><strong><?php echo "$fileTime"?></td></tr>
   </table>
   </td>
 </table>
