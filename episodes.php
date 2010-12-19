@@ -388,6 +388,8 @@ if ($_POST['display_site']) {
             sort_programs($All_Shows, 'episode_sortby');
 
     }
+// Date of show Path latest update
+    $fileTime = date("Y-m-d", filemtime($showPath));  
 
 // Load the class for this page
     require_once tmpl_dir . 'episodes.php';
