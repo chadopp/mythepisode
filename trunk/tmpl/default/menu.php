@@ -1,4 +1,14 @@
 <?php
+/**
+ * menu.php
+ *
+ * @url         $URL$
+ * @date        $Date$
+ * @version     $Revision$
+ * @author      Author: Alec Christie
+ * @license     GPL
+ *
+/**/
 
 $url = "http".((!empty($_SERVER['HTTPS'])) ? "s" : "")."://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 $url_data = explode("/",parse_url($url,PHP_URL_PATH));
