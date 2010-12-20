@@ -5,7 +5,7 @@
  * @url         $URL$
  * @date        $Date$
  * @version     $Revision$
- * @author      $Author$
+ * @author      Author: Chris Kapp
  * @license     GPL
  *
 /**/
