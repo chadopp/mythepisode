@@ -102,7 +102,7 @@ Run the mythweb build_translation script.
 -  ./build_translation.pl
 
 
-Step 5:
+Step 5: (optional)
 -------
 This step is optional, but required if you want to use the tvwish funtion in
 mythepisode.  If you choose not to use this you can disable and hide all tvwish
@@ -121,12 +121,18 @@ to paths in the cronjob and the scripts below.  I plan to fix this in the
 future.
 - runwish
 
------------------------------------------------------------------------------------
+INSTALLATION IS NOW DONE.  CHECKOUT THE CONFIGURATION OPTIONS LISTED BELOW.
+
+
+################################################################################
+################################################################################
+
+----------------------
 Configuration options:
------------------------------------------------------------------------------------
+----------------------
 You don't have to make any changes to these settings since they all have default
 values.  You should take a look at these and understand what each setting is used
-for so that you can make configuration changes to suite your needs.  All of these
+for so that you can make configuration changes to suit your needs.  All of these
 configuation options should be changed from the mythweb settings utility.
 
 #############
