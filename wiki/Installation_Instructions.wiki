@@ -93,6 +93,7 @@ lrwxrwxrwx 1 root  root  30 2010-07-04 15:21 cache -> /var/cache/mythweb/image_c
 lrwxrwxrwx 1 root  root  23 2010-12-04 22:01 episode -> /var/lib/mythtv/episode
 root@myth:/usr/share/mythtv/mythweb/data#
 
+
 Step 4:
 -------
 Run the mythweb build_translation script.
