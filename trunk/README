@@ -45,26 +45,27 @@ IE      - very slow on my system
 Installation Instructions
 -------------------------
 
-As installed on my system
+As installed on my system(Ubuntu)
 
 Step 1:
 -------
-Download mythepisode and place it in /tmp
+Download mythepisode and place it in /tmp.  Find the path where mythweb is
+installed on your system.  I'm using Ubuntu and mine is installed under
+/usr/share/mythtv/mythweb.  Under the mythweb directory you will find a
+directory called modules.  This is where you will install mythepisode.
 
-cd /usr/share/mythtv/mythweb/modules  -- path may be slightly different on your 
-                                      -- system, but you have to install 
-                                      -- mythepisode under ~mythweb/modules
-gunzip /tmp/episode.tar.gz
-tar xvf /tmp/episode.tar
+-  cd /usr/share/mythtv/mythweb/modules
+-  tar -zxvf /tmp/episode.tar.gz
 
 
 Step 2:
 -------
-cd /usr/share/mythtv/mythweb/modules/_shared/tmpl/default
-Add the two lines below to header.php
+Add mythepisode to the mythweb menu by adding the 2 NEW LINE entries listed
+below to the header.php.  For my mythweb installation the file is located in
+/usr/share/mythtv/mythweb/modules/_shared/tmpl/default/header.php.
 
-NOTE: If you have installed mythepisode in the past you need to update the line
-      below as it has changed.
+-  cd /usr/share/mythtv/mythweb/modules/_shared/tmpl/default
+-  update the header.php file with the NEW LINES listed below.
 
 EXISTING LINE:  <a href="tv/recorded"><?php echo t('Recorded Programs') ?></a>
 EXISTING LINE:  &nbsp; | &nbsp;
@@ -77,22 +78,37 @@ Step 3:
 -------
 Create a directory where you want your show/episode information stored.  I use the
 same directory path where my tv and video recordings are stored.  This will ensure
-that if you update mythweb or mythepisode your data files will stay intact.
+that if you update mythweb or mythepisode your data files will not be removed.
 
-mkdir /var/lib/mythtv/episode      -- This can be wherever you want
-chmod 777 /var/lib/mythtv/episode
-cd /usr/share/mythtv/mythweb/data  -- The path to the mythweb/data dir may be 
-                                   -- different for your mythweb installation.
-ln -s /var/lib/mythtv/episode  episode
+-  mkdir /var/lib/mythtv/episode      -- This can be wherever you want
+-  chmod 777 /var/lib/mythtv/episode
+-  cd /usr/share/mythtv/mythweb/data  -- The path to the mythweb/data dir may be
+                                      -- different for your mythweb installation.
+-  ln -s /var/lib/mythtv/episode  episode
+
+This is what mine looks like after the above link is created and I run an ls -lrt
+command in /usr/share/mythtv/mythweb/data directory
+ls -lrt /usr/share/mythtv/mythweb/data
+lrwxrwxrwx 1 root  root  26 2010-07-04 15:21 recordings -> /var/lib/mythtv/recordings
+lrwxrwxrwx 1 root  root  21 2010-07-04 15:21 music -> /var/lib/mythtv/music
+lrwxrwxrwx 1 root  root  22 2010-07-04 15:21 video -> /var/lib/mythtv/videos
+lrwxrwxrwx 1 root  root  22 2010-07-04 15:21 video_covers -> /var/lib/mythtv/videos
+lrwxrwxrwx 1 root  root  30 2010-07-04 15:21 tv_icons -> /var/cache/mythweb/image_cache
+lrwxrwxrwx 1 root  root  30 2010-07-04 15:21 cache -> /var/cache/mythweb/image_cache
+-rw-r--r-- 1 www-data www-data 5222 2010-10-30 22:19 ndfd_cache_+33.25_-112.23
+lrwxrwxrwx 1 root  root  23 2010-12-04 22:01 episode -> /var/lib/mythtv/episode
+root@myth:/usr/share/mythtv/mythweb/data#
 
 
 Step 4:
 -------
-cd /usr/share/mythtv/mythweb/modules/_shared/lang
-./build_translation.pl
+Run the mythweb build_translation script.
+
+-  cd /usr/share/mythtv/mythweb/modules/_shared/lang
+-  ./build_translation.pl
 
 
-Step 5:
+Step 5: (optional)
 -------
 This step is optional, but required if you want to use the tvwish funtion in
 mythepisode.  If you choose not to use this you can disable and hide all tvwish
@@ -111,12 +127,18 @@ to paths in the cronjob and the scripts below.  I plan to fix this in the
 future.
 - runwish
 
------------------------------------------------------------------------------------
+INSTALLATION IS NOW DONE.  CHECKOUT THE CONFIGURATION OPTIONS LISTED BELOW.
+
+
+################################################################################
+################################################################################
+
+----------------------
 Configuration options:
------------------------------------------------------------------------------------
+----------------------
 You don't have to make any changes to these settings since they all have default
 values.  You should take a look at these and understand what each setting is used
-for so that you can make configuration changes to suite your needs.  All of these 
+for so that you can make configuration changes to suit your needs.  All of these
 configuation options should be changed from the mythweb settings utility.
 
 #############
