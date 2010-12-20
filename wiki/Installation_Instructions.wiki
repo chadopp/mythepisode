@@ -95,6 +95,8 @@ root@myth:/usr/share/mythtv/mythweb/data#
 
 Step 4:
 -------
+Run the mythweb build_translation script.
+
 -  cd /usr/share/mythtv/mythweb/modules/_shared/lang
 -  ./build_translation.pl
 
