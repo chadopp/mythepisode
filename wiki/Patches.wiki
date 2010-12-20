@@ -3,6 +3,10 @@
 
 = Details =
 
+1.0.9(trunk)
+    * Add ability to disable subtitle matching on shows
+    * Add Update date to episode display page
+
 1.0.8
     * Format code comments
     * Fix to previous recording deletion
