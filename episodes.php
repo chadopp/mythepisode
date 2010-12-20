@@ -389,6 +389,7 @@ if ($_POST['display_site']) {
 
     }
 // Date of show Path latest update
+    clearstatcache();
     $fileTime = date("Y-m-d", filemtime($showPath));  
 
 // Load the class for this page
