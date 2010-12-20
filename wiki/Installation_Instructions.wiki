@@ -2,7 +2,7 @@
 #labels Featured,Phase-Deploy
 
 = Details =
-
+{{{
 NOTES:
 Installation of mythepisode only takes a few minutes and can be accomplished
 with the 5 easy steps listed below in the installation section.
@@ -233,3 +233,4 @@ mythepisode and save the configuration.  You can easily find it in mythepisode b
 selecting "All Shows" on the mainpage and finding the show title as displayed in
 mythepisode.  Now add the mythepisode show title next to the show title in the
 override tab and save the configuration.
+}}}
