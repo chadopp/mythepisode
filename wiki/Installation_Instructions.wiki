@@ -3,7 +3,6 @@
 
 = Details =
 
-{{{
 NOTES:
 Installation of mythepisode only takes a few minutes and can be accomplished
 with the 5 easy steps listed below in the installation section.
@@ -40,47 +39,50 @@ IE      - very slow on my system
 Installation Instructions
 -------------------------
 
-As installed on my system
+As installed on my system(Ubuntu)
 
 Step 1:
 -------
-cd /usr/share/mythtv/mythweb/modules (path may be slightly different on your system,
-                                      but you have to install mythepisode under
-                                      mythweb/modules)
-gunzip /tmp/episode.tar.gz
-tar xvf /tmp/episode.tar
+Download mythepisode and place it in /tmp.  Find the path where mythweb is
+installed on your system.  I'm using Ubuntu and mine is installed under
+/usr/share/mythtv/mythweb.  Under the mythweb directory you will find a
+directory called modules.  This is where you will install mythepisode.
+
+-  cd /usr/share/mythtv/mythweb/modules
+-  tar -zxvf /tmp/episode.tar.gz
 
 
 Step 2:
 -------
-cd /usr/share/mythtv/mythweb/modules/_shared/tmpl/default
-Add a line like the following to header.php
+Add mythepisode to the mythweb menu by adding the 2 NEW LINE entries listed
+below to the header.php.  For my mythweb installation the file is located in
+/usr/share/mythtv/mythweb/modules/_shared/tmpl/default/header.php.
 
-NOTE: If you have installed mythepisode in the past you need to update the line
-      below as it has changed.
+-  cd /usr/share/mythtv/mythweb/modules/_shared/tmpl/default
+-  update the header.php file with the NEW LINES listed below.
 
-EXISTING LINE: <a href="tv/recorded"><?php echo t('Recorded Programs') ?></a>
-EXISTING LINE: &nbsp; | &nbsp;
-NEW LINE: <a href="episode"><?php echo t('TV Episodes') ?></a>
-NEW LINE: &nbsp; | &nbsp;
-EXISTING LINE: <?php } ?>
+EXISTING LINE:  <a href="tv/recorded"><?php echo t('Recorded Programs') ?></a>
+EXISTING LINE:  &nbsp; | &nbsp;
+NEW LINE:       <a href="episode"><?php echo t('TV Episodes') ?></a>
+NEW LINE:       &nbsp; | &nbsp;
+EXISTING LINE:  <?php } ?>
 
 
 Step 3:
 -------
 Create a directory where you want your show/episode information stored.  I use the
 same directory path where my tv and video recordings are stored.  This will ensure
-that if you update mythweb or mythepisode your data files will stay intact.
+that if you update mythweb or mythepisode your data files will not be removed.
 
-mkdir /var/lib/mythtv/episode  (This can be wherever you want)
-chmod 777 /var/lib/mythtv/episode
-cd /usr/share/mythtv/mythweb/data (The path to the mythweb/data dir may be different
-                                   for your installation.)
-ln -s /var/lib/mythtv/episode  episode
+-  mkdir /var/lib/mythtv/episode      -- This can be wherever you want
+-  chmod 777 /var/lib/mythtv/episode
+-  cd /usr/share/mythtv/mythweb/data  -- The path to the mythweb/data dir may be
+                                      -- different for your mythweb installation.
+-  ln -s /var/lib/mythtv/episode  episode
 
 This is what mine looks like after the above link is created and I run an ls -lrt
 command in /usr/share/mythtv/mythweb/data directory
-ls -lrt
+ls -lrt /usr/share/mythtv/mythweb/data
 lrwxrwxrwx 1 root  root  26 2010-07-04 15:21 recordings -> /var/lib/mythtv/recordings
 lrwxrwxrwx 1 root  root  21 2010-07-04 15:21 music -> /var/lib/mythtv/music
 lrwxrwxrwx 1 root  root  22 2010-07-04 15:21 video -> /var/lib/mythtv/videos
@@ -91,11 +93,10 @@ lrwxrwxrwx 1 root  root  30 2010-07-04 15:21 cache -> /var/cache/mythweb/image_c
 lrwxrwxrwx 1 root  root  23 2010-12-04 22:01 episode -> /var/lib/mythtv/episode
 root@myth:/usr/share/mythtv/mythweb/data#
 
-
 Step 4:
 -------
-cd /usr/share/mythtv/mythweb/modules/_shared/lang
-./build_translation.pl
+-  cd /usr/share/mythtv/mythweb/modules/_shared/lang
+-  ./build_translation.pl
 
 
 Step 5:
@@ -103,7 +104,7 @@ Step 5:
 This step is optional, but required if you want to use the tvwish funtion in
 mythepisode.  If you choose not to use this you can disable and hide all tvwish
 functions by updating the tvwishhide configuration option in the mythweb settings.
-If you don't install tvwish now you can always do it later if you choose
+If you don't install tvwish now you can always do it later if you choose to
 
 download tvwish from http://www.templetons.com/brad/myt/tvwish.html and install it
 under /usr/share/mythtv/tvwish
@@ -120,7 +121,10 @@ future.
 -----------------------------------------------------------------------------------
 Configuration options:
 -----------------------------------------------------------------------------------
-All of these configuation options should be changed from mythweb settings utility
+You don't have to make any changes to these settings since they all have default
+values.  You should take a look at these and understand what each setting is used
+for so that you can make configuration changes to suite your needs.  All of these
+configuation options should be changed from the mythweb settings utility.
 
 #############
 Settings Tab:
@@ -157,10 +161,6 @@ Default data site:
 -------------------
 This option is used to choose the query site used for grabbing episode information.
 The default setting is TVRage.com
-
-options:
-TVRage.com
-TheTVDB.com
 
 
 Display tvwish options:
@@ -233,6 +233,3 @@ mythepisode and save the configuration.  You can easily find it in mythepisode b
 selecting "All Shows" on the mainpage and finding the show title as displayed in
 mythepisode.  Now add the mythepisode show title next to the show title in the
 override tab and save the configuration.
-
-
-}}}
