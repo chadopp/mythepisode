@@ -56,12 +56,12 @@
         $recordedTitle = $_GET['title'];
     }
 
-// Get Query site name
-if ($_POST['display_site']) {
-    $sitePage = $_POST['display_site'];
-} else {
-    $sitePage = $defaultSite;
-}
+// Get Query site name i.e. TVRage.com or TheTVDB.com
+    if ($_POST['display_site']) {
+        $sitePage = $_POST['display_site'];
+    } else {
+        $sitePage = $defaultSite;
+    }
 
 // Create the cache dir if it doesn't exist
     if (!is_dir($cacheDir) && !mkdir($cacheDir, 0775)) {
@@ -75,7 +75,8 @@ if ($_POST['display_site']) {
         exit;
     }
 
-// Delete a record from the DB
+// Delete a record from the DB only after we make sure it's not in
+// the recorded table
     if (!empty($_GET['delete'])) {
         $dbCheck = $db->query('SELECT programid FROM recorded
                                 WHERE programid=?', $_GET['category']);
@@ -105,7 +106,7 @@ if ($_POST['display_site']) {
     $maxFileAgeSec  = ($maxFileAge * 24 * 60 * 60);
     $schedEpisodesDetails = array();
 
-// Get value of subtitle match checkbox
+// Get value of subtitle matching checkbox
     if (!$_POST['subtitle_match'] && $_GET['subMatch']) {
         if (file_exists($cacheShowname)) unlink($cacheShowname);
         $subMatchDis = 0;
@@ -135,7 +136,7 @@ if ($_POST['display_site']) {
         }
     }
 
-// If the showTitle is defined look for scheduled recordings
+// If showTitle is defined look for scheduled recordings
     if ($showTitle) {
     // Parse the list of scheduled recordings
         global $Scheduled_Recordings;
@@ -314,16 +315,16 @@ if ($_POST['display_site']) {
                                       WHERE ($titleQuery) 
                                    Group BY filename");
 
-        $videoEpisodes  = array();
-        $videoDate      = array();
-        $videoSE        = array();
+        $videoEpisodes = array();
+        $videoDate     = array();
+        $videoSE       = array();
 
     // If we find videos in the DB
         if ($getSubtitles) {
             while ($row = mysql_fetch_assoc($getSubtitles)) {
-                $videoDate[]        = date('Y-m-d', strtotime($row['releasedate']));
-                $videoEpisodes[]    = strtolower($row['subtitle']);
-                $videoSE[]          = (string) ($row['season']."-".str_pad($row['episode'], 2, "0", STR_PAD_LEFT));
+                $videoDate[]     = date('Y-m-d', strtotime($row['releasedate']));
+                $videoEpisodes[] = strtolower($row['subtitle']);
+                $videoSE[]       = (string) ($row['season']."-".str_pad($row['episode'], 2, "0", STR_PAD_LEFT));
             }
 
             mysql_free_result($getSubtitles);
@@ -388,7 +389,8 @@ if ($_POST['display_site']) {
             sort_programs($All_Shows, 'episode_sortby');
 
     }
-// Date of show Path latest update
+
+// Get the date that show info was last updated from tvrage or thetvdb 
     clearstatcache();
     $fileTime = date("Y-m-d", filemtime($showPath));  
 

@@ -18,7 +18,7 @@
     isset($_GET['title']) or $_GET['title'] = $_POST['title'];
     isset($_GET['title']) or $_GET['title'] = $_SESSION['previous_recorded_title'];
 
-// Delete a record from the DB
+// Delete a record from the DB if it's not still in the recorded table
     if (!empty($_GET['delete'])) {
         $dbCheck = $db->query('SELECT programid 
                                  FROM recorded
