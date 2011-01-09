@@ -8,8 +8,8 @@ Installation of mythepisode only takes a few minutes and can be accomplished
 with the 5 steps listed below in the installation section.
 
 After an initial install when you first select TV Episodes mythepisode has to
-go to TVRage.com/TheTVDB.com and grab a list of shows for the first time so
-there might be a slight delay.  The complete show listing is only grabbed one
+go to TVRage.com and grab a list of shows for the first time so there might be 
+a slight delay(~5-10 seconds).  The complete show listing is only grabbed one
 time unless you explicitly request a new update by selecting "Update Show
 Listing".  You shouldn't have to do this very often.
 
