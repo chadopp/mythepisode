@@ -3,9 +3,11 @@
 
 = Details =
 
-1.0.9(trunk)
+1.0.9
     * Add ability to disable subtitle matching on individual shows
     * Add Last Update date to episode display page
+    * Move documents to docs directory
+    * Code cleanup(WIP)
 
 1.0.8
     * Format code comments
