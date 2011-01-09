@@ -14,21 +14,21 @@ Installation of mythepisode only takes a few minutes and can be accomplished
 with the 5 steps listed below in the installation section.
 
 After an initial install when you first select TV Episodes mythepisode has to
-go to TVRage.com/TheTVDB.com and grab a list of shows for the first time so
-there might be a slight delay.  The complete show listing is only grabbed one
-time unless you explicitly request a new update by selecting "Update Show 
-Listing".  You shouldn't have to do this very often. 
+go to TVRage.com and grab a list of shows for the first time so there might be 
+a slight delay(~5-10 seconds).  The complete show listing is only grabbed one
+time unless you explicitly request a new update by selecting "Update Show
+Listing".  You shouldn't have to do this very often.
 
-When you click on a show link for the first time episode information about that 
+When you click on a show link for the first time episode information about that
 show will be retrieved from TVRage.com/TheTVDB.com.  After you retrieve the data
 the first time any subsequent returns to the show won't require data grabbing.
 You do have the option to repull the data at anytime.  Data will also be pulled
 again if you visit the show page and the data is older than 14 days(configurable)
 and the show is still a currently running series.  Shows that have ended or
 canceled won't reupdate unless you explicity request an update.
- 
-If summary information doesn't exist at TVRage.com for a pariticular episode an 
-attempt will be made to get it from TheTVDB.com.  The user has the option of 
+
+If summary information doesn't exist at TVRage.com for a pariticular episode an
+attempt will be made to get it from TheTVDB.com.  The user has the option of
 selecting TVRage.com or TheTVDB.com as the primary source for episode information.
 
 I have tested mythepisode with the following browsers(although not thoroughly)
@@ -53,6 +53,11 @@ IE      - very slow on my system
 -------------------------
 Installation Instructions
 -------------------------
+Note:  If you have never installed mythepisode you should perform all steps. 
+If you are upgrading from a previous version of mythepisode you will only
+need to perform step 1.  If you have upgraded mythtv/mythweb to a new version you
+will need to do steps 1,2 and 4. In all cases you should review the configuration 
+options listed after the installation instructions.
 
 As installed on my system(Ubuntu)
 
@@ -89,14 +94,19 @@ Create a directory where you want your show/episode information stored.  I use t
 same directory path where my tv and video recordings are stored.  This will ensure
 that if you update mythweb or mythepisode your data files will not be removed.
 
--  mkdir /var/lib/mythtv/episode      -- This can be wherever you want
+-  mkdir /var/lib/mythtv/episode      -- This can be wherever you want.  My mythtv
+                                         recordings, movies, etc are stored in 
+                                         directories located under /var/lib/mythtv so
+                                         this is where I want to create the episode dir.
 -  chmod 777 /var/lib/mythtv/episode
 -  cd /usr/share/mythtv/mythweb/data  -- The path to the mythweb/data dir may be
                                       -- different for your mythweb installation.
+
 -  ln -s /var/lib/mythtv/episode  episode
 
 This is what mine looks like after the above link is created and I run an ls -lrt
 command in /usr/share/mythtv/mythweb/data directory
+
 ls -lrt /usr/share/mythtv/mythweb/data
 lrwxrwxrwx 1 root  root  26 2010-07-04 15:21 recordings -> /var/lib/mythtv/recordings
 lrwxrwxrwx 1 root  root  21 2010-07-04 15:21 music -> /var/lib/mythtv/music
@@ -104,9 +114,7 @@ lrwxrwxrwx 1 root  root  22 2010-07-04 15:21 video -> /var/lib/mythtv/videos
 lrwxrwxrwx 1 root  root  22 2010-07-04 15:21 video_covers -> /var/lib/mythtv/videos
 lrwxrwxrwx 1 root  root  30 2010-07-04 15:21 tv_icons -> /var/cache/mythweb/image_cache
 lrwxrwxrwx 1 root  root  30 2010-07-04 15:21 cache -> /var/cache/mythweb/image_cache
--rw-r--r-- 1 www-data www-data 5222 2010-10-30 22:19 ndfd_cache_+33.25_-112.23
 lrwxrwxrwx 1 root  root  23 2010-12-04 22:01 episode -> /var/lib/mythtv/episode
-root@myth:/usr/share/mythtv/mythweb/data#
 
 
 Step 4:
