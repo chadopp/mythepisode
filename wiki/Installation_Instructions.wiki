@@ -29,11 +29,11 @@ I have tested mythepisode with the following browsers(although not thoroughly)
 Firefox - very fast on my system
 Safari  - very fast on my system
 Chrome  - very fast on my system
-IE      - very slow on my system
+IE      - slow on my system
 
 - All Configuration settings are set through the mythweb settings menu.  Listed
   under the installation instructions is all of the configuration options and
-  ther purpose.
+  their purpose.
 
 - If you are running mythweb .24 or greater you will need to make a couple of
   changes to episode.php since .24/trunk has changed some of the mythweb
