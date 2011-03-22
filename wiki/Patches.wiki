@@ -2,7 +2,7 @@
 #labels Featured
 
 = Details =
-1.0.10
+1.0.10(trunk)
     * Fix to scheduled episode matching with (country) after the title
 
 1.0.9
