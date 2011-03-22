@@ -130,7 +130,7 @@
     foreach ($overrideFile as $overrideShow) {
         list($mythTemp,$rageName) = explode(":::", "$overrideShow");
         $rageName = rtrim($rageName);
-        if ($rageName == $fixedTitle)  {
+        if ($rageName == $longTitle)  {
             $mythName = explode("---", "$mythTemp");
             break;
         }
