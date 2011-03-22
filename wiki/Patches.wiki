@@ -2,6 +2,8 @@
 #labels Featured
 
 = Details =
+1.0.10
+    * Fix to scheduled episode matching with (country) after the title
 
 1.0.9
     * Add ability to disable subtitle matching on individual shows
