@@ -40,7 +40,7 @@ if ($#ARGV != 3 ) {
 }
 
 ## variables
-my $debug      = 0;
+my $debug      = 1;
 my $show       = $ARGV[0];
 my $showfile   = $ARGV[1];
 my $imagePath  = $ARGV[2];
@@ -78,6 +78,7 @@ $show =~ s/ With//g;
 sub TVDB_Info {
     ## Get show info from TheTVDB.com
     my $tvdbsite = get "http://www.thetvdb.com/api/GetSeries.php?seriesname=$show";
+print "$tvdbsite\n";
     if (!$tvdbsite) {
         print "Show id for $show not found. Could be temporary issues accessing thetvdb.com\n";
         exit 1;
@@ -94,7 +95,8 @@ sub TVDB_Info {
             $show =~ s/\.//g;
             $show =~ s/\://g;
             $show =~ s/ //g;
-            if ($tvdbShow eq $show) {
+print "tvdbshow is ...$tvdbShow... - show is ...$show...\n";
+            if (lc($tvdbShow) eq lc($show)) {
                 $tvdbShowID = $tvdbTemp->{seriesid}->[0];
                 print "Show Id is $tvdbShowID\n" if $debug;
                 last;
