@@ -40,7 +40,7 @@ if ($#ARGV != 3 ) {
 }
 
 ## variables
-my $debug      = 1;
+my $debug      = 0;
 my $show       = $ARGV[0];
 my $showfile   = $ARGV[1];
 my $imagePath  = $ARGV[2];
