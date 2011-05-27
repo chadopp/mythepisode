@@ -1,3 +1,7 @@
+1.0.10
+    * Fix to scheduled episode matching with (country) after the title
+    * Fix to grabid.pl for info grabbing from thetvdb.com
+
 1.0.9
     * Add ability to disable subtitle matching on individual shows
     * Add Last Update date to episode display page
