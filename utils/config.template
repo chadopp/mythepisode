@@ -33,3 +33,7 @@ countryList = US
 ; Default Site for grabbing show/episode data
 ; Options - TVRage.com or TheTVDB.com
 defaultSite = TVRage.com
+
+; Default version of MythTV
+; Options = .21, .22, .23, .24+
+mythtvVersion = .24+

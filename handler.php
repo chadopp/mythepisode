@@ -31,8 +31,8 @@
         exit;
     }
 
-// Copy configuration file to data/episode if it doesn't exist 
-    if (!file_exists($configFile)) 
+// Copy configuration file to data/episode if it doesn't exist
+    if (!file_exists($configFile))
         copy("$scriptDir/config.template", "$configFile");
 
     $config = parse_ini_file($configFile, 1);
@@ -44,6 +44,7 @@
     $tvwishHide    = (empty($config['tvwishHide']))    ? '0'          : $config['tvwishHide'];
     $thumbnailSize = (empty($config['thumbnailSize'])) ? '250'        : $config['thumbnailSize'];
     $countryList   = (empty($config['countryList']))   ? 'US'         : $config['countryList'];
+    $mythtvVersion = (empty($config['mythtvVersion'])) ? '.24+'       : $config['mythtvVersion'];
 
 // Load a custom page
     switch ($Path[1]) {
