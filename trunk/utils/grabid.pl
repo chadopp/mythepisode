@@ -78,7 +78,6 @@ $show =~ s/ With//g;
 sub TVDB_Info {
     ## Get show info from TheTVDB.com
     my $tvdbsite = get "http://www.thetvdb.com/api/GetSeries.php?seriesname=$show";
-print "$tvdbsite\n";
     if (!$tvdbsite) {
         print "Show id for $show not found. Could be temporary issues accessing thetvdb.com\n";
         exit 1;
@@ -95,7 +94,7 @@ print "$tvdbsite\n";
             $show =~ s/\.//g;
             $show =~ s/\://g;
             $show =~ s/ //g;
-print "tvdbshow is ...$tvdbShow... - show is ...$show...\n";
+            print "tvdbshow is ...$tvdbShow... - show is ...$show...\n" if $debug;
             if (lc($tvdbShow) eq lc($show)) {
                 $tvdbShowID = $tvdbTemp->{seriesid}->[0];
                 print "Show Id is $tvdbShowID\n" if $debug;

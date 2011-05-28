@@ -52,6 +52,13 @@
 
 // Save configuration changes
     if ($_POST['save']) {
+        if (isset($_POST['mythtv_version']))
+            $mythtv_version = $_POST['mythtv_version'];
+        else
+            $mythtv_version = $config['mythtvVersion'];
+        $newLine = "mythtvVersion = $mythtv_version";
+        replaceLine($configFile, mythtvVersion, $newLine);
+
         if (isset($_POST['default_page'])) 
             $default_page = $_POST['default_page'];
         else
@@ -104,6 +111,7 @@
             $country_list = "US";
         $newLine = "countryList = $country_list";
         replaceLine($configFile, countryList, $newLine);
+
     }
 
 // Copy configuration file to data/episode if it doesn't exist
@@ -112,8 +120,14 @@
 
     $config = parse_ini_file($configFile, 1);
 
-    $thumbnailSize = (empty($config['thumbnailSize'])) ? '250' : $config['thumbnailSize'];
-    $countryList   = (empty($config['countryList'])) ? 'US' : $config['countryList'];
+    $defaultView   = (empty($config['defaultView']))   ? 'recorded'   : $config['defaultView'];
+    $defaultSite   = (empty($config['defaultSite']))   ? 'TVRage.com' : $config['defaultSite'];
+    $matchPercent  = (empty($config['matchPercent']))  ? '85'         : $config['matchPercent'];
+    $maxFileAge    = (empty($config['maxFileAge']))    ? '7'          : $config['maxFileAge'];
+    $tvwishHide    = (empty($config['tvwishHide']))    ? '0'          : $config['tvwishHide'];
+    $thumbnailSize = (empty($config['thumbnailSize'])) ? '250'        : $config['thumbnailSize'];
+    $countryList   = (empty($config['countryList']))   ? 'US'         : $config['countryList'];
+    $mythtvVersion = (empty($config['mythtvVersion'])) ? '.24+'       : $config['mythtvVersion'];
 
 // These settings are limited to Mythepisode itself
     $Settings_Hosts = 'Mythepisode';

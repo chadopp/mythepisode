@@ -17,6 +17,23 @@
 <tr>
   <td colspan="2"><?php echo t('General Settings') ?>:</th>
 </tr>
+
+<tr>
+  <th><?php echo t('MythTV Version') ?></label>:</th>
+  <td>
+    <select name="mythtv_version">
+    <?php
+    foreach(array('.21', '.22', '.23', '.24+') as $value) {
+        echo '<option value="'.$value.'" ';
+        if ($value == $mythtvVersion)
+            echo ' SELECTED ';
+        echo '>'.$value.'</option>';
+    }
+    ?>
+    </select>
+  </td>
+</tr>
+
 <tr>
   <th><?php echo t('Countries (space seperated)') ?>:</th>
   <td><input type="text" size="8" name="country_list" value="<?php echo ($countryList) ?>"></td>
@@ -28,10 +45,8 @@
     <?php
     foreach(array('recorded', 'all', 'current') as $value) {
         echo '<option value="'.$value.'" ';
-        if ($value == $config['defaultView'])
+        if ($value == $defaultView)
             echo ' SELECTED ';
-        if ($value == 'null')
-            $value = t('recorded');
         echo '>'.$value.'</option>';
     }
     ?>
@@ -45,10 +60,8 @@
     <?php
     foreach(array('TVRage.com', 'TheTVDB.com') as $value) {
         echo '<option value="'.$value.'" ';
-        if ($value == $config['defaultSite'])
+        if ($value == $defaultSite)
             echo ' SELECTED ';
-        if ($value == 'null')
-            $value = t('TVRage.com');
         echo '>'.$value.'</option>';
     }
     ?>
@@ -83,10 +96,8 @@
     <?php
     foreach(range(75,100) as $value) {
         echo '<option value="'.$value.'" ';
-        if ($value == $config['matchPercent'])
+        if ($value == $matchPercent)
             echo ' SELECTED ';
-        if ($value == 'null')
-            $value = t('85');
         echo '>'.$value.'</option>';
     }
     ?>
@@ -100,10 +111,8 @@
     <?php
     foreach(range(3,14) as $value) {
         echo '<option value="'.$value.'" ';
-        if ($value ==  $config['maxFileAge'])
+        if ($value ==  $maxFileAge)
             echo ' SELECTED ';
-        if ($value == 'null')
-            $value = t('7');
         echo '>'.$value.'</option>';
     }
     ?>
