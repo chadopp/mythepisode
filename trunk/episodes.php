@@ -95,6 +95,37 @@
         }
     }
 
+// Mark an episode as recorded in the DB
+    if (!empty($_GET['mark'])) {
+        $allEpisodes = "all";
+        $_SESSION['episodes']['allepisodes'] = "all";
+        $markTitle = mysql_real_escape_string($_GET['marktitle']);
+        $markSub = mysql_real_escape_string($_GET['marksubtitle']);
+        $markAirdate = $_GET['markairdate'];
+        $markSummary = $_GET['marksummary'];
+        $today = date("YmdHis");
+        $programId = "ME$today";
+        //echo "Title    - $markTitle<BR>";
+        //echo "Subtitle - $markSub<BR>";
+        //echo "Airdate  - $markAirdate<BR>";
+        //echo "Summary  - $markSummary<BR>";
+        //echo "ProgramID - $programId<BR>";
+        $markRecorded = $db->query('INSERT INTO oldrecorded
+                                       SET starttime   = ?,
+                                           duplicate   = 1,
+                                           chanid      = 9999,
+                                           recstatus   = -3,
+                                           title       = ?,
+                                           subtitle    = ?,
+                                           description = ?,
+                                           programid   = ?',
+                                           $markAirdate,
+                                           $markTitle,
+                                           $markSub,
+                                           $markSummary,
+                                           $programId);
+    }
+
 // Set some variables
     $All_Shows      = array();
     $Programs       = array();

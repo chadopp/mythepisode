@@ -126,7 +126,7 @@ mythepisode.  If you choose not to use this you can disable and hide all tvwish
 functions by updating the tvwishhide configuration option in the mythweb settings.
 If you don't install tvwish now you can always do it later if you choose to
 
-download tvwish from http://www.templetons.com/brad/myt/tvwish.html and install it
+download tvwish from http://www.templetons.com/brad/myth/tvwish.html and install it
 under /usr/share/mythtv/tvwish
 
 Add a cronjob to roots crontab

@@ -256,6 +256,7 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
             $data = explode("\t", $Log);
             $dat = preg_replace('/\([1-9]\)/', '', $data[2]);
             $dat = trim($dat);
+            $markSub =  preg_replace('/\#/', '', $data[2]);
             $data[4] = preg_replace('/<.+?>/', '', $data[4]);
             $datalc = strtolower($dat);
             $datalc = preg_replace('/[^0-9a-z ]+/i', '', $datalc);
@@ -389,18 +390,22 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
 
         <td class="<?php echo $classes?>">
           <?php
-            if ($unwatchedMatch)
+            if ($unwatchedMatch) {
                 echo "Recorded - Unwatched!";
-            elseif ($watchedMatch)
+            } elseif ($watchedMatch) {
                 echo "Recorded - Watched";
-            elseif ($videoMatch)
+            } elseif ($videoMatch) {
                 echo "Video File";
-            elseif ($schedMatch)
+            } elseif ($schedMatch) {
                 echo "Scheduled to Record";
-            elseif ($prevMatch)
+            } elseif ($prevMatch) {
                 echo "Previously Recorded";
-            else
-                echo "Not Recorded";
+            } else {
+          ?> 
+                <a onclick="ajax_add_request()" href="episode/episodes/?mark=yes&marktitle=<?php echo htmlspecialchars($fixedTitle)?>&marksubtitle=<?php echo htmlspecialchars($markSub)?>&markairdate=<?php echo htmlspecialchars($data[1])?>&marksummary=<?php echo htmlspecialchars($data[4])?>">
+                <?php echo t('Mark as Recorded') ?>
+          <?php
+            }
           ?>
           <?php /*if ($prevMatch) echo "Previously Recorded"?>
           <?php if ($schedMatch) echo "Scheduled to Record"?>
