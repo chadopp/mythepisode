@@ -99,19 +99,32 @@
     if (!empty($_GET['mark'])) {
         $allEpisodes = "all";
         $_SESSION['episodes']['allepisodes'] = "all";
-        $markTitle = mysql_real_escape_string($_GET['marktitle']);
-        $markSub = mysql_real_escape_string($_GET['marksubtitle']);
-        $markAirdate = $_GET['markairdate'];
-        $markSummary = $_GET['marksummary'];
-        $today = date("YmdHis");
-        $programId = "ME$today";
+        $markTitle    = $_GET['marktitle'];
+        $markTitleEsc = mysql_real_escape_string($_GET['marktitle']);
+        $markSub      = $_GET['marksubtitle'];
+        $markAirdate  = $_GET['markairdate'];
+        $markSummary  = $_GET['marksummary'];
+        $today        = date("YmdHis");
+        $time         = date("H:i:s");
+        $markAirdate  = "$markAirdate $time";
+        $programId    = "ME$today";
         //echo "Title    - $markTitle<BR>";
         //echo "Subtitle - $markSub<BR>";
         //echo "Airdate  - $markAirdate<BR>";
         //echo "Summary  - $markSummary<BR>";
         //echo "ProgramID - $programId<BR>";
+        $markSeries = mysql_query("SELECT DISTINCT seriesid from oldrecorded 
+                                    WHERE title     = '$markTitleEsc' 
+                                      AND seriesid != ''
+                                      AND seriesid != 'Unknown' ");
+        $markRow   = mysql_fetch_row($markSeries);
+        $markSerId = $markRow[0];
+        if (!$markSerId) 
+            $markSerId = "Unknown"; 
+
         $markRecorded = $db->query('INSERT INTO oldrecorded
                                        SET starttime   = ?,
+                                           seriesid    = ?,
                                            duplicate   = 1,
                                            chanid      = 9999,
                                            recstatus   = -3,
@@ -120,6 +133,7 @@
                                            description = ?,
                                            programid   = ?',
                                            $markAirdate,
+                                           $markSerId,
                                            $markTitle,
                                            $markSub,
                                            $markSummary,
@@ -127,21 +141,21 @@
     }
 
 // Set some variables
-    $All_Shows      = array();
-    $Programs       = array();
-    $showTitle      = $_SESSION['search']['showstr'];
-    $longTitle      = $_SESSION['search']['longshow'];
-    $fixedTitle     = $showTitle;
-    $showTitle      = preg_replace("/^The /", '', $showTitle);
-    $state          = $_SESSION['search']['state'];
-    $showFilename   = preg_replace('/\s+/', '', $_SESSION['search']['showname']);
-    $showFilename   = trim($showFilename);
-    $showPath       = "$showDir/$showFilename";
-    $cacheShowname  = "$cacheDir/$showFilename";
-    $toggleSelect   = "false";
-    $schedEpisodes  = array();
-    $schedDate      = array();
-    $maxFileAgeSec  = ($maxFileAge * 24 * 60 * 60);
+    $All_Shows     = array();
+    $Programs      = array();
+    $showTitle     = $_SESSION['search']['showstr'];
+    $longTitle     = $_SESSION['search']['longshow'];
+    $fixedTitle    = $showTitle;
+    $showTitle     = preg_replace("/^The /", '', $showTitle);
+    $state         = $_SESSION['search']['state'];
+    $showFilename  = preg_replace('/\s+/', '', $_SESSION['search']['showname']);
+    $showFilename  = trim($showFilename);
+    $showPath      = "$showDir/$showFilename";
+    $cacheShowname = "$cacheDir/$showFilename";
+    $toggleSelect  = "false";
+    $schedEpisodes = array();
+    $schedDate     = array();
+    $maxFileAgeSec = ($maxFileAge * 24 * 60 * 60);
     $schedEpisodesDetails = array();
 
 // Get value of subtitle matching checkbox
