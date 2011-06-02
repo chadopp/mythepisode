@@ -128,9 +128,13 @@
     // Determine each new show title and add it to oldRecorded array
         foreach ($mythTitle as $tempTitle) {
             if (in_array("$tempTitle", $oldRecorded))  {
-                array_push($oldRecorded, "$rageName");
-                $overrideCount++;
-                break; 
+                if (in_array("$rageName", $oldRecorded))  {
+                    break;
+                } else {
+                    array_push($oldRecorded, "$rageName");
+                    $overrideCount++;
+                    break; 
+                }
             }
         }
     }

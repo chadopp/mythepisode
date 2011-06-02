@@ -184,6 +184,7 @@
         $rageName = rtrim($rageName);
         if ($rageName == $longTitle)  {
             $mythName = explode("---", "$mythTemp");
+            array_push($mythName, "$rageName");
             break;
         }
     }
@@ -300,7 +301,7 @@
             }
         }
 
-    // Check the DB for any episodes of the show previously recordeo
+    // Check the DB for any episodes of the show previously recorded
         $getSubtitles = mysql_query("SELECT subtitle,starttime 
                                        FROM oldrecorded 
                                       WHERE ($titleQuery) 
