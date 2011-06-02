@@ -402,7 +402,7 @@ if (isset($_SESSION['episodes']['allepisodes'])) {
                 echo "Previously Recorded";
             } else {
           ?> 
-                <a onclick="ajax_add_request()" href="episode/episodes/?mark=yes&marktitle=<?php echo htmlspecialchars($fixedTitle)?>&marksubtitle=<?php echo htmlspecialchars($markSub)?>&markairdate=<?php echo htmlspecialchars($data[1])?>&marksummary=<?php echo htmlspecialchars($data[4])?>">
+                <a onclick="ajax_add_request()" href="episode/episodes/?mark=yes&marktitle=<?php echo urlencode($fixedTitle)?>&marksubtitle=<?php echo urlencode($markSub)?>&markairdate=<?php echo htmlspecialchars($data[1])?>&marksummary=<?php echo htmlspecialchars($data[4])?>">
                 <?php echo t('Mark as Recorded') ?>
           <?php
             }
