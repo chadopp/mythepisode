@@ -4,6 +4,10 @@
 = Details =
 1.0.10(trunk)
     * Fix to scheduled episode matching with (country) after the title
+    * Fix to grabid.pl for info grabbing from thetvdb.com
+    * Add myth version configuration option
+    * Add ability to mark an episode as recorded
+    * Script to add programid to episodes without a programid in DB
 
 1.0.9
     * Add ability to disable subtitle matching on individual shows
