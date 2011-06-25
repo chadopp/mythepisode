@@ -6,7 +6,7 @@
 ## Url      : $URL$
 ## Date     : $Date$
 ## Revision : $Revision$
-## Author   : $Author$
+## Author   : Author: agiggins $
 ## License  : GPL
 ##
 ## This utility is used to insert programids to episodes that a user manually
