@@ -9,8 +9,8 @@
 ## Author   : Author: agiggins $
 ## License  : GPL
 ##
-## This utility is used to insert programids to episodes that a user manually
-## inserted into the oldrecorded database that didn't include programid
+## This utility is used to add programids to episodes that a user manually
+## inserted into the oldrecorded table that didn't include a programid
 ##
 ## Requires DBD::mysql & DBD::AnyData
 ##
