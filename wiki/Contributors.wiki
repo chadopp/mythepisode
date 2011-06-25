@@ -35,3 +35,6 @@ Doug H.:
 
 Marc T.:
   * php fix for previous recordings
+
+Anthony G.:
+    * Script to add programid to episodes without a programid in DB
