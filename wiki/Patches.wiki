@@ -8,6 +8,7 @@
     * Add myth version configuration option
     * Add ability to mark an episode as recorded
     * Script to add programid to episodes without a programid in DB
+    * Script to verify all required perl modules are installed
 
 1.0.9
     * Add ability to disable subtitle matching on individual shows
