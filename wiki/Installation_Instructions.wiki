@@ -21,7 +21,7 @@ Safari  - very fast on my system
 Chrome  - very fast on my system
 IE      - very slow on my system
 }}}
-- All Configuration settings are set through the mythweb settings menu.  Listed under the installation instructions is all of the configuration options and their purpose.
+All Configuration settings are set through the mythweb settings menu.  Listed under the installation instructions is all of the configuration options and their purpose.
 
 
 
@@ -75,8 +75,9 @@ Create a directory where you want your show/episode information stored.  I use t
   * *ln -s /var/lib/mythtv/episode  episode*
 
 This is what mine looks like after the above link is created and I run an ls -lrt command in /usr/share/mythtv/mythweb/data directory
+
+  * *ls -lrt /usr/share/mythtv/mythweb/data*
 {{{
-ls -lrt /usr/share/mythtv/mythweb/data
 lrwxrwxrwx 1 root  root  26 2010-07-04 15:21 recordings -> /var/lib/mythtv/recordings
 lrwxrwxrwx 1 root  root  21 2010-07-04 15:21 music -> /var/lib/mythtv/music
 lrwxrwxrwx 1 root  root  22 2010-07-04 15:21 video -> /var/lib/mythtv/videos
@@ -112,7 +113,6 @@ If your paths differ from mine above then you will have to make a few changes to
 INSTALLATION IS NOW DONE.  CHECKOUT THE CONFIGURATION OPTIONS LISTED BELOW.
 
 
-################################################################################
 ################################################################################
 
 ----------------------
