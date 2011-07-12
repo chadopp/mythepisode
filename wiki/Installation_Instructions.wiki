@@ -22,8 +22,7 @@ IE      - very slow on my system
 }}}
 - All Configuration settings are set through the mythweb settings menu.  Listed under the installation instructions is all of the configuration options and their purpose.
 
-################################################################################
-################################################################################
+
 
 -------------------------
 =Installation Instructions=
@@ -200,7 +199,7 @@ This option is used to set the size of the thumbnail displayed on the episode li
 
 
 
-=Override Tab=
+==Override Tab==
 
 This tab is used to configure shows to display properly in mythepisode that have names that don't match.  When mythtv records a show it has a specific title that may not match exactly with what is listed in TVRage.com.  As a result mythepisode doesn't know how to display that show on the recorded page.
 {{{
