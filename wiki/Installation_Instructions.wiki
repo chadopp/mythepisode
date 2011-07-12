@@ -42,8 +42,8 @@ installed on your system.  I'm using Ubuntu and mine is installed under
 /usr/share/mythtv/mythweb.  Under the mythweb directory you will find a
 directory called modules.  This is where you will install mythepisode.
 
--  cd /usr/share/mythtv/mythweb/modules
--  tar -zxvf /tmp/episode.tar.gz
+* cd /usr/share/mythtv/mythweb/modules
+* tar -zxvf /tmp/episode.tar.gz
 
 
 Step 2:
