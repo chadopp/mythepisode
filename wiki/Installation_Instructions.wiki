@@ -9,17 +9,9 @@ with the 5 steps listed below in the installation section.
 
 After an initial install when you first select TV Episodes mythepisode has to go to TVRage.com and grab a list of shows for the first time so there might be a slight delay(~5-10 seconds).  The complete show listing is only grabbed one time unless you explicitly request a new update by selecting "Update Show Listing".  You shouldn't have to do this very often.
 
-When you click on a show link for the first time episode information about that
-show will be retrieved from TVRage.com/TheTVDB.com.  After you retrieve the data
-the first time any subsequent returns to the show won't require data grabbing.
-You do have the option to repull the data at anytime.  Data will also be pulled
-again if you visit the show page and the data is older than 14 days(configurable)
-and the show is still a currently running series.  Shows that have ended or
-canceled won't reupdate unless you explicity request an update.
+When you click on a show link for the first time episode information about that show will be retrieved from TVRage.com/TheTVDB.com.  After you retrieve the data the first time any subsequent returns to the show won't require data grabbing.  You do have the option to repull the data at anytime.  Data will also be pulled again if you visit the show page and the data is older than 14 days(configurable) and the show is still a currently running series.  Shows that have ended or canceled won't reupdate unless you explicity request an update.
 
-If summary information doesn't exist at TVRage.com for a pariticular episode an
-attempt will be made to get it from TheTVDB.com.  The user has the option of
-selecting TVRage.com or TheTVDB.com as the primary source for episode information.
+If summary information doesn't exist at TVRage.com for a pariticular episode an attempt will be made to get it from TheTVDB.com.  The user has the option of selecting TVRage.com or TheTVDB.com as the primary source for episode information.
 
 I have tested mythepisode with the following browsers(although not thoroughly)
 Firefox - very fast on my system
@@ -27,9 +19,7 @@ Safari  - very fast on my system
 Chrome  - very fast on my system
 IE      - very slow on my system
 
-- All Configuration settings are set through the mythweb settings menu.  Listed
-  under the installation instructions is all of the configuration options and
-  ther purpose.
+- All Configuration settings are set through the mythweb settings menu.  Listed under the installation instructions is all of the configuration options and their purpose.
 
 ################################################################################
 
@@ -40,9 +30,7 @@ Installation Instructions
 -------------------------
 Note:  If you have never installed mythepisode you should perform all steps.
 If you are upgrading from a previous version of mythepisode you will only
-need to perform step 1.  If you have upgraded mythtv/mythweb to a new version you
-will need to do steps 1,2 and 4. In all cases you should review the configuration
-options listed after the installation instructions.
+need to perform step 1.  If you have upgraded mythtv/mythweb to a new version you will need to do steps 1,2 and 4. In all cases you should review the configuration options listed after the installation instructions.
 
 As installed on my system(Ubuntu)
 
