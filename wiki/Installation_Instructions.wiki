@@ -103,8 +103,9 @@ mythepisode.  If you choose not to use this you can disable and hide all tvwish 
 download tvwish from http://www.templetons.com/brad/myth/tvwish.html and install it under /usr/share/mythtv/tvwish
 
 Add a cronjob to roots crontab
+{{{
 00 12 * * * /usr/share/mythtv/mythweb/modules/episode/utils/runwish > /dev/null 2>&1
-
+}}}
 *Note:*
 If your paths differ from mine above then you will have to make a few changes to paths in the cronjob and the scripts below.  I plan to fix this in the future.
 - runwish
@@ -124,7 +125,7 @@ The only setting that you potentially need to change is the value for the mythtv
 Settings Tab:
 #############
 
-MythTV Version:
+=MythTV Version:=
 ---------------
 This option is used to set your currently running mythtv version.  The default value is .24+
 {{{
@@ -135,7 +136,7 @@ options:
 .24+  - Used for .24 and above
 }}}
 
-Countries (space seperated):
+=Countries (space seperated):=
 ----------------------------
 This option is used to set the country or countries shows that will be retrieved from TVRage.com and displayed in mythepisode.  The default is set to "US".  Each country should only be 2 characters and seperated by a space if more than one country is selected.
 {{{
