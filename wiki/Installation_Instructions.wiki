@@ -121,9 +121,9 @@ Configuration options:
 ----------------------
 The only setting that you potentially need to change is the value for the mythtv version.  You should take a look at these and understand what each setting is used for so that you can make configuration changes to suit your needs.  All of these configuration options should be changed from the mythweb settings utility.
 
-==#############==
+#############
 ==Settings Tab:==
-==#############==
+#############
 
 ---------------
 ===MythTV Version:===
@@ -149,8 +149,8 @@ US UK CA
 }}}
 After making a change to this setting you will need to do an "Update Shows" from the main mythepisode page.
 
-
-Default page view:
+------------------
+===Default page view:===
 ------------------
 This option is used to determine which page is displayed by default when you select "TV Episodes".  The default setting is "recorded".
 {{{
@@ -160,18 +160,21 @@ current  - Display shows that are currently running tv shows
 all      - Display every(I'm sure some are missing) TV series that has ever aired
 }}}
 
-Default data site:
+------------------
+===Default data site:===
 ------------------
 This option is used to choose the query site used for grabbing episode information.
 The default setting is TVRage.com
 
 
-Display tvwish options:
+-----------------------
+===Display tvwish options:===
 -----------------------
 This option is used to turn on/off the display of tvwish options and menus.  Some mythepisode users don't want to use tvwish and don't want it displayed.  The default is set "yes" to display tvwish options
 
 
-Episode matching accuracy (%):
+------------------------------
+===Episode matching accuracy (%):===
 ------------------------------
 This option is used to help improve episode matching.  Because of spelling differences from different sources there are times when episodes fail to be marked as previously recorded or scheduled for recording.  To overcome this we compare the episode name from TVRage.com/TheTVDB.com against the episode name from mythtv and label as a match if the character match between the two is equal to or greater than the episode matching percentage.  The default setting is 85% which means the two must match 85% or higher to get labeled as a match.
 {{{
@@ -186,18 +189,20 @@ Altar Ego               Alter Ego
 Setting this setting too low can result in many false matches.  Setting it too high can result in missed matches.  A setting of 100% is used for exact matches.  85% is a good balance.
 
 
-Update episode info if older than (days):
+-----------------------------------------
+===Update episode info if older than (days):===
 -----------------------------------------
 This option is used to set how often episode information is automatically grabbed from TVRage.com/TheTVDB.com.  The default setting is 7 days.  When you click on a TV show, mythepisode will verify that you have downloaded episode information and that it is not older than 7 days.  If it is older than 7 days mythepisode will go to TVRage.com/TheTVDB.com and get updated information.
 
 
-Size of episode thumbnail (pixels):
+-----------------------------------
+===Size of episode thumbnail (pixels):===
 -----------------------------------
 This option is used to set the size of the thumbnail displayed on the episode listing page.  The default settings is "250" pixels.
 
 
 #############
-Override Tab:
+==Override Tab:==
 #############
 This tab is used to configure shows to display properly in mythepisode that have names that don't match.  When mythtv records a show it has a specific title that may not match exactly with what is listed in TVRage.com.  As a result mythepisode doesn't know how to display that show on the recorded page.
 {{{
