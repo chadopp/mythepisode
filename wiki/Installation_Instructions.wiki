@@ -4,53 +4,15 @@
 = Details =
 {{{
 NOTES:
-Installation of mythepisode only takes a few minutes and can be accomplished
-with the 5 steps listed below in the installation section.
-
-After an initial install when you first select TV Episodes mythepisode has to
-go to TVRage.com and grab a list of shows for the first time so there might be 
-a slight delay(~5-10 seconds).  The complete show listing is only grabbed one
-time unless you explicitly request a new update by selecting "Update Show
-Listing".  You shouldn't have to do this very often.
-
-When you click on a show link for the first time episode information about that
-show will be retrieved from TVRage.com/TheTVDB.com.  After you retrieve the data
-the first time any subsequent returns to the show won't require data grabbing.
-You do have the option to repull the data at anytime.  Data will also be pulled
-again if you visit the show page and the data is older than 14 days(configurable)
-and the show is still a currently running series.  Shows that have ended or
-canceled won't reupdate unless you explicity request an update.
-
-If summary information doesn't exist at TVRage.com for a pariticular episode an
-attempt will be made to get it from TheTVDB.com.  The user has the option of
-selecting TVRage.com or TheTVDB.com as the primary source for episode information.
-
-I have tested mythepisode with the following browsers(although not thoroughly)
-Firefox - very fast on my system
-Safari  - very fast on my system
-Chrome  - very fast on my system
-IE      - slow on my system
-
-- All Configuration settings are set through the mythweb settings menu.  Listed
-  under the installation instructions is all of the configuration options and
-  their purpose.
-
-- If you are running mythweb .24 or greater you will need to make a couple of
-  changes to episode.php since .24/trunk has changed some of the mythweb
-  classes/includes.  I've only had feedback from others and haven't tested this
-  with .24/trunk.  The two areas that need to be changed are commented with the
-  required changes in the episodes.php file.
-
-################################################################################
 ################################################################################
 
 -------------------------
 Installation Instructions
 -------------------------
-Note:  If you have never installed mythepisode you should perform all steps. 
+Note:  If you have never installed mythepisode you should perform all steps.
 If you are upgrading from a previous version of mythepisode you will only
 need to perform step 1.  If you have upgraded mythtv/mythweb to a new version you
-will need to do steps 1,2 and 4. In all cases you should review the configuration 
+will need to do steps 1,2 and 4. In all cases you should review the configuration
 options listed after the installation instructions.
 
 As installed on my system(Ubuntu)
@@ -89,7 +51,7 @@ same directory path where my tv and video recordings are stored.  This will ensu
 that if you update mythweb or mythepisode your data files will not be removed.
 
 -  mkdir /var/lib/mythtv/episode      -- This can be wherever you want.  My mythtv
-                                         recordings, movies, etc are stored in 
+                                         recordings, movies, etc are stored in
                                          directories located under /var/lib/mythtv so
                                          this is where I want to create the episode dir.
 -  chmod 777 /var/lib/mythtv/episode
@@ -196,7 +158,7 @@ all      - Display every(I'm sure some are missing) TV series that has ever aire
 
 
 Default data site:
--------------------
+------------------
 This option is used to choose the query site used for grabbing episode information.
 The default setting is TVRage.com
 
@@ -271,4 +233,5 @@ mythepisode and save the configuration.  You can easily find it in mythepisode b
 selecting "All Shows" on the mainpage and finding the show title as displayed in
 mythepisode.  Now add the mythepisode show title next to the show title in the
 override tab and save the configuration.
+
 }}}
