@@ -125,7 +125,7 @@ The only setting that you potentially need to change is the value for the mythtv
 Settings Tab:
 #############
 
-=MythTV Version:=
+===MythTV Version:===
 ---------------
 This option is used to set your currently running mythtv version.  The default value is .24+
 {{{
@@ -136,7 +136,7 @@ options:
 .24+  - Used for .24 and above
 }}}
 
-=Countries (space seperated):=
+==Countries (space seperated):==
 ----------------------------
 This option is used to set the country or countries shows that will be retrieved from TVRage.com and displayed in mythepisode.  The default is set to "US".  Each country should only be 2 characters and seperated by a space if more than one country is selected.
 {{{
