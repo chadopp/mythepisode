@@ -14,11 +14,12 @@ When you click on a show link for the first time episode information about that 
 If summary information doesn't exist at TVRage.com for a pariticular episode an attempt will be made to get it from TheTVDB.com.  The user has the option of selecting TVRage.com or TheTVDB.com as the primary source for episode information.
 
 I have tested mythepisode with the following browsers(although not thoroughly)
+{{{
 Firefox - very fast on my system
 Safari  - very fast on my system
 Chrome  - very fast on my system
 IE      - very slow on my system
-
+}}}
 - All Configuration settings are set through the mythweb settings menu.  Listed under the installation instructions is all of the configuration options and their purpose.
 
 ################################################################################
