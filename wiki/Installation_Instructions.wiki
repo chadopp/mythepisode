@@ -161,9 +161,12 @@ all      - Display every(I'm sure some are missing) TV series that has ever aire
 ------------------
 ===Default data site:===
 ------------------
-This option is used to choose the query site used for grabbing episode information.
-The default setting is TVRage.com
-
+This option is used to choose the query site used for grabbing episode information.  The default setting is TVRage.com
+{{{
+options:
+TVRage.com
+TheTVDB.com
+}}}
 
 -----------------------
 ===Display tvwish options:===
