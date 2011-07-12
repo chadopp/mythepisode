@@ -2,7 +2,7 @@
 #labels Featured,Phase-Deploy
 
 = Details =
-{{{
+
 NOTES:
 Installation of mythepisode only takes a few minutes and can be accomplished
 with the 5 steps listed below in the installation section.
@@ -69,13 +69,13 @@ below to the header.php.  For my mythweb installation the file is located in
 
 -  cd /usr/share/mythtv/mythweb/modules/_shared/tmpl/default
 -  update the header.php file with the NEW LINES listed below.
-
+{{{
 EXISTING LINE:  <a href="tv/recorded"><?php echo t('Recorded Programs') ?></a>
 EXISTING LINE:  &nbsp; | &nbsp;
 NEW LINE:       <a href="episode"><?php echo t('TV Episodes') ?></a>
 NEW LINE:       &nbsp; | &nbsp;
 EXISTING LINE:  <?php } ?>
-
+}}}
 
 Step 3:
 -------
@@ -266,5 +266,3 @@ mythepisode and save the configuration.  You can easily find it in mythepisode b
 selecting "All Shows" on the mainpage and finding the show title as displayed in
 mythepisode.  Now add the mythepisode show title next to the show title in the
 override tab and save the configuration.
-
-}}}
