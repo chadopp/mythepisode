@@ -7,11 +7,7 @@ NOTES:
 Installation of mythepisode only takes a few minutes and can be accomplished
 with the 5 steps listed below in the installation section.
 
-After an initial install when you first select TV Episodes mythepisode has to
-go to TVRage.com and grab a list of shows for the first time so there might be
-a slight delay(~5-10 seconds).  The complete show listing is only grabbed one
-time unless you explicitly request a new update by selecting "Update Show
-Listing".  You shouldn't have to do this very often.
+After an initial install when you first select TV Episodes mythepisode has to go to TVRage.com and grab a list of shows for the first time so there might be a slight delay(~5-10 seconds).  The complete show listing is only grabbed one time unless you explicitly request a new update by selecting "Update Show Listing".  You shouldn't have to do this very often.
 
 When you click on a show link for the first time episode information about that
 show will be retrieved from TVRage.com/TheTVDB.com.  After you retrieve the data
@@ -95,7 +91,7 @@ that if you update mythweb or mythepisode your data files will not be removed.
 
 This is what mine looks like after the above link is created and I run an ls -lrt
 command in /usr/share/mythtv/mythweb/data directory
-
+}}}
 ls -lrt /usr/share/mythtv/mythweb/data
 lrwxrwxrwx 1 root  root  26 2010-07-04 15:21 recordings -> /var/lib/mythtv/recordings
 lrwxrwxrwx 1 root  root  21 2010-07-04 15:21 music -> /var/lib/mythtv/music
@@ -104,7 +100,7 @@ lrwxrwxrwx 1 root  root  22 2010-07-04 15:21 video_covers -> /var/lib/mythtv/vid
 lrwxrwxrwx 1 root  root  30 2010-07-04 15:21 tv_icons -> /var/cache/mythweb/image_cache
 lrwxrwxrwx 1 root  root  30 2010-07-04 15:21 cache -> /var/cache/mythweb/image_cache
 lrwxrwxrwx 1 root  root  23 2010-12-04 22:01 episode -> /var/lib/mythtv/episode
-
+}}}
 
 Step 4:
 -------
@@ -153,15 +149,14 @@ Settings Tab:
 
 MythTV Version:
 ---------------
-This option is used to set your currently running mythtv version.  The default
-value is .24+
-
+This option is used to set your currently running mythtv version.  The default  value is .24+
+{{{
 options:
 .21
 .22
 .23
 .24+  - Used for .24 and above
-
+}}}
 
 Countries (space seperated):
 ----------------------------
