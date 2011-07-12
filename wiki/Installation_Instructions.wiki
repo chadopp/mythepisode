@@ -65,18 +65,18 @@ EXISTING LINE:  <?php } ?>
 Step 3:
 -------
 Create a directory where you want your show/episode information stored.  I use the same directory path where my tv and video recordings are stored.  This will ensure that if you update mythweb or mythepisode your data files will not be removed.
-{{{
--  mkdir /var/lib/mythtv/episode
+
+  * mkdir /var/lib/mythtv/episode
      This can be wherever you want.  My mythtv recordings, movies, etc are stored in directories located under /var/lib/mythtv so this is where I want to create the episode dir.
 
--  chmod 777 /var/lib/mythtv/episode
--  cd /usr/share/mythtv/mythweb/data
+  * chmod 777 /var/lib/mythtv/episode
+  * cd /usr/share/mythtv/mythweb/data
      The path to the mythweb/data dir may be different for your mythweb installation.
 
--  ln -s /var/lib/mythtv/episode  episode
+  * ln -s /var/lib/mythtv/episode  episode
 
 This is what mine looks like after the above link is created and I run an ls -lrt command in /usr/share/mythtv/mythweb/data directory
-
+{{{
 ls -lrt /usr/share/mythtv/mythweb/data
 lrwxrwxrwx 1 root  root  26 2010-07-04 15:21 recordings -> /var/lib/mythtv/recordings
 lrwxrwxrwx 1 root  root  21 2010-07-04 15:21 music -> /var/lib/mythtv/music
