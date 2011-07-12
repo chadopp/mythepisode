@@ -41,20 +41,20 @@ Download mythepisode and place it in /tmp.  Find the path where mythweb is
 installed on your system.  I'm using Ubuntu and mine is installed under
 /usr/share/mythtv/mythweb.  Under the mythweb directory you will find a
 directory called modules.  This is where you will install mythepisode.
-
-* cd /usr/share/mythtv/mythweb/modules
-* tar -zxvf /tmp/episode.tar.gz
-
+}}}
+- cd /usr/share/mythtv/mythweb/modules
+- tar -zxvf /tmp/episode.tar.gz
+{{{
 
 Step 2:
 -------
 Add mythepisode to the mythweb menu by adding the 2 NEW LINE entries listed
 below to the header.php.  For my mythweb installation the file is located in
 /usr/share/mythtv/mythweb/modules/_shared/tmpl/default/header.php.
-
+{{{
 -  cd /usr/share/mythtv/mythweb/modules/_shared/tmpl/default
 -  update the header.php file with the NEW LINES listed below.
-{{{
+
 EXISTING LINE:  <a href="tv/recorded"><?php echo t('Recorded Programs') ?></a>
 EXISTING LINE:  &nbsp; | &nbsp;
 NEW LINE:       <a href="episode"><?php echo t('TV Episodes') ?></a>
