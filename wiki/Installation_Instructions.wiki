@@ -41,10 +41,10 @@ Download mythepisode and place it in /tmp.  Find the path where mythweb is
 installed on your system.  I'm using Ubuntu and mine is installed under
 /usr/share/mythtv/mythweb.  Under the mythweb directory you will find a
 directory called modules.  This is where you will install mythepisode.
-}}}
+{{{
 - cd /usr/share/mythtv/mythweb/modules
 - tar -zxvf /tmp/episode.tar.gz
-{{{
+}}}
 
 Step 2:
 -------
@@ -64,9 +64,7 @@ EXISTING LINE:  <?php } ?>
 
 Step 3:
 -------
-Create a directory where you want your show/episode information stored.  I use the
-same directory path where my tv and video recordings are stored.  This will ensure
-that if you update mythweb or mythepisode your data files will not be removed.
+Create a directory where you want your show/episode information stored.  I use the same directory path where my tv and video recordings are stored.  This will ensure that if you update mythweb or mythepisode your data files will not be removed.
 
 -  mkdir /var/lib/mythtv/episode      -- This can be wherever you want.  My mythtv recordings, movies, etc are stored in directories located under /var/lib/mythtv so this is where I want to create the episode dir.
 -  chmod 777 /var/lib/mythtv/episode
