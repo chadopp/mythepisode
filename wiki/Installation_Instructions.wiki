@@ -3,7 +3,7 @@
 
 = Details =
 
-NOTES:
+*NOTES:*
 Installation of mythepisode only takes a few minutes and can be accomplished
 with the 5 steps listed below in the installation section.
 
