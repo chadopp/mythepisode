@@ -24,10 +24,11 @@ IE      - very slow on my system
 All Configuration settings are set through the mythweb settings menu.  Listed under the installation instructions is all of the configuration options and their purpose.
 
 
-
+------
 -------------------------
 =Installation Instructions=
 -------------------------
+------
 Note:  If you have never installed mythepisode you should perform all steps.
 If you are upgrading from a previous version of mythepisode you will only
 need to perform step 1.  If you have upgraded mythtv/mythweb to a new version you will need to do steps 1,2 and 4. In all cases you should review the configuration options listed after the installation instructions.
