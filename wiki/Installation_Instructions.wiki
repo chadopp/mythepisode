@@ -24,7 +24,6 @@ IE      - very slow on my system
 All Configuration settings are set through the mythweb settings menu.  Listed under the installation instructions is all of the configuration options and their purpose.
 
 <BR>
-
 -------------------------
 -------------------------
 =Installation Instructions:=
@@ -36,6 +35,7 @@ need to perform step 1.  If you have upgraded mythtv/mythweb to a new version yo
 
 As installed on my system(Ubuntu)
 
+-------
 Step 1:
 -------
 Download mythepisode and place it in /tmp.  Find the path where mythweb is
@@ -46,7 +46,7 @@ directory called modules.  This is where you will install mythepisode.
   * *cd /usr/share/mythtv/mythweb/modules*
   * *tar -zxvf /tmp/episode.tar.gz*
 
-
+-------
 Step 2:
 -------
 Add mythepisode to the mythweb menu by adding the 2 NEW LINE entries listed
@@ -62,7 +62,7 @@ NEW LINE:       <a href="episode"><?php echo t('TV Episodes') ?></a>
 NEW LINE:       &nbsp; | &nbsp;
 EXISTING LINE:  <?php } ?>
 }}}
-
+-------
 Step 3:
 -------
 Create a directory where you want your show/episode information stored.  I use the same directory path where my tv and video recordings are stored.  This will ensure that if you update mythweb or mythepisode your data files will not be removed.
@@ -88,7 +88,7 @@ lrwxrwxrwx 1 root  root  30 2010-07-04 15:21 tv_icons -> /var/cache/mythweb/imag
 lrwxrwxrwx 1 root  root  30 2010-07-04 15:21 cache -> /var/cache/mythweb/image_cache
 lrwxrwxrwx 1 root  root  23 2010-12-04 22:01 episode -> /var/lib/mythtv/episode
 }}}
-
+-------
 Step 4:
 -------
 Run the mythweb build_translation script.
@@ -96,7 +96,7 @@ Run the mythweb build_translation script.
   * *cd /usr/share/mythtv/mythweb/modules/_shared/lang*
   * *./build_translation.pl*
 
-
+-------
 Step 5: (optional)
 -------
 This step is optional, but required if you want to use the tvwish funtion in
