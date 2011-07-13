@@ -24,7 +24,7 @@ IE      - very slow on my system
 All Configuration settings are set through the mythweb settings menu.  Listed under the installation instructions is all of the configuration options and their purpose.
 
 
-
+<BR><BR>
 
 -------------------------
 -------------------------
