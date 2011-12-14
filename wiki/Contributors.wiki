@@ -38,3 +38,6 @@ Marc T.:
 
 Anthony G.:
     * Script to add programid to episodes without a programid in DB
+
+slipcon:
+    * Fix typo in welcome.php
