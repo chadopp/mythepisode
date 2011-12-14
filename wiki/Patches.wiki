@@ -1,6 +1,9 @@
 #summary Updates for specific releases
 #labels Featured
 
+*1.0.11*
+    * Fix typo in welcome.php
+
 *1.0.10*
     * Fix to scheduled episode matching with (country) after the title
     * Fix to grabid.pl for info grabbing from thetvdb.com
