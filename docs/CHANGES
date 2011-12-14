@@ -1,9 +1,13 @@
+1.0.11
+    * Fix typo in welcome.php
+
 1.0.10
     * Fix to scheduled episode matching with (country) after the title
     * Fix to grabid.pl for info grabbing from thetvdb.com
     * Add myth version configuration option
     * Add ability to mark an episode as recorded
     * Script to add programid to episodes without a programid in DB 
+    * Script to verify all required perl modules are installed
 
 1.0.9
     * Add ability to disable subtitle matching on individual shows
