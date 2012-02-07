@@ -46,8 +46,8 @@ td.x-active {
             $activeShow = ltrim($activeShow, "Include: $tvwishep/");
 ?>
 <tr class="settings" align="left">
-   <td width=15%><a href="episode/tvwish_list?wishstr=deactivate&setting=<?php echo $activeShow ?>"><?php echo Deactivate?></a></td>
-   <td><?php echo $activeShow ?></td>   
+   <td width=15%><a href="episode/tvwish_list?wishstr=deactivate&setting=<?php echo urlencode($activeShow) ?>"><?php echo Deactivate?></a></td>
+   <td><?php echo "$activeShow" ?></td>   
 </tr>
 
     <?php
@@ -69,7 +69,7 @@ td.x-active {
 ?>
 
 <tr class="settings" align="left">
-   <td width=15%><a href="episode/tvwish_list?wishstr=activate&setting=<?php echo "Include: $tvwishep/$deactiveShow" ?>"><?php echo Activate?></a></td>
+   <td width=15%><a href="episode/tvwish_list?wishstr=activate&setting=<?php echo urlencode("Include: $tvwishep/$deactiveShow") ?>"><?php echo Activate?></a></td>
    <td><?php echo "$deactiveShow" ?></td>
 </tr>
 
