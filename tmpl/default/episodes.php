@@ -492,17 +492,17 @@ if (isset($_SESSION['episodes']['title'])) {
 
         $row = 0;
 
-        foreach ($All_Shows as $show) {
-            list($startdate, $time) = explode(" ", $show->chanid);
+        foreach ($All_Shows as $recdata) {
+            list($startdate, $time) = explode(" ", $recdata[4]);
     ?>
         <tr class="deactivated">
-          <td><?php echo $show->title; ?></td>
-          <td><?php echo $show->subtitle ?></td>
+          <td><?php echo $recdata[0]; ?></td>
+          <td><?php echo $recdata[1] ?></td>
           <td><?php echo $startdate ?></td>
-          <td><?php echo $show->category ?></td>
-          <td><?php echo $show->description ?></td>
+          <td><?php echo $recdata[3] ?></td>
+          <td><?php echo $recdata[2] ?></td>
 
-          <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/episodes/?delete=yes&category=<?php echo urlencode($show->category)?>&title=<?php echo urlencode($show->title)?>" title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
+          <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/episodes/?delete=yes&category=<?php echo urlencode($recdata[3])?>&title=<?php echo urlencode($recdata[0])?>" title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
  
         </tr>
     <?php
