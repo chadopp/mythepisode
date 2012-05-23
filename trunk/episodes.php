@@ -420,15 +420,13 @@
 
         while (true) {
             while ($record = mysql_fetch_row($result)) {
-            // Create a new program object
-                $show = new Program($record);
             
             // Make sure that everything we're dealing with is an array
-                if (!is_array($Programs[$show->title]))
-                    $Programs[$show->title] = array();
-                    $All_Shows[] =& $show;
-                    $Programs[$show->title][] =& $show;
-                    unset($show);
+                if (!is_array($Programs[$record[0]]))
+                    $Programs[$record[0]] = array();
+                    $All_Shows[] =& $record;
+                    $Programs[$record[0]][] =& $record;
+                    unset($record);
             }
         
         // Did we try to view a program that we don't have recorded?

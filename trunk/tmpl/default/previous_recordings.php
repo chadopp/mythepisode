@@ -72,15 +72,15 @@ td.x-active {
   </tr>
 
 <?php
-foreach ($All_Shows as $show) {
+foreach ($All_Shows as $prevrec) {
 ?>
 
   <tr class="deactivated">
-    <td><?php echo $show->title; ?></td>
-    <td><?php echo $show->subtitle?></td>
-    <td><?php echo $show->category?></td>
-    <td><?php echo $show->description?></td>
-    <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/previous_recordings?delete=yes&category=<?php echo urlencode($show->category)?>"  title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
+    <td><?php echo $prevrec[0]; ?></td>
+    <td><?php echo $prevrec[1]?></td>
+    <td><?php echo $prevrec[3]?></td>
+    <td><?php echo $prevrec[2]?></td>
+    <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/previous_recordings?delete=yes&category=<?php echo urlencode($prevrec[3])?>"  title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
   </tr>
 
 <?php
