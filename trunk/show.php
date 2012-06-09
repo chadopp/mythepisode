@@ -100,7 +100,7 @@
 // Put previously recorded shows in an array
     $oldRecorded = array();
     while ($row1 = mysql_fetch_assoc($recordings))
-        $oldRecorded[] = str_replace(' ', '', strtolower($row1['title']));
+        $oldRecorded[] = preg_replace('/\s+/', ' ', strtolower($row1['title']));
 
 // Override is used for shows that have names that don't matchup properly
 // For example mythtv records "Survivor" as "Survivor: Nicaragua".  Since
@@ -122,8 +122,8 @@
         list($mythName,$rageName) = explode(":::", "$overrideShow");
         $rageName  = trim($rageName);
         $mythName  = trim($mythName);
-        $rageName  = str_replace(' ', '', strtolower($rageName));
-        $mythName  = str_replace(' ', '', strtolower($mythName));
+        $rageName  = preg_replace('/\s+/', ' ', strtolower($rageName));
+        $mythName  = preg_replace('/\s+/', ' ', strtolower($mythName));
         $mythTitle = explode("---", "$mythName");
     // Determine each new show title and add it to oldRecorded array
         foreach ($mythTitle as $tempTitle) {
@@ -142,7 +142,15 @@
     mysql_free_result($recordings);
 
 // Sort oldRecorded and get a count 
-    sort($oldRecorded);
+    function cmp($a, $b) {
+        static $excludes = '/^(?i)(an?|the)\s+/'; // Add excluded words here
+        return strcasecmp(
+            preg_replace($excludes, '', $a),
+            preg_replace($excludes, '', $b)
+        );
+    }
+    usort($oldRecorded, "cmp");
+    $oldRecorded = preg_replace('/\s+/', '', $oldRecorded);
     $recordedCount = count($oldRecorded) - $overrideCount;
 
 // Load the class for this page

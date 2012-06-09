@@ -2,6 +2,7 @@
     * Fix typo in welcome.php
     * Fix for special character display in tvwish
     * Fix issues with episode deletes in .25
+    * Fix display of Recorded TV Programs - shows beginning with "The"
 
 1.0.10
     * Fix to scheduled episode matching with (country) after the title

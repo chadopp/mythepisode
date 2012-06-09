@@ -231,8 +231,8 @@ if ($_SESSION['show']['state'] != "recorded") {
             if (! $data ) {
                 continue;
             }
-            $firstChar = strtoupper($data[1]{0});
-
+            static $excludes = '/^(?i)(an?|the)\s+/'; // Add excluded words here
+            $firstChar = strtoupper(substr(preg_replace($excludes, '', $data[1]),0,1));
             if ($firstChar != $fc1) {
                 if (!preg_match('/[^0-9\']/', $firstChar)) {
                     if (!$stillNums) {
