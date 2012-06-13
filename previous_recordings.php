@@ -48,7 +48,7 @@
     while (true) {
         $Program_Titles = array();
         while ($record = mysql_fetch_row($result)) {
-        // Create a new program object		
+        // Create a new Data object		
             $show = new Data($record);
         // Assign a reference to this show to the various arrays
             $Program_Titles[$record[0]]++;

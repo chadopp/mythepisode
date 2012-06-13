@@ -459,7 +459,7 @@ if (isset($_SESSION['episodes']['title'])) {
       <td><?php echo get_sort_link_recorded('subtitle',t('Subtitle'), 'title='. $showTitle)?></a></td>
       <td><?php echo t('Date Recorded')?></a></td>
       <td><?php echo get_sort_link_recorded('programid',t('Programid'), 'title='. $showTitle)?></a></td>
-      <td><?php echo t('Synopsis')?></a></td>
+      <td><?php echo get_sort_link_recorded('description',t('Synopsis'), 'title='. $showTitle)?></a></td>
       <?php/*<td><?php echo t('Delete')?></td>*/?>
     </tr>
 
