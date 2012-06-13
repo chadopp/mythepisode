@@ -477,7 +477,7 @@ if (isset($_SESSION['episodes']['title'])) {
           <td><?php echo $recdata->programid?></td>
           <td><?php echo $recdata->description?></td>
 
-          <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/episodes/?delete=yes&category=<?php echo urlencode($recdata->programid)?>&title=<?php echo urlencode($recdata->title)?>" title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
+          <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/episodes/?delete=yes&programid=<?php echo urlencode($recdata->programid)?>&title=<?php echo urlencode($recdata->title)?>" title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
  
         </tr>
     <?php
