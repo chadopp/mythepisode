@@ -21,9 +21,11 @@
         require_once 'classes/Schedule.php';
         require_once 'classes/Channel.php';
         require_once 'classes/Program.php';
+        require_once 'classes/Common.php';
         require_once 'includes/recording_schedules.php';
     } else {
         require_once 'includes/recording_schedules.php';
+        require_once 'includes/common.php';
         require_once 'classes/Channel.php';
         require_once 'classes/Program.php';
         require_once 'classes/Schedule.php';
@@ -419,14 +421,16 @@
                              GROUP BY programid");
 
         while (true) {
-            while ($record = mysql_fetch_row($result)) {
-            
+	    while ($record = mysql_fetch_row($result)) {
+            // Create a new program object
+                $show = new Data($record);
+
             // Make sure that everything we're dealing with is an array
-                if (!is_array($Programs[$record[0]]))
-                    $Programs[$record[0]] = array();
-                    $All_Shows[] =& $record;
-                    $Programs[$record[0]][] =& $record;
-                    unset($record);
+                if (!is_array($Programs[$show->title]))
+                    $Programs[$show->title] = array();
+                    $All_Shows[] =& $show;
+                    $Programs[$show->title][] =& $show;
+                    unset($show);
             }
         
         // Did we try to view a program that we don't have recorded?

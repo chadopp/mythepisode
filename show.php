@@ -10,6 +10,9 @@
  *
 /**/
 
+// Load includes
+    require_once 'includes/show_utils.php';
+
 // Determine what view we want to display; all, current, or recorded 
     if ($_GET['state']) {
         unset($_SESSION['show']['state']);
@@ -142,14 +145,7 @@
     mysql_free_result($recordings);
 
 // Sort oldRecorded and get a count 
-    function cmp($a, $b) {
-        static $excludes = '/^(?i)(an?|the)\s+/'; // Add excluded words here
-        return strcasecmp(
-            preg_replace($excludes, '', $a),
-            preg_replace($excludes, '', $b)
-        );
-    }
-    usort($oldRecorded, "cmp");
+    usort($oldRecorded, "cmp_shows");
     $oldRecorded = preg_replace('/\s+/', '', $oldRecorded);
     $recordedCount = count($oldRecorded) - $overrideCount;
 

@@ -19,37 +19,12 @@
 // Print the page header
     require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 
+// Load includes
+    require_once 'includes/episode_utils.php';
+
     $remainingEpisodes = $totalEpisodes-$totalRecorded;
     $fixedTitle        = stripslashes($fixedTitle);
     $showTitle         = stripslashes($showTitle);
-
-    function get_sort_link_with_parms($field, $string, $parms) {
-        $link = get_sort_link($field,$string);
-        $pos = strpos($link, '?') + 1;
-        return substr($link,0,$pos).$parms.'&'.substr($link,$pos);
-    }
-
-    function imageResize($width, $height, $target) {
-
-    // Takes the larger size of the width and height and applies the  
-    // formula accordingly...this is so this script will work  
-    // dynamically with any size image
-
-        if ($width > $height)
-            $percentage = ($target / $width);
-        else 
-            $percentage = ($target / $height);
-
-    // Gets the new value and applies the percentage, then rounds the value
-        $width  = round($width * $percentage);
-        $height = round($height * $percentage);
-
-    // Returns the new sizes in html image tag format...this is so you
-    // can plug this function inside an image tag and just get the
-
-        return "width=\"$width\" height=\"$height\"";
-
-    } 
 
 // Get the image size of the picture and load it into an array
     if (file_exists("$imageDir/$showId.jpg")) {
@@ -481,9 +456,9 @@ if (isset($_SESSION['episodes']['title'])) {
     <table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">
     <tr class="menu">
       <td><?php echo t('Title')?></a></td>
-      <td><?php echo get_sort_link_with_parms('subtitle',t('Subtitle'), 'title='. $showTitle)?></a></td>
+      <td><?php echo get_sort_link_recorded('subtitle',t('Subtitle'), 'title='. $showTitle)?></a></td>
       <td><?php echo t('Date Recorded')?></a></td>
-      <td><?php echo get_sort_link_with_parms('category',t('Programid'), 'title='. $showTitle)?></a></td>
+      <td><?php echo get_sort_link_recorded('programid',t('Programid'), 'title='. $showTitle)?></a></td>
       <td><?php echo t('Synopsis')?></a></td>
       <?php/*<td><?php echo t('Delete')?></td>*/?>
     </tr>
@@ -493,16 +468,16 @@ if (isset($_SESSION['episodes']['title'])) {
         $row = 0;
 
         foreach ($All_Shows as $recdata) {
-            list($startdate, $time) = explode(" ", $recdata[4]);
+            list($startdate, $time) = explode(" ", $recdata->starttime);
     ?>
         <tr class="deactivated">
-          <td><?php echo $recdata[0]; ?></td>
-          <td><?php echo $recdata[1] ?></td>
-          <td><?php echo $startdate ?></td>
-          <td><?php echo $recdata[3] ?></td>
-          <td><?php echo $recdata[2] ?></td>
+          <td><?php echo $recdata->title?></td>
+          <td><?php echo $recdata->subtitle?></td>
+          <td><?php echo $startdate?></td>
+          <td><?php echo $recdata->programid?></td>
+          <td><?php echo $recdata->description?></td>
 
-          <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/episodes/?delete=yes&category=<?php echo urlencode($recdata[3])?>&title=<?php echo urlencode($recdata[0])?>" title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
+          <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/episodes/?delete=yes&category=<?php echo urlencode($recdata->programid)?>&title=<?php echo urlencode($recdata->title)?>" title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
  
         </tr>
     <?php

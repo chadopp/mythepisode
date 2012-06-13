@@ -19,11 +19,8 @@
 // Print the page header
     require 'modules/_shared/tmpl/'.tmpl.'/header.php';
 
-    function get_sort_link_with_parms($field, $string) {
-        $link = get_sort_link($field,$string);
-        $pos = strpos($link, '?') + 1;
-        return substr($link,0,$pos).'&'.substr($link,$pos);;
-    }
+// Load includes
+    require_once 'includes/previous_utils.php';
 
 ?>
 
@@ -67,7 +64,7 @@ td.x-active {
   <tr class="menu">
     <td><?php echo t('Title')?></a></td>
     <td><?php echo get_sort_link_with_parms('subtitle',t('Subtitle'))?></a></td>
-    <td><?php echo get_sort_link_with_parms('category',t('Programid'))?></a></td>
+    <td><?php echo get_sort_link_with_parms('programid',t('Programid'))?></a></td>
     <td><?php echo t('Synopsis')?></a></td>
   </tr>
 
@@ -76,11 +73,11 @@ foreach ($All_Shows as $prevrec) {
 ?>
 
   <tr class="deactivated">
-    <td><?php echo $prevrec[0]; ?></td>
-    <td><?php echo $prevrec[1]?></td>
-    <td><?php echo $prevrec[3]?></td>
-    <td><?php echo $prevrec[2]?></td>
-    <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/previous_recordings?delete=yes&category=<?php echo urlencode($prevrec[3])?>"  title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
+    <td><?php echo $prevrec->title?></td>
+    <td><?php echo $prevrec->subtitle?></td>
+    <td><?php echo $prevrec->programid?></td>
+    <td><?php echo $prevrec->description?></td>
+    <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/previous_recordings?delete=yes&category=<?php echo urlencode($prevrec->programid)?>"  title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
   </tr>
 
 <?php

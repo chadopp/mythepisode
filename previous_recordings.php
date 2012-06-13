@@ -14,6 +14,9 @@
     require_once 'classes/Program.php';
     require_once 'includes/sorting.php';
 
+// Load mythepisode includes
+    require_once 'includes/previous_utils.php';
+
 // Queries for a specific program title
     isset($_GET['title']) or $_GET['title'] = $_POST['title'];
     isset($_GET['title']) or $_GET['title'] = $_SESSION['previous_recorded_title'];
@@ -45,17 +48,19 @@
     while (true) {
         $Program_Titles = array();
         while ($record = mysql_fetch_row($result)) {
+        // Create a new program object		
+            $show = new Data($record);
         // Assign a reference to this show to the various arrays
             $Program_Titles[$record[0]]++;
             if ($_GET['title'] && $_GET['title'] != $record[0])
                 continue;
 
         // Make sure that everything we're dealing with is an array
-            if (!is_array($Programs[$record[0]]))
-                $Programs[$record[0]] = array();
-            $All_Shows[] =& $record;
-            $Programs[$record[0]][] =& $record;
-            unset($record);
+            if (!is_array($Programs[$show->title]))
+                $Programs[$show->title] = array();
+            $All_Shows[] =& $show;
+            $Programs[$show->title][] =& $show;
+            unset($show);
         }
 
     // Did we try to view a program that we don't have recorded?
@@ -64,7 +69,7 @@
             $Warnings[] = 'No matching programs found.';
             unset($_GET['title']);
             $Program_Titles['- Select a Show']++;
-            uksort($Program_Titles, "strnatcasecmp");
+            uksort($Program_Titles, "cmp");
             require_once tmpl_dir . 'previous_recordings.php';
         } else {
             break;
@@ -72,14 +77,16 @@
     }
 
 // Sort the program titles
-    uksort($Program_Titles, "strnatcasecmp");
+    uksort($Program_Titles, "cmp");
+//uksort($Program_Titles, "strnatcasecmp");
 
 // Keep track of the program/title the user wants to view
     $_SESSION['previous_recorded_title'] = $_GET['title'];
 
 // Sort the programs
     if (count($All_Shows))
-        sort_programs($All_Shows, 'previous_recorded_sortby');
+    //    uksort($All_Shows, "cmp");
+sort_programs($All_Shows, 'previous_recorded_sortby');
 
     if (empty($_GET['title'])) {
         $All_Shows = array();
