@@ -14,6 +14,7 @@ Alec C.:
   * Fix for shows that are set to never record
   * Added episode check against mythvideo
   * Add navigation menu to episodes, previous recordings, and tvwish
+  * Fix display of Recorded TV Programs - shows beginning with "The"
   
 Chris K.:
   * DB query update
