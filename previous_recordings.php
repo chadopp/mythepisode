@@ -25,13 +25,13 @@
     if (!empty($_GET['delete'])) {
         $dbCheck = $db->query('SELECT programid 
                                  FROM recorded
-                                WHERE programid=?', $_GET['category']);
+                                WHERE programid=?', $_GET['programid']);
 
         if ($dbCheck->num_rows() == 1) {
             $Warnings[] = 'Title still exists in Recorded Programs Table';
         } else {
             $deleteRecorded = $db->query('DELETE FROM oldrecorded
-                                           WHERE programid=?', $_GET['category']);
+                                           WHERE programid=?', $_GET['programid']);
         }
     }
 

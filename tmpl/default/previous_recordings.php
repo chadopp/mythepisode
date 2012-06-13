@@ -77,7 +77,7 @@ foreach ($All_Shows as $prevrec) {
     <td><?php echo $prevrec->subtitle?></td>
     <td><?php echo $prevrec->programid?></td>
     <td><?php echo $prevrec->description?></td>
-    <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/previous_recordings?delete=yes&category=<?php echo urlencode($prevrec->programid)?>"  title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
+    <td class="x-commands commands"><a onclick="ajax_add_request()" href="episode/previous_recordings?delete=yes&programid=<?php echo urlencode($prevrec->programid)?>"  title="<?php echo t('Delete this episode') ?>"><?php echo t('Delete') ?></a></td>
   </tr>
 
 <?php
