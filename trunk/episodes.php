@@ -422,7 +422,7 @@
 
         while (true) {
 	    while ($record = mysql_fetch_row($result)) {
-            // Create a new program object
+            // Create a new Data object
                 $show = new Data($record);
 
             // Make sure that everything we're dealing with is an array
