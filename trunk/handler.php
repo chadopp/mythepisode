@@ -46,6 +46,9 @@
     $countryList   = (empty($config['countryList']))   ? 'US'         : $config['countryList'];
     $mythtvVersion = (empty($config['mythtvVersion'])) ? '.24+'       : $config['mythtvVersion'];
 
+// Load classes and includes
+    require_once 'classes/Common.php';
+
 // Load a custom page
     switch ($Path[1]) {
         case 'show';
