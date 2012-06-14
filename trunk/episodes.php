@@ -25,7 +25,7 @@
         require_once 'includes/recording_schedules.php';
     } else {
         require_once 'includes/recording_schedules.php';
-        require_once 'includes/common.php';
+        require_once 'classes/Common.php';
         require_once 'classes/Channel.php';
         require_once 'classes/Program.php';
         require_once 'classes/Schedule.php';
