@@ -59,6 +59,15 @@
         fclose($listOut);
     }
 
+// Delete a tvwish show file
+    if ($_SESSION['wish']['wishstr'] == "delete") {
+        $deleteShow = $_SESSION['wish']['setting'];
+        $deleteFile = "$tvwishep/$deleteShow";
+        if (file_exists($deleteFile)) {
+            unlink($deleteFile);
+        }
+    }
+
 // Find the show lists that are available
     $fileDir   = opendir($listDir);
     $wishFiles = array();
@@ -66,7 +75,9 @@
     while (($showFile = readdir($fileDir)) != false) {
         if ($showFile != "." && $showFile != "..") {
             $showFile    = trim($showFile);
-            $wishFiles[] = $showFile;
+            $content     = file("$listDir/$showFile");
+            $seriesName  = explode(": ", $content[0]);
+            $wishFiles[] = "$showFile::$seriesName[1]";
         }
     }
     closedir($fileDir);
@@ -82,7 +93,7 @@
         fwrite($out, "\n");
         fclose($out);
         unset($_SESSION['wish']);
-    } elseif ($_SESSION['wish']['wishstr'] == "deactivate") {
+    } elseif (($_SESSION['wish']['wishstr'] == "deactivate") || ($_SESSION['wish']['wishstr'] == "delete")){
         $out = fopen("$masterFile", "w");
         foreach ($tempFile as $tempEntry) {
             if (!stristr($tempEntry, $state))
@@ -103,6 +114,7 @@
         $fn                = trim($fn);
         $deactivatedShow[] = $fn;
     }
+    sort($activatedShow);
 
 // Load the class for this page
     require_once tmpl_dir . 'tvwish_list.php';
