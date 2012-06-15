@@ -33,21 +33,26 @@ td.x-active {
 
 <?php require 'modules/episode/tmpl/'.tmpl.'/menu.php'; ?>
 
-<table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">
-<tr class="menu" align="center">
-   <td>Master TVwish listing file</td>
+<table id="display_options" width="100%" border="0" cellpadding="4" cellspacing="2" class="commandbox commands">
+<tr class="menu">
+   <td>Active TVwish lists</td>
 </tr>
 </table>
 
-<table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">    
+<table width="100%" border="0" cellpadding="4" cellspacing="2" class="commandbox commands">    
 <?php
     foreach ($activatedShow as $activeShow) {
         if (eregi("^(Include)", $activeShow)) {
-            $activeShow = ltrim($activeShow, "Include: $tvwishep/");
+            $activeShow       = ltrim($activeShow, "Include: $tvwishep/");
+            $activeShow       = trim($activeShow);
+            $masterContent    = file("$tvwishep/$activeShow");
+            $masterSeriesName = explode(": ", $masterContent[0]);
+
 ?>
-<tr class="settings" align="left">
-   <td width=15%><a href="episode/tvwish_list?wishstr=deactivate&setting=<?php echo urlencode($activeShow) ?>"><?php echo Deactivate?></a></td>
-   <td><?php echo "$activeShow" ?></td>   
+<tr class="deactivated" align="left">
+   <td width=6%><a href="episode/tvwish_list?wishstr=deactivate&setting=<?php echo urlencode($activeShow) ?>"><?php echo Deactivate?></a></td>
+   <td width=4% align="left"><a href="episode/tvwish_list?wishstr=delete&setting=<?php echo urlencode($activeShow) ?>"><?php echo Delete?></a></td>
+   <td><?php echo "$masterSeriesName[1]" ?></td>   
 </tr>
 
     <?php
@@ -56,21 +61,23 @@ td.x-active {
     ?>
 </table>
 
-<table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">
-<tr class="menu" align="center">
+<table id="display_options" width="100%" border="0" cellpadding="4" cellspacing="2" class="commandbox commands">
+<tr class="menu">
    <td>Available TVwish lists</td>
 </tr>
 </table>
 
-<table width="100%" border="0" cellpadding="4" cellspacing="2" class="list small">
+<table width="100%" border="0" cellpadding="4" cellspacing="2" class="commandbox commands">
 <?php
     foreach ($wishFiles as $deactiveShow) {
-        if (!in_array($deactiveShow, $deactivatedShow)) {
+        $deactiveShowName  = explode("::", $deactiveShow);
+        if (!in_array($deactiveShowName[0], $deactivatedShow)) {
 ?>
 
-<tr class="settings" align="left">
-   <td width=15%><a href="episode/tvwish_list?wishstr=activate&setting=<?php echo urlencode("Include: $tvwishep/$deactiveShow") ?>"><?php echo Activate?></a></td>
-   <td><?php echo "$deactiveShow" ?></td>
+<tr class="deactivated" align="left">
+   <td width=6%><a href="episode/tvwish_list?wishstr=activate&setting=<?php echo urlencode("Include: $tvwishep/$deactiveShowName[0]") ?>"><?php echo Activate?></a></td>
+ <td width=4% align="left"><a href="episode/tvwish_list?wishstr=delete&setting=<?php echo urlencode("$deactiveShowName[0]") ?>"><?php echo Delete?></a></td>
+   <td><?php echo "$deactiveShowName[1]" ?></td>
 </tr>
 
     <?php
