@@ -93,7 +93,7 @@
         fwrite($out, "\n");
         fclose($out);
         unset($_SESSION['wish']);
-    } elseif (($_SESSION['wish']['wishstr'] == "deactivate") || ($_SESSION['wish']['wishstr'] == "delete")){
+    } elseif (($_SESSION['wish']['wishstr'] == "deactivate") || ($_SESSION['wish']['wishstr'] == "delete")) {
         $out = fopen("$masterFile", "w");
         foreach ($tempFile as $tempEntry) {
             if (!stristr($tempEntry, $state))
