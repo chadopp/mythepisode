@@ -8,6 +8,7 @@
     * Fix display of Recorded TV Programs - shows beginning with "The"
     * Added mythepisode class and includes
     * Updated tvwish display and ability to delete tvwish lists
+    * Cleaned up variables in the code
 
 *1.0.10*
     * Fix to scheduled episode matching with (country) after the title
