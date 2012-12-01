@@ -51,9 +51,9 @@ Step 2:
 -------
 Add mythepisode to the mythweb menu by adding the 2 NEW LINE entries listed
 below to the header.php.  For my mythweb installation the file is located in
-/usr/share/mythtv/mythweb/modules/_shared/tmpl/default/header.php.
+/usr/share/mythtv/mythweb/modules/`_`shared/tmpl/default/header.php.
 
-  * *cd /usr/share/mythtv/mythweb/modules/_shared/tmpl/default*
+  * *cd /usr/share/mythtv/mythweb/modules/`_`shared/tmpl/default*
 Update the header.php file with the NEW LINES listed below.
 {{{
 EXISTING LINE:  <a href="tv/recorded"><?php echo t('Recorded Programs') ?></a>
