@@ -42,3 +42,6 @@ Anthony G.:
 
 slipcon:
     * Fix typo in welcome.php
+
+wilamka:
+    * Fix php memory issue with multiple countries
