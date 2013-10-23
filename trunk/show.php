@@ -87,6 +87,7 @@
             array_walk($tempShows, 'explodeShows');
 
         // Open showsDat for writing
+            ini_set("memory_limit", "128M");
             $handle = fopen($showsDat, 'w') or die ("can't open showsDat");
             fwrite($handle, serialize($recordedShows));
             fclose($handle);
