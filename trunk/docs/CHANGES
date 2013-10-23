@@ -6,6 +6,7 @@
     * Added mythepisode class and includes
     * Updated tvwish display and ability to delete tvwish lists
     * Cleaned up variables in the code
+    * Fix for php memory issue with multiple countries selected
 
 1.0.10
     * Fix to scheduled episode matching with (country) after the title
